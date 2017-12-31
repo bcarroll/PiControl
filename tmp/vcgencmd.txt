@@ -1,0 +1,123 @@
+vcos
+ap_output_control
+ap_output_post_processing
+vchi_test_init
+vchi_test_exit
+pm_set_policy
+pm_get_status
+pm_show_stats
+pm_start_logging
+pm_stop_logging
+version
+commands
+set_vll_dir
+set_backlight
+set_logging
+get_lcd_info
+arbiter
+cache_flush
+otp_dump
+test_result
+get_camera
+get_mem
+measure_clock
+measure_volts
+scaling_kernel
+scaling_sharpness
+get_hvs_asserts
+get_throttled
+measure_temp
+get_config
+hdmi_ntsc_freqs
+hdmi_adjust_clock
+hdmi_status_show
+hvs_update_fields
+pwm_speedup
+force_audio
+hdmi_stream_channels
+hdmi_channel_map
+display_power
+read_ring_osc
+memtest
+dispmanx_list
+get_rsts
+schmoo
+render_bar
+disk_notify
+inuse_notify
+sus_suspend
+sus_status
+sus_is_enabled
+sus_stop_test_thread
+egl_platform_switch
+mem_validate
+mem_oom
+mem_reloc_stats
+hdmi_cvt
+hdmi_timings
+file
+vctest_memmap
+vctest_start
+vctest_stop
+vctest_set
+vctest_get
+
+
+vcgencmd get_mem arm
+vcgencmd get_mem gpu
+
+vcgencmd version
+
+#turn off video output
+vcgencmd display_power 0
+
+#turn on video output
+vcgencmd display_power 1
+
+#Report statistics for Out of Memory events
+vcgen mem_oom
+
+#Reports statics on relocatable memory
+vcgencmd mem_reloc_stats
+
+
+vcgencmd set_logging level=64
+Change the verbosity of the VideoCore logger. The following table lists the possible values for level (which can be combined)
+
+Log Level	Description	Value
+LOGGING_GENERAL	for logging general messages	1
+LOGGING_GENERAL_VERBOSE		2
+LOGGING_CODECS	for codec messages	4
+LOGGING_CODECS_VERBOSE		8
+LOGGING_FILESYSTEM	filesystem messages	16
+LOGGING_FILESYSTEM_VERBOSE		32
+LOGGING_VMCS	VMCS related messages	64
+LOGGING_VMCS_VERBOSE		128
+LOGGING_DISPMAN2	Dispman2/scalar logs	256
+LOGGING_DISPMAN2_VERBOSE		512
+LOGGING_GCE	Re-use Dispman2 for GCE logging	256
+LOGGING_GCE_VERBOSE		512
+LOGGING_CAMPLUS	Camplus logs	1024
+LOGGING_CAMPLUS_VERBOSE		2048
+LOGGING_APPS	Application log	4096
+LOGGING_APPS_VERBOSE		8192
+LOGGING_CLOCKMAN_POWERMAN	Clockman + powerman logs	16384
+LOGGING_CLOCKMAN_POWERMAN_VERBOSE		32768
+LOGGING_VCOS		65536
+LOGGING_VCOS_VERBOSE		131072
+LOGGING_IMAGE_POOL	Image pool messages	262144
+LOGGING_IMAGE_POOL_VERBOSE		524288
+LOGGING_HDMI	HDMI and HDCP messages	1048576
+LOGGING_HDMI_VERBOSE		2097152
+LOGGING_MINIMAL	minimal logging for bandwidth measurement, ie all others off	4194304
+LOGGING_MINIMAL_VERBOSE		8388608
+LOGGING_TUNER	ISP Tuner logs - AGC, AWB etc	16777216
+LOGGING_TUNER_VERBOSE		33554432
+LOGGING_VCHI	For all VCHI based services	67108864
+LOGGING_VCHI_VERBOSE		134217728
+LOGGING_FOCUS	Focus messages	268435456
+LOGGING_HANDLERS	For handler messages	536870912
+LOGGING_VOWIFI	Re-use FOCUS for VOWIFI	268435456
+LOGGING_VOWIFI_VERBOSE	Re-use HANDLERS for VOWIFI	536870912
+LOGGING_USER	only for code under development - do not check in!	1073741824
+LOGGING_USER_VERBOSE		2147483648
