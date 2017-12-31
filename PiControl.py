@@ -158,4 +158,8 @@ def get_pi_model():
     return(pi_model())
 
 if __name__ == '__main__':
+  # SSL
+  #context = ('server.crt', 'server.key')
+  #app.run(ssl_context=context, threaded=True, debug=True, host='0.0.0.0', port=31415)
+  #No SSL
   app.run(debug=True, host='0.0.0.0', port=31415)
