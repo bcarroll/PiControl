@@ -1,4 +1,4 @@
 # PiControl
 Raspberry Pi Control Center
 
-![Login Screen](bcarroll.github.com/PiControl/docs/Login.png)
+![Login Screen](https://bcarroll.github.io/PiControl/Login.png)
