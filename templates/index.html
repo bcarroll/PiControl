@@ -2,8 +2,21 @@
 {%block title%}Index{% endblock %}
 
 {%block body%}
-<h1 class="page-header" id="page-header">Raspberry Pi Control Center</h1>
+<h1 class="page-header" id="page-header"><img src="/static/img/logo-color.jpg" width="31"></i></i> Raspberry Pi <span id="model"></span></h1>
 <table class="table-bordered table-hover" style="width:100%;" width="100%">
+	<tr>
+		<th class="heading"><i class="fab fa-linux"></i> OS</th>
+		<td>
+			<table class="table-hover" style="width:100%;">
+				<tr>
+					<th>Version</th><td class="pull-right" id='osname'></td>
+				</tr>
+				<tr>
+					<th>Kernel</th><td class="pull-right" id='kernel'></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
 	<tr>
 		<th class="heading"><i class="fas fa-tachometer-alt"></i> CPU</th>
 		<td>
@@ -71,12 +84,7 @@
 	<tr id="disk_usage"></tr>
 </table>
 	<script>
-		//Raspberry Pi model background image
-		$.get('/model', function(result){
-			console.log(typeof(result));
-			$('#pi_model').html('<img height="64px" src="/static/img/pi/' + result + '.png" alt="Raspberry Pi Revision: ' + result + '"></img>');
-		});
-
+		get_platform();
 		get_cpu_frequency();
 		get_cpu_voltage();
 		get_cpu_usage();
@@ -84,6 +92,17 @@
 		get_disk_usage();
 		get_mem_usage_json();
 		get_swap_usage_json();
+
+	    $.get('/model', function(result){
+	    	console.log (result);
+	        $('#model').text(result.model);
+	    });
+		function get_platform(){
+			$.get('/platform', function(result){
+				$('#kernel').text(result.kernel);
+				$('#osname').text(result.osname);
+			});
+		}
 
 		function get_cpu_voltage(){
 			$.get('/cpu/voltage', function(result){

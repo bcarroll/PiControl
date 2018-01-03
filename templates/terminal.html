@@ -1,0 +1,86 @@
+{%extends "base.html"%}
+{%block title%}Terminal{% endblock %}
+
+{%block body%}
+<h1 class="page-header" id="page-header"><i class="fas fa-terminal"></i> Terminal</h1>
+<script type="text/javascript" src="/static/js/jquery.console.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+		var pwd = "~";
+    	var output = "";
+        var prompt = "{{ session.username }}@{{HOSTNAME}}:" + pwd + " $ ";
+        var controller = $('#console').console({
+    	    promptLabel: prompt,
+	        commandValidate:function(line){
+        	    //if (line == "") return false;
+            	//else return true;
+            	return true;
+         	},
+         	commandHandle:function(line){
+         		if (line.startsWith('cd ')){
+         			pwd = line.replace('cd ', '');
+         		}
+         		console.log(line);
+            	controller.promptLabel = "{{ session.username }}@{{HOSTNAME}}:" + pwd + " $ ";
+            	if (line == ""){
+            		output = "";
+            	} else {
+            		output = "test";
+            	}
+          		return([{msg:output, className:"jquery-console-message-value"}]);
+          	},
+          	autofocus:true,
+          	animateScroll:true,
+          	promptHistory:true
+        });
+      });
+    </script>
+    <style type="text/css" media="screen">
+      #console {
+        word-wrap: break-word;
+        font-size: 14px; 
+        font-family: monospace;
+      }
+
+      #console div.jquery-console-inner {
+        width: 1000px;
+        height: 50vh;
+        background: #333;
+        padding: 0.5em;
+        overflow: auto
+      }
+
+      #console div.jquery-console-prompt-box {
+        color: #fff;
+        font-family: monospace;
+      }
+
+      #console div.jquery-console-focus span.jquery-console-cursor {
+        background: #fefefe;
+        color: #333;
+      }
+
+      #console div.jquery-console-message-error {
+        color: #ef0505;
+        font-weight: bold;
+        padding: 0.1em;
+      }
+
+      #console div.jquery-console-message-value {
+        color: #1ad027;
+        padding: 0.1em;
+      }
+
+      #console div.jquery-console-message-type {
+        color: #52666f;
+        padding: 0.1em;
+      }
+
+      #console span.jquery-console-prompt-label { font-weight: bold }
+    </style>
+    <div id="console"></div>
+    <noscript>
+      <p><strong>ERROR: JavaScript is required</strong> </p>
+    </noscript>
+
+{%endblock%}
