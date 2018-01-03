@@ -90,9 +90,11 @@
         </div>
         <script>
             //Raspberry Pi model background image
+            {% if session.username %}
             $.get('/model/revision', function(result){
                 $('#pi_model').html('<img height="64px" src="/static/img/pi/' + result + '.png" alt="Raspberry Pi Revision: ' + result + '"></img>');
             });
+            {% endif %}
         </script>
     </body>
 </html>

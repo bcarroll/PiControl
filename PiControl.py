@@ -42,7 +42,7 @@ def require_login(f):
 @app.route('/')
 @require_login
 def index():
-    return( render_template('index.html', user=escape(session['username'])) )
+    return( render_template('index.html') )
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -54,6 +54,8 @@ def login():
             return ( redirect(url_for('index')) )
         else:
             return('Invalid username/password')
+    else:
+        return(render_template('login.html'))
 
 @app.route('/logout')
 def logout():
