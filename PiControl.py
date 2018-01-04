@@ -16,10 +16,9 @@ from flask import abort
 from flask import render_template
 from flask import flash
 from flask import escape
+from flask import appcontext_tearing_down
 
-from threading import Thread
-
-from lib.pi_netconnect import pi_discovery
+from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
 from lib.utils import generate_ssl_cert
 from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, pi_model, process_list, gpio_info
@@ -33,8 +32,17 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'RaspberryPi_3.14'
 
-discovery_thread = Thread(target=pi_discovery)
-discovery_thread.start()
+# Create a UDP Beacon sender and receiver
+pi_discovery = UDPBeacon()
+pi_discovery.start()
+pi_discoverer = UDPBeaconListener()
+pi_discoverer.start()
+def stop_pi_discovery(sender, **kwargs):
+    pi_discovery.stop()
+    pi_discoverer.stop()
+
+#stop UDPBeacon threads when the application stops
+appcontext_tearing_down.connect(stop_pi_discovery, app)
 
 def require_login(f):
     @wraps(f)
@@ -238,4 +246,4 @@ if __name__ == '__main__':
     #Uncomment the following line to generate a new self-signed SSL certificate
     #generate_ssl_cert()
     context = ('SSL/server.crt', 'SSL/server.key')
-    app.run(ssl_context=context, threaded=True, debug=True, host='0.0.0.0', port=31415)
+    app.run(ssl_context=context, threaded=True, debug=False, host='0.0.0.0', port=31415)
