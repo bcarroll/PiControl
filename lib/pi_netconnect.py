@@ -24,6 +24,7 @@ class UDPBeacon:
         logging.debug('stop() called...')
         self.looping = False
         self.status  = "stopped"
+        self.thread.join()
 
     def start(self):
         "start beacon loop thread"
@@ -97,6 +98,7 @@ class UDPBeaconListener:
         logging.debug('stop() called...')
         self.looping = False
         self.status  = "stopped"
+        self.thread.join()
 
     def start(self):
         "start UDPBeaconListener loop thread"
