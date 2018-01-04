@@ -7,7 +7,7 @@
     * git clone https://github.com/bcarroll/PiControl.git
     * [Download the repository as a zip file](https://github.com/bcarroll/PiControl/archive/master.zip)
 2. Install Operating System dependencies (mostly for SSL support)
-    *     `sudo apt-get update`
+    *    ``sudo apt-get update``
     *    ``sudo apt-get install gcc libffi-dev libssl-dev python-dev``
 3. Install Python dependencies
     *    ``cd /directory/where/you/cloned-or_unzipped``
