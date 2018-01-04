@@ -8,19 +8,21 @@
     * [Download the repository as a zip file](https://github.com/bcarroll/PiControl/archive/master.zip)
 2. Install Operating System dependencies (mostly for SSL support)
     *    ``sudo apt-get update``
-    *    ``sudo apt-get install gcc libffi-dev libssl-dev python-dev``
+    *    ``sudo apt-get install gcc libffi-dev libssl-dev python-dev python-cryptography``
 3. Install Python dependencies
     *    ``cd /directory/where/you/cloned-or_unzipped``
-    *    ``pip install -r requirements.txt``
+    *    ``sudo pip install -r requirements.txt``
+        If the pip install command generates errors you can try installing the module dependencies manually:
+        ``sudo pip install asn1crypto cffi click cryptography enum34 Flask Flask-SSLify idna ipaddress itsdangerous MarkupSafe netifaces psutil pycparser pyOpenSSL simplepam six wiringpi``
 4.    *Optional* - Start PiControl when your Raspberry Pi boots
-    *    ``echo sudo pi python /directory/where/you/cloned-or_unzipped/PiControl.py & >> /etc/rc.local``
+    *    ``echo sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py & >> /etc/rc.local``
 
-    The above command adds a new line to /etc/rc.local which will start PiControl as the "pi" user when the Raspberry Pi boots.  
-    If you remove the "sudo pi" part, PiControl will run as "root" (not advised, for security reasons).  
+    The above command adds a new line to /etc/rc.local which will start PiControl as the "pi" user when the Raspberry Pi boots.
+    If you remove the "sudo -u pi" part, PiControl will run as "root" (not advised, for security reasons).
     You can also create a new account to run PiControl as with the [adduser](https://www.raspberrypi.org/documentation/linux/usage/users.md) command.
 
 5.    Start PiControl
-    *    ``sudo pi python /directory/where/you/cloned-or_unzipped/PiControl.py &``
+    *    ``sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py &``
 
      The ampersand at the end of the command string is important if you want PiControl to remain running once you logout.
      Without the ampersand, PiControl will be killed when the shell is terminated.
