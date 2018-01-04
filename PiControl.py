@@ -39,21 +39,22 @@ pi_discovery.start()
 pi_discoverer = UDPBeaconListener()
 pi_discoverer.start()
 
-#stop threads when the application stops
-atexit.register(close_running_threads)
-
-#stop threads when the application is killed
-signal.signal(signal.SIGINT, close_running_threads)
-
 def close_running_threads(signum=None, frame=None):
     print 'close_runnint_threads() called with signal', signum
     pi_discovery.stop()
     pi_discoverer.stop()
     signal.signal(signal.SIGINT, close_running_threads)
 
+#stop threads when the application stops
+atexit.register(close_running_threads)
 
+#stop threads when the application is killed
+signal.signal(signal.SIGINT, close_running_threads)
 
 def require_login(f):
+    '''
+    Decorator for routes that require a logged in session
+    '''
     @wraps(f)
     def wrapped(*args, **kwargs):
         if 'username' in session:
