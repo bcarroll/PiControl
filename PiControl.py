@@ -225,9 +225,20 @@ def platform():
 def get_gpio():
     return(gpio_info())
 
+def generate_ssl_cert(cert='server.crt', key='server.key'):
+    pass
+
 if __name__ == '__main__':
+<<<<<<< HEAD
     #Uncomment the following line to generate a new self-signed SSL certificate
     #generate_ssl_cert()
     context = ('SSL/server.crt', 'SSL/server.key')
     app.run(ssl_context=context, threaded=True, debug=True, host='0.0.0.0', port=31415)
     #app.run(debug=True, host='0.0.0.0', port=31415)
+=======
+    # SSL
+    #context = ('server.crt', 'server.key')
+    #app.run(ssl_context=context, threaded=True, debug=True, host='0.0.0.0', port=31415)
+    #No SSL
+    app.run(debug=True, host='0.0.0.0', port=31415)
+>>>>>>> origin/master
