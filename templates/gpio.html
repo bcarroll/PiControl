@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {%extends "base.html"%}
 {%block title%}GPIO{% endblock %}
 
@@ -59,3 +60,66 @@
 	});
 </script>
 {%endblock%}
+=======
+{%extends "base.html"%}
+{%block title%}GPIO{% endblock %}
+
+{%block body%}
+<h1 class="page-header" id="page-header"><i class="fas fa-code-branch"></i> General Purpose Input/Output</h1>
+<table class="table-hover" id="GPIO">
+	<tr>
+		<th>GPIO Pin</th>
+		<th>Status</th>
+		<th>Name</th>
+		<th>BCM Pin</th>
+		<th>WiringPi Pin</th>
+		<th>Mode</th>
+		<th>Voltage</th>
+	</tr>
+</table>
+<script>
+	// toggle switches
+	function toggle(id){
+	    // id     = element to toggle
+	    if ($('#' + id).hasClass("toggle-off")){
+	        $('#' + id).addClass('toggle-on');
+	        $('#' + id).removeClass('toggle-off');
+	    } else {
+	        $('#' + id).addClass('toggle-off');
+	        $('#' + id).removeClass('toggle-on');
+	    }
+	    console.log("toggle("+id+")");
+	}
+
+	$.get('/gpio/info', function(result){
+		var status = 'disabled';
+		for (key in result){
+			if (result[key].v == '3.3v'){
+				status = 'toggle-on';
+				title  = 'On/HIGH';
+			} else if (result[key].v == '0v'){
+				status = 'toggle-off';
+				title  = 'Off/LOW';
+			} else if (result[key].v == '0'){
+				status = 'toggle-off';
+				title  = 'Off/LOW';
+			} else {
+				status = 'disabled';
+				title  = 'NOT MODIFIABLE';
+			}
+			
+			$('#GPIO tr:last').after(
+				'<tr>'
+				+ '<td>' + key + '</td>'
+				+ '<td><i id="gpio_' + key + '" class="fas fa-toggle-on fa-2x ' + status + '" onclick="toggle(\'gpio_' + key + '\')" title="' + title + '"></i></td>'
+				+ '<td>' + result[key].name + '</td>'
+				+ '<td>' + result[key].bcm_pin + '</td>'
+				+ '<td>' + result[key].wPi_pin + '</td>'
+				+ '<td>' + result[key].mode + '</td>'
+				+ '<td>' + result[key].v + '</td></tr>'
+			);
+		}
+	});
+</script>
+{%endblock%}
+>>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c

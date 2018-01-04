@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {%extends "base.html"%}
 {%block title%}Processes{% endblock %}
 
@@ -38,4 +39,46 @@
 	//setInterval(get_processes,5000);
 </script>
 
+=======
+{%extends "base.html"%}
+{%block title%}Processes{% endblock %}
+
+{%block body%}
+<h1 class="page-header" id="page-header"><i class="fas fa-cogs"></i> Processes</h1>
+<table class="table-bordered table-hover" style="width:100%;" width="100%" id="process_list">
+	<tr>
+		<th>Name</th>
+		<th>Process ID</th>
+		<th>Parent PID</th>
+		<th>User</th>
+	</tr>
+</table>
+<script>
+	get_processes();
+
+	function get_processes(){
+		$.get('/processes/list', function(result){
+			for (i=0; i< result.length; i++){
+				if ( $('#' + result[i].pid).length ){
+					$('#' + result[i].pid_name).text(result[i].name);
+					$('#' + result[i].pid_pid).text(result[i].pid);
+					$('#' + result[i].pid_ppid).text(result[i].ppid);
+					$('#' + result[i].pid_username).text(result[i].username);
+				} else {
+					$('#process_list tr:last').after(
+							'<tr id="' + result[i].pid + '"><td id="'+ result[i].pid + '_name">' + result[i].name + 
+							'</td><td id="'+ result[i].pid + 'pid">' + result[i].pid + 
+							'</td><td id="'+ result[i].pid + 'ppid">' + result[i].ppid + 
+							'</td><td id="'+ result[i].pid + 'username">' + result[i].username + 
+							'</td></tr>'
+						);
+				}
+			}
+		});
+	}
+
+	//setInterval(get_processes,5000);
+</script>
+
+>>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c
 {%endblock%}

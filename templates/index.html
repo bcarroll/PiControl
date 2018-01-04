@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {%extends "base.html"%}
 {%block title%}Index{% endblock %}
 
@@ -160,4 +161,168 @@
 		setInterval(get_mem_usage_json,5000);
 		setInterval(get_swap_usage_json,5000);
 	</script>
+=======
+{%extends "base.html"%}
+{%block title%}Index{% endblock %}
+
+{%block body%}
+<h1 class="page-header" id="page-header"><img src="/static/img/logo-color.jpg" width="31"></i></i> Raspberry Pi <span id="model"></span></h1>
+<table class="table-bordered table-hover" style="width:100%;" width="100%">
+	<tr>
+		<th class="heading"><i class="fab fa-linux"></i> OS</th>
+		<td>
+			<table class="table-hover" style="width:100%;">
+				<tr>
+					<th>Version</th><td class="pull-right" id='osname'></td>
+				</tr>
+				<tr>
+					<th>Kernel</th><td class="pull-right" id='kernel'></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<th class="heading"><i class="fas fa-tachometer-alt"></i> CPU</th>
+		<td>
+			<table class="table-hover" style="width:100%;">
+				<tr>
+					<th>Usage</th><td class="pull-right" id='cpu_usage'></td>
+				</tr>
+				<tr>
+					<th>Temperature</th><td class="pull-right" id='cpu_temperature'></td>
+				</tr>
+				<tr>
+					<th>Frequency</th><td class="pull-right" id='cpu_frequency'></td>
+				</tr>
+				<tr>
+					<th>Voltage</th><td class="pull-right" id='cpu_voltage'></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr id="mem_usage">
+		<th class="heading">
+			<i class="fas fa-microchip"></i> Memory
+		</th>
+		<td>
+			<table class="table-hover" style="width:100%;">
+				<tr>
+					<th>Total</th><td class="pull-right" id="mem_total"></td>
+				</tr>
+				<tr>
+					<th>Used</th><td class="pull-right" id="mem_used"></td>
+				</tr>
+				<tr>
+					<th>Free</th><td class="pull-right" id="mem_free"></td>
+				</tr>
+				<tr>
+					<th>Shared</th><td class="pull-right" id="mem_shared"></td>
+				</tr>
+				<tr>
+					<th>Buffers</th><td class="pull-right" id="mem_buffers"></td>
+				</tr>
+				<tr>
+					<th>Cached</th><td class="pull-right" id="mem_cached"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr id="swap_usage">
+		<th class="heading">
+				<i class="fas fa-hdd"></i> Swap
+		</th>
+		<td>
+			<table class="table-hover" style="width:100%;">
+				<tr>
+					<th>Total</th><td class="pull-right" id="swap_total"></td>
+				</tr>
+				<tr>
+					<th>Free</th><td class="pull-right" id="swap_free"></td>
+				</tr>
+				<tr>
+					<th>Used</th><td class="pull-right" id="swap_used"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr id="disk_usage"></tr>
+</table>
+	<script>
+		get_platform();
+		get_cpu_frequency();
+		get_cpu_voltage();
+		get_cpu_usage();
+		get_cpu_temp();
+		get_disk_usage();
+		get_mem_usage_json();
+		get_swap_usage_json();
+
+	    $.get('/model', function(result){
+	    	console.log (result);
+	        $('#model').text(result.model);
+	    });
+		function get_platform(){
+			$.get('/platform', function(result){
+				$('#kernel').text(result.kernel);
+				$('#osname').text(result.osname);
+			});
+		}
+
+		function get_cpu_voltage(){
+			$.get('/cpu/voltage', function(result){
+				$('#cpu_voltage').text(result.cpu_volts);
+			});
+		}
+		
+		function get_cpu_frequency(){
+			$.get('/cpu/frequency', function(result){
+				$('#cpu_frequency').text(result.cpu_frequency);
+			});
+		}
+
+		function get_cpu_usage(){
+			$.get('/cpu/usage', function(cpu_idle){
+					$('#cpu_usage').text(Math.round(100.0 - parseFloat(cpu_idle)).toFixed(2) + "%");
+				});
+			
+		}
+
+		function get_cpu_temp(){
+			$.get('/cpu/temp', function(result){
+				$('#cpu_temperature').text(result.temp);
+			});
+		}
+		
+		function get_disk_usage(){
+			ajax_get_html('/disk/usage_summary', '#disk_usage');
+		}
+
+		function get_mem_usage_json(){
+			$.get('/mem/usage/json', function(result){
+				$('#mem_total').text(result.total);
+				$('#mem_used').text(result.used);
+				$('#mem_free').text(result.free);
+				$('#mem_shared').text(result.shared);
+				$('#mem_buffers').text(result.buffers);
+				$('#mem_cached').text(result.cached);
+			});
+		}
+
+		function get_swap_usage_json(){
+			$.get('/swap/usage/json', function(result){
+				$('#swap_total').text(result.total);
+				$('#swap_free').text(result.used);
+				$('#swap_used').text(result.free);
+			});
+		}
+		
+		setInterval(get_cpu_frequency,2500);
+		setInterval(get_cpu_voltage,2500);
+		setInterval(get_cpu_usage,2500);
+		setInterval(get_cpu_temp,2000);
+		setInterval(get_disk_usage,60000);
+		setInterval(get_mem_usage_json,5000);
+		setInterval(get_swap_usage_json,5000);
+	</script>
+>>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c
 {%endblock%}

@@ -17,9 +17,12 @@ from flask import render_template
 from flask import flash
 from flask import escape
 
+<<<<<<< HEAD
 from threading import Thread
 
 from lib.pi_netconnect import pi_discovery
+=======
+>>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c
 from lib.utils import generate_ssl_cert
 from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, pi_model, process_list, gpio_info
@@ -29,13 +32,20 @@ from lib.pyDash import get_netstat, get_platform
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'RaspberryPi_3.14'
 
+<<<<<<< HEAD
 discovery_thread = Thread(target=pi_discovery)
 discovery_thread.start()
 
+=======
+>>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c
 def require_login(f):
     @wraps(f)
     def wrapped(*args, **kwargs):
@@ -231,11 +241,19 @@ def platform():
 def get_gpio():
     return(gpio_info())
 
+<<<<<<< HEAD
+=======
 def generate_ssl_cert(cert='server.crt', key='server.key'):
     pass
 
+>>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c
 if __name__ == '__main__':
     #Uncomment the following line to generate a new self-signed SSL certificate
     #generate_ssl_cert()
     context = ('SSL/server.crt', 'SSL/server.key')
     app.run(ssl_context=context, threaded=True, debug=True, host='0.0.0.0', port=31415)
+<<<<<<< HEAD
+    #app.run(debug=True, host='0.0.0.0', port=31415)
+=======
+    
+>>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c
