@@ -40,10 +40,13 @@ pi_discoverer = UDPBeaconListener()
 pi_discoverer.start()
 
 def close_running_threads(signum=None, frame=None):
-    print 'close_runnint_threads() called with signal', signum
+    print 'close_running_threads() called with signal', signum
     pi_discovery.stop()
     pi_discoverer.stop()
-    signal.signal(signal.SIGINT, close_running_threads)
+    try:
+        request.environ.get('werkzeug.server.shutdown')
+    except:
+        pass
 
 #stop threads when the application stops
 atexit.register(close_running_threads)
