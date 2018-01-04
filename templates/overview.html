@@ -1,7 +1,12 @@
 {%extends "base.html"%}
-{%block title%}Hardware{% endblock %}
+{%block title%}Overview{% endblock %}
 
 {%block body%}
-<h1 class="page-header" id="page-header"><i class="fas fa-cog"></i> Overview</h1>
-
+<h1 class="page-header" id="page-header"><img src="/static/img/logo-color.jpg" width="31"></i></i> Raspberry Pi <span id="model"></span></h1>
+<script>
+    $.get('/model', function(result){
+    	console.log (result);
+        $('#model').text(result.model);
+    });
+</script>
 {%endblock%}

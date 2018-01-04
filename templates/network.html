@@ -3,5 +3,41 @@
 
 {%block body%}
 <h1 class="page-header" id="page-header"><i class="fas fa-share-alt"></i> Network</h1>
+<table id="network_interfaces" class="table table-hover" style="width:100%;"">
+	<tr><th>Interface</th><th></th></tr>
+</table>
+<script>
+get_network_interface_info();
+function get_network_interface_info(){
+	$.get('/network/interfaces', function(result){
+		for (var key in result){
+			if (result[key].ipv4){
+				for (i=0; i< result[key].ipv4.length; i++){
+					if ( $('#' + key).length ){
+						$('#' + key + '_addr').text('IPv4: ' + result[key].ipv4[i].addr);
+						$('#' + key + '_netmask').text('Netmask: ' + result[key].ipv4[i].netmask);
+					} else {
+						$('#network_interfaces tr:last').after(
+								'<tr id="' + key + '"><td>' + key + '</td><td>IPv4: ' + result[key].ipv4[i].addr + '<br />Netmask: ' + result[key].ipv4[i].netmask + '<br />MAC: ' + result[key].mac[i].addr + '</td></tr>'
+							);
+					}
+				}
+			}
+			if (result[key].ipv6){
+				for (i=0; i< result[key].ipv6.length; i++){
+					if ( $('#' + key).length ){
+						$('#' + key + '_addr6').text('IPv6: ' + result[key].ipv6[i].addr);
+						$('#' + key + '_netmask6').text('Netmask: ' + result[key].ipv6[i].netmask);
+					} else {
+						$('#network_interfaces tr:last').after(
+								'<tr id="' + key + '"><td>' + key + '</td><td>IPv6: ' + result[key].ipv6[i].addr + '<br />Netmask: ' + result[key].ipv6[i].netmask + '<br />MAC: ' + result[key].mac[i].addr + '</td></tr>'
+							);
+					}
+				}
+			}
+		}
+	});
+}
+</script>
 
 {%endblock%}

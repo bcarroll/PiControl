@@ -1,22 +1,24 @@
-import socket
-import fcntl
-import struct
+from flask import jsonify
+import netifaces
+from pprint import pprint
 
-def get_ip_address(interface_name):
-	"""
-	Source: https://github.com/ActiveState/code/tree/master/recipes/Python/439094_get_IP_address_associated_network_interface
-	get the IP address associated with a network interface (linux only)
-	Originally published: 2005-08-11 13:30:18
-	Last updated: 2005-08-11 13:30:18
-	Author: paul cannon
+def get_interfaces():
+	'''
+	Return network interface information in JSON
+	'''
+	#https://pypi.python.org/pypi/netifaces
+	interface_list = {}
+	interfaces = netifaces.interfaces()
+	for interface in interfaces:
+		interface_list[interface] = {}
+		addrs = netifaces.ifaddresses(interface)
+		if addrs.has_key(netifaces.AF_INET):
+			interface_list[interface]['ipv4'] = addrs[netifaces.AF_INET]
+		if addrs.has_key(netifaces.AF_INET6):
+			interface_list[interface]['ipv6'] = addrs[netifaces.AF_INET6]
+		if addrs.has_key(netifaces.AF_LINK):
+			interface_list[interface]['mac'] = addrs[netifaces.AF_LINK]
+	return jsonify(interface_list)
 
-	Uses the Linux SIOCGIFADDR ioctl to find the IP address associated with a network interface, 
-	given the name of that interface, e.g. "eth0". 
-	The address is returned as a string containing a dotted quad.
-	"""
-	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-	return socket.inet_ntoa(fcntl.ioctl(
-		s.fileno(),
-		0x8915,  # SIOCGIFADDR
-		struct.pack('256s', interface_name[:15])
-	)[20:24])
+if __name__ == '__main__':
+	get_interfaces()

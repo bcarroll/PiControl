@@ -1,0 +1,7 @@
+
+Install additional OS packages to support SSL:
+sudo apt-get update
+sudo apt-get install gcc libffi-dev libssl-dev python-dev
+
+Install PiControl Python module dependencies:
+pip install -r requirements.txt
