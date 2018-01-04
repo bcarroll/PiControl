@@ -13,7 +13,7 @@
     *    ``cd /directory/where/you/cloned-or_unzipped``
     *    ``pip install -r requirements.txt``
 4.    *Optional* - Start PiControl when your Raspberry Pi boots
-    *     ``echo sudo pi python /directory/where/you/cloned-or_unzipped/PiControl.py & >> /etc/rc.local``
+    *    ``echo sudo pi python /directory/where/you/cloned-or_unzipped/PiControl.py & >> /etc/rc.local``
 
         *The above command adds a new line to /etc/rc.local which will start PiControl as the "pi" user when the Raspberry Pi boots.  If you remove the "sudo pi" part, PiControl will run as "root" (not advised, for security reasons).  You can also create a new account to run PiControl as with the [adduser](https://www.raspberrypi.org/documentation/linux/usage/users.md) command.*
 
