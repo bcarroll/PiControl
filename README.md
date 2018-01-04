@@ -15,12 +15,15 @@
 4.    *Optional* - Start PiControl when your Raspberry Pi boots
     *    ``echo sudo pi python /directory/where/you/cloned-or_unzipped/PiControl.py & >> /etc/rc.local``
 
-        *The above command adds a new line to /etc/rc.local which will start PiControl as the "pi" user when the Raspberry Pi boots.  If you remove the "sudo pi" part, PiControl will run as "root" (not advised, for security reasons).  You can also create a new account to run PiControl as with the [adduser](https://www.raspberrypi.org/documentation/linux/usage/users.md) command.*
+        The above command adds a new line to /etc/rc.local which will start PiControl as the "pi" user when the Raspberry Pi boots.  
+        If you remove the "sudo pi" part, PiControl will run as "root" (not advised, for security reasons).  
+        You can also create a new account to run PiControl as with the [adduser](https://www.raspberrypi.org/documentation/linux/usage/users.md) command.
 
 5.    Start PiControl
     *    ``sudo pi python /directory/where/you/cloned-or_unzipped/PiControl.py &``
 
-        *The ampersand at the end of the command string is important if you want PiControl to remain running once you logout.  Without the ampersand, PiControl will be killed when the shell is terminated.*
+        *The ampersand at the end of the command string is important if you want PiControl to remain running once you logout.
+        Without the ampersand, PiControl will be killed when the shell is terminated.*
 
 ***
 
