@@ -3,6 +3,8 @@
 import os
 import sys
 import socket
+import atexit
+import signal
 
 from functools import wraps
 
@@ -16,7 +18,6 @@ from flask import abort
 from flask import render_template
 from flask import flash
 from flask import escape
-from flask import appcontext_tearing_down
 
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
 from lib.utils import generate_ssl_cert
@@ -37,12 +38,20 @@ pi_discovery = UDPBeacon()
 pi_discovery.start()
 pi_discoverer = UDPBeaconListener()
 pi_discoverer.start()
-def stop_pi_discovery(sender, **kwargs):
+
+#stop threads when the application stops
+atexit.register(close_running_threads)
+
+#stop threads when the application is killed
+signal.signal(signal.SIGINT, close_running_threads)
+
+def close_running_threads(signum=None, frame=None):
+    print 'close_runnint_threads() called with signal', signum
     pi_discovery.stop()
     pi_discoverer.stop()
+    signal.signal(signal.SIGINT, close_running_threads)
 
-#stop UDPBeacon threads when the application stops
-appcontext_tearing_down.connect(stop_pi_discovery, app)
+
 
 def require_login(f):
     @wraps(f)
