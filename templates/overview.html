@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {%extends "base.html"%}
 {%block title%}Overview{% endblock %}
 
@@ -11,17 +10,3 @@
     });
 </script>
 {%endblock%}
-=======
-{%extends "base.html"%}
-{%block title%}Overview{% endblock %}
-
-{%block body%}
-<h1 class="page-header" id="page-header"><img src="/static/img/logo-color.jpg" width="31"></i></i> Raspberry Pi <span id="model"></span></h1>
-<script>
-    $.get('/model', function(result){
-    	console.log (result);
-        $('#model').text(result.model);
-    });
-</script>
-{%endblock%}
->>>>>>> 6a7730d88779dfcf289af1812a3654374e45936c
