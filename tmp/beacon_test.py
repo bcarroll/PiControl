@@ -112,11 +112,11 @@ class UDPBeaconListener:
         logging.debug( '_loop() called...' )
         logging.debug( 'Listening for UDPBeacons from external clients...' )
         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-        hbSocket.bind((socket.gethostbyname(socket.gethostname()), self.port))
+        hbSocket.bind(('0.0.0.0', self.port))
         while self.looping:
             (rfd,wfd,efd) = select.select([hbSocket],[],[])
             if hbSocket in rfd:
-                (string, address) = hbSocket.recvfrom(100)
+                (string, address) = hbSocket.recvfrom(1024)
                 #TODO: Add responding clients to database
                 print ('--------------------------------')
                 print ('string: %s' % string)
