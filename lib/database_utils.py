@@ -46,3 +46,19 @@ def create_config(cursor):
         cursor.execute("INSERT INTO 'config' ('beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file') VALUES (31415, 60, 'PiControl', 1, 'logs/PiControl.log')")
     except sqlite3.IntegrityError:
         pass
+
+def update_node(database_file='db/PiControl.db', ipaddress, hostname, revision, last_checkin):
+    try:
+        conn = sqlite3.connect(database_file)
+        cursor = conn.cursor()
+        try:
+            cursor.execute("INSERT INTO 'nodes' ('ipaddress', 'hostname', 'revision', 'last_checkin') VALUES (" + ipaddress + "," + hostname + "," + "," + revision + "," + last_checking + ")")
+        except sqlite3.IntegrityError:
+            cursor.execute("UPDATE 'nodes' set ('ipaddress'=" + ipaddress + ", 'hostname='" + hostname + ", 'revision='" + revision + ", 'last_checkin='" + last_checkin + ")")
+        # Commit changes
+        conn.commit()
+        # Close the database connection
+        conn.close()
+    except Error as e:
+        print(e)
+
