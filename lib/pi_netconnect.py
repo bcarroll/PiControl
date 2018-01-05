@@ -148,7 +148,7 @@ class UDPBeaconListener:
                 message, hostname, revision = string.split(';')
                 if message == self.message:
                     #TODO: Add responding clients to database
-                    print ('ipaddress: ' + str(address))
+                    print ('ipaddress: ' + str(address[0]))
                     print ('hostname: ' + str(hostname))
                     print ('revision: ' + str(revision))
                     print ('last_checkin: ' + str(int(time())))
