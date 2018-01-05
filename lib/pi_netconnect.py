@@ -7,29 +7,38 @@ from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
 
-logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
+logging.basicConfig(level=logging.INFO, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 
 class UDPBeacon:
-    def __init__(self,message="PiControl_beacon",port=31415,interval=60000):
-        "Initialiation method"
+    def __init__(self,message="PiControl_beacon",port=31415,interval=60):
+        '''
+        Initialiation method
+        '''
         self.port      = port
         self.interval  = interval
         self.message   = message
         self.status    = "initialized"
-        self.last_scan = int(time())-(self.interval/1000)-5
+        self.last_scan = int(time())-self.interval-5
         logging.debug('Beacon initialized...')
 
     def stop(self):
-        "stop beacon loop thread"
+        '''
+        stop beacon loop thread
+        '''
         logging.debug('stop() called...')
+        logging.info('Stopping UDPBeacon sender thread')
         self.looping = False
         self.status  = "stopped"
 
     def start(self):
-        "start beacon loop thread"
+        '''
+        start beacon loop thread
+        '''
         logging.debug('start() called...')
         self.looping = True
-        self.thread = threading.Thread(name='udp_beacon_sender', target=self._loop).start()
+        self.thread = threading.Thread(name='udp_beacon_sender', target=self._loop)
+        self.thread.daemon = True
+        self.thread.start()
         self.status  = "running"
 
     def _loop(self):
@@ -42,11 +51,11 @@ class UDPBeacon:
         #keep track of the ip addresses we have already scanned
         ip_list = []
         while self.looping:
-            if self.last_scan + (self.interval/1000) >= int(time()):
+            if self.last_scan + self.interval >= int(time()):
                 logging.debug("\n"
                             + 'Current time  : ' + str(int(time())) + "\n"
                             + 'Last scan time: ' + str(self.last_scan) + "\n"
-                            + 'Interval      : ' + str(self.interval/1000) + "\n"
+                            + 'Interval      : ' + str(self.interval) + "\n"
                             + 'Elapsed time  : ' + str(int(time())-self.last_scan)
                     )
             else:
@@ -83,32 +92,43 @@ class UDPBeacon:
                                     hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                                     #hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
                                     hbSocket.sendto(self.message, (str(IPAddress(ip)), self.port))
-            sleep(self.interval/1000)
+            sleep(self.interval)
+        self.thread.join(1)
 
 class UDPBeaconListener:
     def __init__(self,message="PiControl_beacon",port=31415):
-        "Initialiation method"
+        '''
+        Initialiation method
+        '''
         self.status         = "initialized"
         self.port           = port
-        self.loop_iteration = 0
         self.message        = message
         logging.debug('UDPBeaconListener initialized...')
 
     def stop(self):
-        "stop UDPBeaconListener loop thread"
+        '''
+        stop UDPBeaconListener loop thread
+        '''
         logging.debug('stop() called...')
+        logging.info('Stopping UDPBeaconListener thread')
         self.looping = False
         self.status  = "stopped"
 
     def start(self):
-        "start UDPBeaconListener loop thread"
+        '''
+        start UDPBeaconListener loop thread
+        '''
         logging.debug('start() called...')
         self.looping = True
-        self.thread = threading.Thread(name='udp_beacon_listener', target=self._loop).start()
+        self.thread = threading.Thread(name='udp_beacon_listener', target=self._loop)
+        self.thread.daemon = True
+        self.thread.start()
         self.status  = "running"
 
     def _loop(self):
-        "loop until self.looping == False"
+        '''
+        loop until self.looping == False
+        '''
         logging.debug( '_loop() called...' )
         logging.debug( 'Listening for UDPBeacons from external clients...' )
         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
@@ -117,9 +137,8 @@ class UDPBeaconListener:
             (rfd,wfd,efd) = select.select([hbSocket],[],[])
             if hbSocket in rfd:
                 (string, address) = hbSocket.recvfrom(100)
-                #TODO: Add responding clients to database
-                print ('--------------------------------')
-                print ('string: %s' % string)
-                print ('from: %s' % str(address))
-                print ('--------------------------------')
+                if string == self.message and address != '127.0.0.1':
+                    #TODO: Add responding clients to database
+                    logging.debug('Beacon received from ' + str(address))
             sleep(0.1)
+        self.thread.join(1)
