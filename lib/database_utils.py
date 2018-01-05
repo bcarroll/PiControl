@@ -48,6 +48,7 @@ def create_config(cursor):
         pass
 
 def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/PiControl.db'):
+    print("'ipaddress'=" + ipaddress + ", 'hostname='" + hostname + ", 'revision='" + revision + ", 'last_checkin='" + last_checkin)
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
