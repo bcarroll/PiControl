@@ -82,7 +82,6 @@ class UDPBeacon:
                                     hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                                     hbSocket.sendto(self.message, (str(IPAddress(ip)), self.port))
             sleep(self.interval/1000)
-        self.thread.join()
 
 class UDPBeaconListener:
     def __init__(self,message="PiControl_beacon",port=31415):
@@ -121,4 +120,3 @@ class UDPBeaconListener:
                 print 'from: %s' % str(address)
                 print '--------------------------------'
             time.sleep(0.1)
-        self.thread.join()
