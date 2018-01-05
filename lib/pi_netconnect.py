@@ -6,6 +6,9 @@ import select
 from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
+from PiControl import db
+from models.Node import Node
+from lib.pi_utilities import pi_revision
 
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 
@@ -51,6 +54,8 @@ class UDPBeacon:
         #keep track of the ip addresses we have already scanned
         ip_list = []
         while self.looping:
+            revision = pi_revision()
+            hostname = socket.gethostname()
             if self.last_scan + self.interval >= int(time()):
                 logging.debug("\n"
                             + 'Current time  : ' + str(int(time())) + "\n"
@@ -91,7 +96,7 @@ class UDPBeacon:
                                     #logging.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
                                     hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                                     #hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-                                    hbSocket.sendto(self.message, (str(IPAddress(ip)), self.port))
+                                    hbSocket.sendto(self.message + ';' + hostname + ';' + revision, (str(IPAddress(ip)), self.port))
             sleep(self.interval)
         self.thread.join(1)
 
@@ -137,8 +142,16 @@ class UDPBeaconListener:
             (rfd,wfd,efd) = select.select([hbSocket],[],[])
             if hbSocket in rfd:
                 (string, address) = hbSocket.recvfrom(100)
-                if string == self.message and address != '127.0.0.1':
+                #skip loopback connections
+                if address == '127.0.0.1':
+                    continue
+                message, hostname, revision = split(';'string)
+                if message == self.message:
                     #TODO: Add responding clients to database
+                    print ('ipaddress: ' + str(address))
+                    print ('hostname: ' + str(hostname))
+                    print ('revision: ' + str(revision))
+                    print ('last_checkin: ' + time())
                     logging.debug('Beacon received from ' + str(address))
             sleep(0.1)
         self.thread.join(1)
