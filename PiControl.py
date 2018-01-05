@@ -46,6 +46,7 @@ def close_running_threads(signum=None, frame=None):
         request.environ.get('werkzeug.server.shutdown')
     except:
         pass
+    sys.exit(0)
 
 #stop threads when the application stops
 atexit.register(close_running_threads)
