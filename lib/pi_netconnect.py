@@ -150,10 +150,11 @@ class UDPBeaconListener:
                 message, hostname, revision = string.split(';')
                 if message == self.message:
                     #TODO: Add responding clients to database
-                    print ('ipaddress: ' + str(address[0]))
-                    print ('hostname: ' + str(hostname))
-                    print ('revision: ' + str(revision))
-                    print ('last_checkin: ' + str(int(time())))
+                    ipaddress    = str(address[0])
+                    hostname     = str(hostname)
+                    revision     = str(revision)
+                    last_checkin = str(int(time()))
+                    update_node(ipaddress, hostname, revision, last_checkin)
                     logging.debug('Beacon received from ' + str(address))
             sleep(0.1)
         self.thread.join(1)
