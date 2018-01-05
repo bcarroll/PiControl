@@ -145,7 +145,7 @@ class UDPBeaconListener:
                 #skip loopback connections
                 if address == '127.0.0.1':
                     continue
-                message, hostname, revision = split(';'string)
+                message, hostname, revision = split(';',string)
                 if message == self.message:
                     #TODO: Add responding clients to database
                     print ('ipaddress: ' + str(address))
