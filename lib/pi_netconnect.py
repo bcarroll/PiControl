@@ -96,7 +96,7 @@ class UDPBeacon:
                                     #logging.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
                                     hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                                     #hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-                                    hbSocket.sendto(self.message + ';' + hostname + ';' + revision, (str(IPAddress(ip)), self.port))
+                                    hbSocket.sendto(str(self.message + ';' + hostname + ';' + revision), (str(IPAddress(ip)), self.port))
             sleep(self.interval)
         self.thread.join(1)
 
