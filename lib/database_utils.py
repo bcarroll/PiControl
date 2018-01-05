@@ -53,9 +53,9 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            cursor.execute("INSERT INTO 'nodes' ('ipaddress', 'hostname', 'revision', 'last_checkin') VALUES (" + ipaddress + "," + hostname + "," + "," + revision + "," + last_checkin + ")")
+            cursor.execute("INSERT INTO 'nodes' ('ipaddress', 'hostname', 'revision', 'last_checkin') VALUES ('" + ipaddress + "','" + hostname + "','" + "','" + revision + "','" + last_checkin + "')")
         except sqlite3.IntegrityError:
-            cursor.execute("UPDATE 'nodes' set ('ipaddress'=" + ipaddress + ", 'hostname='" + hostname + ", 'revision='" + revision + ", 'last_checkin='" + last_checkin + ")")
+            cursor.execute("UPDATE 'nodes' set ('ipaddress'='" + ipaddress + "', 'hostname'='" + hostname + "', 'revision'='" + revision + "', 'last_checkin'='" + last_checkin + "')")
         # Commit changes
         conn.commit()
         # Close the database connection
