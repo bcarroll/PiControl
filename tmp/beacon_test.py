@@ -123,3 +123,9 @@ class UDPBeaconListener:
                 print ('from: %s' % str(address))
                 print ('--------------------------------')
             sleep(0.1)
+
+if __name__ == '__main__':
+    server = UDPBeaconListener()
+    server.start()
+    client = UDPBeacon()
+    client.start()
