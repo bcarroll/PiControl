@@ -6,8 +6,8 @@ import select
 from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
-from PiControl import db
-from models.Node import Node
+#from PiControl import db
+#from models.Node import Node
 from lib.pi_utilities import pi_revision
 
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
