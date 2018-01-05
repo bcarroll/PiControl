@@ -151,7 +151,7 @@ class UDPBeaconListener:
                     print ('ipaddress: ' + str(address))
                     print ('hostname: ' + str(hostname))
                     print ('revision: ' + str(revision))
-                    print ('last_checkin: ' + str(time()))
+                    print ('last_checkin: ' + str(int(time())))
                     logging.debug('Beacon received from ' + str(address))
             sleep(0.1)
         self.thread.join(1)
