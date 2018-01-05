@@ -18,19 +18,27 @@ from flask import abort
 from flask import render_template
 from flask import flash
 from flask import escape
+from flask_sqlalchemy import SQLAlchemy
 
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
 from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, pi_model, process_list, gpio_info
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
 from lib.pyDash import get_netstat, get_platform
+from lib.database_utils import create_database
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
-from simplepam import authenticate
+#from simplepam import authenticate
+
+# Create and initialize the PiControl database (if it hasn't already been done)
+create_database()
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SECRET_KEY'] = 'RaspberryPi_3.14'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/PiControl.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+app.config['SECRET_KEY'] = 'PiControl'
 
 # Create a UDP Beacon sender and receiver
 pi_discovery = UDPBeacon()
@@ -76,11 +84,11 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if authenticate(str(username), str(password)):
-            session['username'] = request.form['username']
-            return ( redirect(url_for('index')) )
-        else:
-            return('Invalid username/password')
+        #if authenticate(str(username), str(password)):
+        #    session['username'] = request.form['username']
+        #    return ( redirect(url_for('index')) )
+        #else:
+        #    return('Invalid username/password')
     else:
         return(render_template('login.html'))
 
@@ -251,9 +259,6 @@ def platform():
 @require_login
 def get_gpio():
     return(gpio_info())
-
-def generate_ssl_cert(cert='server.crt', key='server.key'):
-    pass
 
 if __name__ == '__main__':
     context = ('SSL/server.crt', 'SSL/server.key')
