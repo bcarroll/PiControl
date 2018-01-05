@@ -11,9 +11,7 @@
     *    ``sudo apt-get install gcc libffi-dev libssl-dev python-dev python-cryptography``
 3. Install Python dependencies
     *    ``cd /directory/where/you/cloned-or_unzipped``
-    *    ``sudo pip install -r requirements.txt``
-        If the pip install command generates errors you can try installing the module dependencies manually:
-        ``sudo pip install asn1crypto cffi click cryptography enum34 Flask Flask-SSLify idna ipaddress itsdangerous MarkupSafe netifaces psutil pycparser pyOpenSSL simplepam six wiringpi``
+    *    ``sudo pip install asn1crypto cffi click cryptography enum34 Flask Flask-SSLify idna ipaddress itsdangerous MarkupSafe netifaces psutil pycparser pyOpenSSL simplepam six wiringpi``
 4.    *Optional* - Start PiControl when your Raspberry Pi boots
     *    ``echo sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py & >> /etc/rc.local``
 
