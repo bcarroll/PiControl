@@ -79,7 +79,8 @@ class UDPBeacon:
                                 #skip the network, broadcast, and local addresses
                                 if (ip != ip_cidr.network) and (ip != ip_cidr.broadcast) and (str(IPAddress(ip)) != ip_info['addr']):
                                     logging.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
-                                    hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                                    #hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                                    hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
                                     hbSocket.sendto(self.message, (str(IPAddress(ip)), self.port))
             sleep(self.interval/1000)
 
@@ -116,7 +117,8 @@ class UDPBeaconListener:
             if hbSocket in rfd:
                 (string, address) = hbSocket.recvfrom(100)
                 #TODO: Add responding clients to database
-                print 'string: %s' % string
-                print 'from: %s' % str(address)
-                print '--------------------------------'
+                print ('--------------------------------')
+                print ('string: %s' % string)
+                print ('from: %s' % str(address))
+                print ('--------------------------------')
             time.sleep(0.1)
