@@ -20,7 +20,6 @@ from flask import flash
 from flask import escape
 
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
-from lib.utils import generate_ssl_cert
 from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, pi_model, process_list, gpio_info
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
@@ -256,7 +255,5 @@ def generate_ssl_cert(cert='server.crt', key='server.key'):
     pass
 
 if __name__ == '__main__':
-    #Uncomment the following line to generate a new self-signed SSL certificate
-    #generate_ssl_cert()
     context = ('SSL/server.crt', 'SSL/server.key')
     app.run(ssl_context=context, threaded=True, debug=False, host='0.0.0.0', port=31415)
