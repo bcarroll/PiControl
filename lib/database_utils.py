@@ -47,7 +47,7 @@ def create_config(cursor):
     except sqlite3.IntegrityError:
         pass
 
-def update_node(database_file='db/PiControl.db', ipaddress, hostname, revision, last_checkin):
+def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/PiControl.db'):
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
