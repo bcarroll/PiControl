@@ -11,7 +11,7 @@
     *    ``sudo apt-get install gcc libffi-dev libssl-dev python-dev python-cryptography``
 3. Install Python dependencies
     *    ``cd /directory/where/you/cloned-or_unzipped``
-    *    ``sudo pip install Flask Flask-SSLify ipaddress netifaces netaddr psutil simplepam wiringpi``
+    *    ``sudo pip install Flask Flask-SSLify flask_sqlalchemy ipaddress netifaces netaddr psutil simplepam wiringpi``
 4.    *Optional* - Start PiControl when your Raspberry Pi boots
     *    ``echo sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py & >> /etc/rc.local``
 
