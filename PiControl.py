@@ -28,7 +28,7 @@ from lib.pyDash import get_netstat, get_platform
 from lib.database_utils import create_database
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
-#from simplepam import authenticate
+from simplepam import authenticate
 
 # Create and initialize the PiControl database (if it hasn't already been done)
 create_database()
@@ -84,11 +84,11 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        #if authenticate(str(username), str(password)):
-        #    session['username'] = request.form['username']
-        #    return ( redirect(url_for('index')) )
-        #else:
-        #    return('Invalid username/password')
+        if authenticate(str(username), str(password)):
+            session['username'] = request.form['username']
+            return ( redirect(url_for('index')) )
+        else:
+            return('Invalid username/password')
     else:
         return(render_template('login.html'))
 
