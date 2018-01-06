@@ -85,6 +85,9 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
                 except Error as (e):
                     logging.error(e)
                     return()
+        except Error as (e):
+            logging.error(e)
+            return()
         # Commit changes
         conn.commit()
         # Close the database connection
