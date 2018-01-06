@@ -160,4 +160,4 @@ def get_nodes(database_file='db/PiControl.db'):
                 })
     except Error as (e):
         logging.error(e)
-    return (nodes)
+    return jsonify(nodes)
