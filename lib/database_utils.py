@@ -84,7 +84,7 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
     except Error as e:
         logging.error(e)
 
-def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file):
+def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, database_file='db/PiControl.db'):
     logging.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file))
     try:
         conn = sqlite3.connect(database_file)
@@ -100,7 +100,7 @@ def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file)
     except Error as e:
         logging.error(e)
 
-def get_config():
+def get_config(database_file='db/PiControl.db'):
     '''
     Returns PiControl configuration (from the PiControl database) in JSON
     '''
