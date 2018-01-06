@@ -69,21 +69,29 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            logging.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
-            cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, last_checkin={3} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
-        except Error as (e):
-            logging.debug(str(e))
-            try:
-                logging.debug('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
-                cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, last_checkin) VALUES ({0},{1},{2},{3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
-            except Error as (e):
-                logging.error(e)
+            cursor.execute('SELECT ipaddress FROM nodes WHERE ipaddress={0}'.format("'{}'".format(ipaddress)))
+            results = cursor.fetchone()
+            if results[0]:
+                try:
+                    logging.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
+                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, last_checkin={3} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
+                except Error as (e):
+                    logging.debug(str(e))
+                    return()
+            else:
+                try:
+                    logging.debug('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
+                    cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, last_checkin) VALUES ({0},{1},{2},{3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
+                except Error as (e):
+                    logging.error(e)
+                    return()
         # Commit changes
         conn.commit()
         # Close the database connection
         conn.close()
     except Error as e:
         logging.error(e)
+        return()
 
 def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, database_file='db/PiControl.db'):
     logging.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file))
