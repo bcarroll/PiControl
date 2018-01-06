@@ -146,9 +146,9 @@ def get_nodes(database_file='db/PiControl.db'):
         rows = cursor.fetchall()
         for row in rows:
             nodes[row[0]] = {
-                "hostname": hostname,
-                "revision": revision,
-                "last_checkin": last_checkin
+                "hostname": row[1],
+                "revision": row[2],
+                "last_checkin": row[3]
             }
     except Error as (e):
         logging.error(e)
