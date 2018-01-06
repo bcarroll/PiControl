@@ -14,9 +14,9 @@
         {% for node in nodes %}
             <tr>
                 <td>{{ node }}</td>
-                <td>{{ node.hostname }}</td>
-                <td>{{ node.revision }}</td>
-                <td>{{ node.last_checkin }}</td>
+                <td>{{ nodes.node.hostname }}</td>
+                <td>{{ nodes.node.revision }}</td>
+                <td>{{ nodes.node.last_checkin }}</td>
             </tr>
         {% endfor %}
     {% endif %}
