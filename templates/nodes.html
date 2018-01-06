@@ -18,18 +18,19 @@
         $.get('/nodes/refresh', function(result){
             for (var key in result){
                 id = key.replace(/\./g, '');
+                link = 'https://' + key + ':31415/';
                 if ( $('#' + id).length ){
-                    $('#' + id + '_ipaddress').text(key);
-                    $('#' + id + '_hostname').text(result[key].hostname);
-                    $('#' + id + '_model').text(result[key].model + ' (' + result[key].revision + ')');
-                    $('#' + id + '_last_checkin').text(result[key].last_checkin);
+                    $('#' + id + '_ipaddress').text('<a href="' + link + '" class="node">' + key + '</a>');
+                    $('#' + id + '_hostname').text('<a href="' + link + '" class="node">' + result[key].hostname + '</a>');
+                    $('#' + id + '_model').text('<a href="' + link + '" class="node">' + result[key].model + ' (' + result[key].revision + ')</a>');
+                    $('#' + id + '_last_checkin').text('<a href="' + link + '" class="node">' + result[key].last_checkin + '</a>');
                 } else {
                     $('#nodes tr:last').after(
                             '<tr id="' + id + '">'
-                            + '<td id="' + id + '_ipaddress">' + key + '</td>'
-                            + '<td id="' + id + '_hostname">' + result[key].hostname + '</td>'
-                            + '<td id="' + id + '_model">' + result[key].model + ' (' + result[key].revision + ')</td>'
-                            + '<td id="' + id + '_last_checkin">' + result[key].last_checkin + '</td>'
+                            + '<td id="' + id + '_ipaddress"><a href="' + link + '" class="node">' + key + '</a></td>'
+                            + '<td id="' + id + '_hostname"><a href="' + link + '" class="node">' + result[key].hostname + '</a></td>'
+                            + '<td id="' + id + '_model"><a href="' + link + '" class="node">' + result[key].model + ' (' + result[key].revision + ')</a></td>'
+                            + '<td id="' + id + '_last_checkin"><a href="' + link + '" class="node">' + result[key].last_checkin + '</a></td>'
                             + '</tr>'
                         );
                 }
