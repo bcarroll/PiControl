@@ -182,11 +182,8 @@ def configuration_update():
         # Update database with new configuration
         update_config(beacon_port, beacon_interval, secret_key, log_level, log_file)
         # Get current configuration from database
-        configuration = get_config()
-        return(render_template('config_update.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file']))
-    else:
-        return(render_template('index.html'))
-
+    configuration = get_config()
+    return(render_template('config_update.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file']))
 #####################################################################################
 
 @app.route('/cpu/usage')
