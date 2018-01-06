@@ -104,7 +104,7 @@ def pi_revision():
     revision = os.popen("cat /proc/cpuinfo|grep '^Revision'|awk '{print $3}'").read().splitlines()
     return(revision[0])
 
-def pi_model(revision):
+def pi_model(revision, type='JSON'):
     pi = {}
     pi['0002']   = {"model": "Model B v1.0","ram": "256MB"}
     pi['0003']   = {"model": "Model B v1.0","ram": "256MB"}
@@ -137,7 +137,10 @@ def pi_model(revision):
     pi['a22042'] = {"model": "2 Model B v1.2","ram": "1GB"}
     pi['a22082'] = {"model": "3 Model B v1.2","ram": "1GB"}
     pi['a32082'] = {"model": "3 Model B v1.2","ram": "1GB"}
-    return jsonify(pi[revision])
+    if type == 'JSON':
+        return jsonify(pi[revision])
+    else:
+        return(pi[revision])
 
 def gpio_info():
     gpio_info = os.popen("gpio readall|grep -v '\-\-\-'| grep -v 'Physical'|tr -s ' '").read().replace('||', '|').splitlines()
