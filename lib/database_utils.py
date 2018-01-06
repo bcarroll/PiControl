@@ -4,6 +4,8 @@ from time import time
 import logging
 import datetime
 
+from lib.pi_utilities import pi_model
+
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 
 def create_database(database_file='db/PiControl.db'):
@@ -149,6 +151,7 @@ def get_nodes(database_file='db/PiControl.db'):
             nodes[row[0]] = {
                 "hostname": row[1],
                 "revision": row[2],
+                "model": pi_model(row[2]),
                 "last_checkin": datetime.datetime.fromtimestamp(row[3]).strftime('%c')
             }
     except Error as (e):
