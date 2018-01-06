@@ -17,10 +17,10 @@
 
     function get_nodes(){
         $.get('/nodes/refresh', function(result){
-            console.log(result[0]);
+            console.log(result);
             for (i = 0; i < result.length; i++) {
                 id = result[i].ipaddress.replace(/\./g, '');
-                link = 'https://' + key.ipaddress + ':31415/';
+                link = 'https://' + result[i].ipaddress + ':31415/';
                 if ( $('#' + id).length ){
                     $('#' + id + '_ipaddress').text(result[i].ipaddress);
                     $('#' + id + '_hostname').text(result[i].hostname);
