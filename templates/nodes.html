@@ -18,6 +18,7 @@
         $.get('/nodes/refresh', function(result){
             for (var key in result){
                 id = key.replace(/\./g, '');
+                link = 'https://' + key + ':31415/';
                 if ( $('#' + id).length ){
                     $('#' + id + '_ipaddress').text(key);
                     $('#' + id + '_hostname').text(result[key].hostname);
