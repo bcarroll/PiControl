@@ -4,6 +4,8 @@ from time import time
 import logging
 import datetime
 
+from flask import jsonify
+
 from lib.pi_utilities import pi_model
 
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
@@ -158,4 +160,5 @@ def get_nodes(database_file='db/PiControl.db'):
         logging.error(e)
     return (nodes)
 
-
+def get_nodes_json():
+    return jsonify(get_nodes())

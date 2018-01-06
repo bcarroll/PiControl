@@ -27,7 +27,7 @@ from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, pi_model, process_list, gpio_info
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
 from lib.pyDash import get_netstat, get_platform
-from lib.database_utils import create_database, get_config, update_config, get_nodes
+from lib.database_utils import create_database, get_config, update_config, get_nodes, get_nodes_json
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -196,8 +196,7 @@ def get_discovered_nodes():
 @app.route('/nodes/refresh')
 @require_login
 def refresh_discovered_nodes():
-    nodes = get_nodes()
-    return (nodes)
+    return (get_nodes_json())
 
 #####################################################################################
 
