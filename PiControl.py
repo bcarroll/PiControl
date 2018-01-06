@@ -195,7 +195,7 @@ def get_discovered_nodes():
 @app.route('/nodes/refresh')
 @require_login
 def refresh_discovered_nodes():
-    return (get_nodes(type='JSON'))
+    return (get_nodes())
 
 #####################################################################################
 
