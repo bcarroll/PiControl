@@ -3,8 +3,6 @@ from sqlite3 import Error
 from time import time
 import logging
 
-from flask import jsonify
-
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 
 def create_database(database_file='db/PiControl.db'):
@@ -119,7 +117,7 @@ def get_config(database_file='db/PiControl.db'):
                 }
             # Close the database connection
             conn.close()
-            return (jsonify(config))
+            return (config)
         except Error as (e):
             logging.error(e)
     except Error as e:
