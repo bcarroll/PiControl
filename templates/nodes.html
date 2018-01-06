@@ -11,13 +11,13 @@
         <th>Last Checkin</th>
     </tr>
 </table>
-<div id="debugging"></div>
+
 <script>
     get_nodes();
 
     function get_nodes(){
         $.get('/nodes/refresh', function(result){
-            $('#debugging').text(result);
+            console.log(result);
             for (var key in result){
                 id = key.replace(/\./g, '');
                 link = 'https://' + key + ':31415/';
