@@ -190,8 +190,7 @@ def configuration_update():
 @app.route('/nodes')
 @require_login
 def get_discovered_nodes():
-    nodes = get_nodes()
-    return(render_template('nodes.html', nodes=nodes))
+    return(render_template('nodes.html'))
 
 @app.route('/nodes/refresh')
 @require_login
