@@ -171,7 +171,7 @@ def configuration():
            )
     )
 
-@app.route('/config/update', methods=['POST'])
+@app.route('/settings/update', methods=['POST'])
 def configuration_update():
     if request.method == 'POST':
         beacon_port=request.form['beacon_port'],
@@ -183,7 +183,7 @@ def configuration_update():
         update_config(beacon_port, beacon_interval, secret_key, log_level, log_file)
         # Get current configuration from database
         configuration = get_config()
-        return(render_template('config.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file']))
+        return(render_template('config_update.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file']))
     else:
         return(render_template('index.html'))
 

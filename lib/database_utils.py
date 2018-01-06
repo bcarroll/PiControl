@@ -35,7 +35,7 @@ def create_tables(connection):
     try:
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'last_checkin' DATETIME NOT NULL)")
-        cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL)")
         create_config(cursor)
     except Error as e:
         logging.error(e)
@@ -61,7 +61,7 @@ def create_config(cursor):
         # No results.  Add the default configuration data
         logging.info('Adding default configuration to the PiControl database.')
         try:
-            cursor.execute("INSERT INTO 'config' ('beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file') VALUES (31415, 60, 'PiControl', 30, 'logs/PiControl.log')")
+            cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file') VALUES ('active', 31415, 60, 'PiControl', 30, 'logs/PiControl.log')")
         except Error as (e):
             logging.error('Error adding default configuration to PiControl database. ' + str(e))
 
@@ -108,7 +108,8 @@ def get_config(database_file='db/PiControl.db'):
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            results = cursor.execute('SELECT beacon_port,beacon_interval,secret_key,log_level,log_file FROM config WHERE id=0')
+            cursor.execute('SELECT beacon_port,beacon_interval,secret_key,log_level,log_file FROM config WHERE id=?', ("active",))
+            results = cursor.fetchone()
             config = {
                     "beacon_port": results[0],
                     "beacon_interval": results[1],
