@@ -32,9 +32,7 @@
                 </div>
                 <ul class="list-unstyled components">
                     <li class="active">
-                        <!-- Terminal is not ready for primetime
-                        <li><a href="{{ url_for('terminal') }}"><i class="fas fa-terminal"></i> Terminal</a></li>
-                        -->
+                        <a id="configuration" href=" {{ url_for('configuration') }}">Settings</a>
                     </li>
                     <li class="active">
                         <a href="#osSubmenu" data-toggle="collapse" aria-expanded="false">System</a>
@@ -73,7 +71,6 @@
                                 {% else %}
                                 <a id="hostname" class="navbar-brand" href="/">PiControl</a>
                                 {% endif %}
-                                <a id="configuration" href=" {{ url_for('configuration') }}">Settings</a>
                                 <div id="pi_model" class="navbar-header"></div>
                             </div>
 

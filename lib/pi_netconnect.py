@@ -154,7 +154,7 @@ class UDPBeaconListener:
                     hostname     = str(hostname)
                     revision     = str(revision)
                     last_checkin = str(int(time()))
-                    update_node(ipaddress, hostname, revision, last_checkin)
                     logging.debug('Beacon received from ' + str(address))
+                    update_node(ipaddress, hostname, revision, last_checkin)
             sleep(0.1)
         self.thread.join(1)
