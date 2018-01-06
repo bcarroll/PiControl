@@ -33,6 +33,14 @@
                             + '<td id="' + id + '_last_checkin"><a href="' + link + '" class="node">' + result[key].last_checkin + '</a></td>'
                             + '</tr>'
                         );
+                    $('#nodes tr:last').after(
+                            '<tr id="' + id + '">'
+                            + '<td id="' + id + '_ipaddress1">' + key + '</td>'
+                            + '<td id="' + id + '_hostname2">' + result[key].hostname + '</td>'
+                            + '<td id="' + id + '_model3">' + result[key].model + ' (' + result[key].revision + ')</td>'
+                            + '<td id="' + id + '_last_checkin4">' + result[key].last_checkin + '</td>'
+                            + '</tr>'
+                        );
                 }
             }
         });
