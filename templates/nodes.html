@@ -17,7 +17,7 @@
 
     function get_nodes(){
         $.get('/nodes/refresh', function(result){
-            console.log(result);
+            console.log(result[0]);
             for (i = 0; i < result.length; i++) {
                 id = result[i].ipaddress.replace(/\./g, '');
                 link = 'https://' + key.ipaddress + ':31415/';

@@ -142,7 +142,7 @@ def get_config(database_file='db/PiControl.db'):
     except Error as e:
         logging.error(e)
 
-def get_nodes(database_file='db/PiControl.db', type='JSON'):
+def get_nodes(database_file='db/PiControl.db'):
     nodes = []
     try:
         conn = sqlite3.connect(database_file)
@@ -160,8 +160,4 @@ def get_nodes(database_file='db/PiControl.db', type='JSON'):
                 })
     except Error as (e):
         logging.error(e)
-
-    if type == 'JSON':
-        return jsonify(nodes)
-    else:
-        return (nodes)
+    return (nodes)
