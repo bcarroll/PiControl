@@ -149,10 +149,12 @@ def get_nodes(database_file='db/PiControl.db'):
         cursor.execute("SELECT ipaddress, hostname, revision, last_checkin FROM nodes")
         rows = cursor.fetchall()
         for row in rows:
+            model = pi_model(row[2])
+            pprint (model)
             nodes[row[0]] = {
                 "hostname": row[1],
                 "revision": row[2],
-                "model": pi_model(row[2])['model'],
+                "model": model['model'],
                 "last_checkin": datetime.datetime.fromtimestamp(row[3]).strftime('%c')
             }
     except Error as (e):
