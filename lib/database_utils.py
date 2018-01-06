@@ -71,6 +71,7 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
         try:
             cursor.execute('UPDATE nodes set (ipaddress={0}, hostname={1}, revision={2}, last_checkin={3}) WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
         except:
+            logging.debug('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
             try:
                 cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, last_checkin) VALUES ({0},{1},{2},{3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
             except Error as (e):
@@ -88,7 +89,7 @@ def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file,
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            cursor.execute('UPDATE config set (beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}) WHERE id=0'.format(beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file)))
+            cursor.execute('UPDATE config set (beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}) WHERE id="active"'.format(beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file)))
         except Error as (e):
             logging.error(e)
         # Commit changes
