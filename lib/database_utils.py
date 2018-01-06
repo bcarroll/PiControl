@@ -143,7 +143,7 @@ def get_config(database_file='db/PiControl.db'):
         logging.error(e)
 
 def get_nodes(database_file='db/PiControl.db', type='JSON'):
-    nodes = {}
+    nodes = []
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
