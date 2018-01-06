@@ -171,7 +171,7 @@ def configuration():
            )
     )
 
-@app.route('/settings/update', methods=['POST'])
+@app.route('/settings/update', methods=['GET','POST'])
 def configuration_update():
     if request.method == 'POST':
         beacon_port=request.form['beacon_port'],
