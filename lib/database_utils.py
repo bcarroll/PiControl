@@ -70,7 +70,7 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
         cursor = conn.cursor()
         try:
             logging.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
-            cursor.execute('UPDATE nodes set (ipaddress={0}, hostname={1}, revision={2}, last_checkin={3}) WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
+            cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, last_checkin={3} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
         except Error as (e):
             logging.debug(str(e))
             try:
