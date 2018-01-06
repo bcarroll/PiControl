@@ -179,16 +179,10 @@ def configuration_update():
         log_level=request.form['log_level'],
         log_file=request.form['log_file']
         # Update database with new configuration
-        update_config
+        update_config(beacon_port, beacon_interval, secret_key, log_level, log_file)
         # Get current configuration from database
         configuration = get_config()
-        return(render_template('config.html',
-                    beacon_port=configuration['beacon_port'],
-                    beacon_interval=configuration['beacon_interval'],
-                    secret_key=configuration['secret_key'],
-                    log_level=configuration['log_level'],
-                    log_file=configuration['log_file']
-               )
+        return(render_template('config.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file']))
     else:
         return(render_template('index.html'))
 
