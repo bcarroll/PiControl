@@ -19,6 +19,8 @@ from flask import abort
 from flask import render_template
 from flask import flash
 from flask import escape
+from flask import jsonify
+
 from flask_sqlalchemy import SQLAlchemy
 
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
