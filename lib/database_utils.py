@@ -4,6 +4,8 @@ from time import time
 import logging
 import datetime
 from pprint import pprint
+#from flask import response
+import json
 
 from lib.pi_utilities import pi_model
 
@@ -149,7 +151,7 @@ def get_nodes(database_file='db/PiControl.db'):
         cursor.execute("SELECT ipaddress, hostname, revision, last_checkin FROM nodes")
         rows = cursor.fetchall()
         for row in rows:
-            model = pi_model(row[2])
+            model = json.dumps(pi_model(row[2]))
             pprint (model)
             nodes[row[0]] = {
                 "hostname": row[1],
