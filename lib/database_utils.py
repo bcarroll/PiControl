@@ -143,12 +143,12 @@ def get_config(database_file='db/PiControl.db'):
         logging.error(e)
 
 def get_nodes(database_file='db/PiControl.db'):
-    nodes = []
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         cursor.execute("SELECT ipaddress, hostname, revision, last_checkin FROM nodes")
         rows = cursor.fetchall()
+        nodes = []
         for row in rows:
             model = pi_model(row[2], type="dict")
             nodes.append({
