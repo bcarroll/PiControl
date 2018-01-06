@@ -85,8 +85,6 @@ class UDPBeacon:
                             #get all the ipaddresses in the ipaddress' network
                             ip_cidr      = IPNetwork(ip_info['addr'] + '/' + ip_info['netmask']).cidr
                             logging.debug('Sending UDPBeacon to ' + str(ip_cidr))
-                            #skip ipaddresses that have already been scanned
-                            logging.debug (ip_list)
                             if str(ip_cidr) in ip_list:
                                 logging.debug("skipping " + str(ip_cidr))
                                 continue
