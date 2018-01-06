@@ -152,7 +152,6 @@ def get_nodes(database_file='db/PiControl.db'):
         rows = cursor.fetchall()
         for row in rows:
             model = pi_model(row[2], type="dict")
-            pprint (model)
             nodes[row[0]] = {
                 "hostname": row[1],
                 "revision": row[2],
@@ -162,7 +161,3 @@ def get_nodes(database_file='db/PiControl.db'):
     except Error as (e):
         logging.error(e)
     return (nodes)
-
-def get_nodes_json():
-    pprint(get_nodes())
-    return (get_nodes())
