@@ -17,21 +17,19 @@
     function get_nodes(){
         $.get('/nodes/refresh', function(result){
             for (var key in result){
-                key = String(key);
-                if ( $('#' + key).length ){
-                    $('#' + key + '_ipaddress').text(key);
-                    $('#' + key + '_hostname').text(result[key].hostname);
-                    $('#' + key + '_model').text(result[key].model + ' (' + result[key].revision + ')');
-                    $('#' + key + '_last_checkin').text(result[key].last_checkin);
+                id = key.replace(/\./g, '');
+                if ( $('#' + id).length ){
+                    $('#' + id + '_ipaddress').text(key);
+                    $('#' + id + '_hostname').text(result[key].hostname);
+                    $('#' + id + '_model').text(result[key].model + ' (' + result[key].revision + ')');
+                    $('#' + id + '_last_checkin').text(result[key].last_checkin);
                 } else {
                     $('#nodes tr:last').after(
-                            '<tr id="' + key + '">'
-                            /*
-                            + '<td id="' + key + '_ipaddress">' + key + '</td>'
-                            + '<td id="' + key + '_hostname">' + result[key].hostname + '</td>'
-                            + '<td id="' + key + '_model">' + result[key].model + ' (' + result[key].revision + ')</td>'
-                            + '<td id="' + key + '_last_checkin">' + result[key].last_checkin + '</td>'
-                            */
+                            '<tr id="' + id + '">'
+                            + '<td id="' + id + '_ipaddress">' + key + '</td>'
+                            + '<td id="' + id + '_hostname">' + result[key].hostname + '</td>'
+                            + '<td id="' + id + '_model">' + result[key].model + ' (' + result[key].revision + ')</td>'
+                            + '<td id="' + id + '_last_checkin">' + result[key].last_checkin + '</td>'
                             + '</tr>'
                         );
                 }
