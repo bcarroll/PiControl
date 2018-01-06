@@ -161,4 +161,4 @@ def get_nodes(database_file='db/PiControl.db'):
 
 def get_nodes_json():
     pprint(get_nodes())
-    return jsonify(get_nodes())
+    return (get_nodes())
