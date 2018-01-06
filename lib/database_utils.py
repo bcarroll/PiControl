@@ -71,7 +71,7 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
         try:
             cursor.execute('SELECT ipaddress FROM nodes WHERE ipaddress={0}'.format("'{}'".format(ipaddress)))
             results = cursor.fetchone()
-            if results[0]:
+            if results:
                 try:
                     logging.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
                     cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, last_checkin={3} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
