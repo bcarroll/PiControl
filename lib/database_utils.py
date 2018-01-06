@@ -69,8 +69,10 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
+            logging.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
             cursor.execute('UPDATE nodes set (ipaddress={0}, hostname={1}, revision={2}, last_checkin={3}) WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
-        except:
+        except Error as(e):
+            logging.debug(e)
             try:
                 logging.debug('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
                 cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, last_checkin) VALUES ({0},{1},{2},{3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
