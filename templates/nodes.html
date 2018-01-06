@@ -3,7 +3,7 @@
 
 {%block body%}
 <h1 class="page-header" id="page-header" title="Raspberry Pi devices (running PiControl) on the network from which we have received a UDP Beacon"><i class="fas fa-share-alt"></i> Discovered PiControl Nodes</h1>
-<table class="table-hover" style="width:100%;" width="100%" id="nodes">
+<table id="nodes" class="table table-hover" style="width:100%;" width="100%">
     <tr>
         <th>IP Address</th>
         <th>Hostname</th>
@@ -25,10 +25,12 @@
                 } else {
                     $('#nodes tr:last').after(
                             '<tr id="' + key + '">'
+                            /*
                             + '<td id="' + key + '_ipaddress">' + key + '</td>'
                             + '<td id="' + key + '_hostname">' + result[key].hostname + '</td>'
                             + '<td id="' + key + '_model">' + result[key].model + ' (' + result[key].revision + ')</td>'
                             + '<td id="' + key + '_last_checkin">' + result[key].last_checkin + '</td>'
+                            */
                             + '</tr>'
                         );
                 }
