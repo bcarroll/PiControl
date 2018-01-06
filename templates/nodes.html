@@ -26,20 +26,15 @@
                 console.log('LINK: ' + link);
                 console.log('ipaddress: ' + result[i].ipaddress);
                 if ( $('#' + id).length ){
-                    console.log('$(\'#' + id + '\' already exists');
+                    console.log('$(\'#' + id + '\') already exists');
                     $('#' + id + '_ipaddress').text(result[i].ipaddress);
                     $('#' + id + '_hostname').text(result[i].hostname);
                     $('#' + id + '_model').text(result[i].model + ' (' + result[i].revision + ')');
                     $('#' + id + '_last_checkin').text(result[i].last_checkin);
                 } else {
-                    console.log('$(\'#' + id + '\' does not exist');
+                    console.log('$(\'#' + id + '\') does not exist');
                     $('#nodes tr:last').after(
-                            '<tr id="' + id + '">'
-                            + '<td id="' + id + '_ipaddress">' + result[i].ipaddress + '</td>'
-                            + '<td id="' + id + '_hostname">' + result[i].hostname + '</td>'
-                            + '<td id="' + id + '_model">' + result[i].model + ' (' + result[i].revision + ')</td>'
-                            + '<td id="' + id + '_last_checkin">' + result[i].last_checkin + '</td>'
-                            + '</tr>'
+                            '<tr id="' + id + '"><td id="' + id + '_ipaddress">' + result[i].ipaddress + '</td><td id="' + id + '_hostname">' + result[i].hostname + '</td><td id="' + id + '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + id + '_last_checkin">' + result[i].last_checkin + '</td></tr>'
                         );
                 }
             }
