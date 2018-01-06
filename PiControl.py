@@ -19,7 +19,6 @@ from flask import abort
 from flask import render_template
 from flask import flash
 from flask import escape
-from flask import jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -197,7 +196,7 @@ def get_discovered_nodes():
 @app.route('/nodes/refresh')
 @require_login
 def refresh_discovered_nodes():
-    return jsonify(get_nodes())
+    return (get_nodes())
 
 #####################################################################################
 
