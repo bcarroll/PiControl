@@ -11,7 +11,7 @@
         <th>Last Checkin</th>
     </tr>
 </table>
-
+<table id="test"></table>
 <script>
     get_nodes();
 
@@ -22,6 +22,7 @@
             for (i = 0; i < result.length; i++) {
                 id = result[i].ipaddress.replace(/\./g, '');
                 link = 'https://' + result[i].ipaddress + ':31415/';
+                $('#test tr:after').after('<tr><td>' + id + '</td><td>' + link + '</td>')
                 console.log('ID: ' + id);
                 console.log('LINK: ' + link);
                 console.log('ipaddress: ' + result[i].ipaddress);
