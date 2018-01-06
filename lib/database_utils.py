@@ -71,8 +71,8 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
         try:
             cursor.execute('UPDATE nodes set (ipaddress={0}, hostname={1}, revision={2}, last_checkin={3}) WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
         except:
-            logging.debug('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
             try:
+                logging.debug('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
                 cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, last_checkin) VALUES ({0},{1},{2},{3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
             except Error as (e):
                 logging.error(e)
