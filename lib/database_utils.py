@@ -154,7 +154,7 @@ def get_nodes(database_file='db/PiControl.db'):
             nodes[row[0]] = {
                 "hostname": row[1],
                 "revision": row[2],
-                "model": model['model'],
+                #"model": model['model'],
                 "last_checkin": datetime.datetime.fromtimestamp(row[3]).strftime('%c')
             }
     except Error as (e):
