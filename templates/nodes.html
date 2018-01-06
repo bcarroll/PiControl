@@ -3,22 +3,39 @@
 
 {%block body%}
 <h1 class="page-header" id="page-header" title="Raspberry Pi devices (running PiControl) on the network from which we have received a UDP Beacon"><i class="fas fa-share-alt"></i> Discovered PiControl Nodes</h1>
-<table class="table-hover" style="width:100%;" width="100%">
+<table class="table-hover" style="width:100%;" width="100%" id="nodes">
     <tr>
         <th>IP Address</th>
         <th>Hostname</th>
         <th>Model (Revision)</th>
         <th>Last Checkin</th>
     </tr>
-    {% if nodes %}
-        {% for node in nodes %}
-            <tr>
-                <td>{{ node }}</td>
-                <td>{{ nodes[node].hostname }}</td>
-                <td>{{ nodes[node].model.model }}({{ nodes[node].revision }})</td>
-                <td>{{ nodes[node].last_checkin }}</td>
-            </tr>
-        {% endfor %}
-    {% endif %}
 </table>
+<script>
+    get_nodes();
+
+    function get_nodes(){
+        $.get('/nodes/refresh', function(result){
+            for (var key in result){
+                if ( $('#node_' + key).length ){
+                    $('#node_' + key + '_ipaddress').text(key);
+                    $('#node_' + key + '_hostname').text(result[key].hostname);
+                    $('#node_' + key + '_model').text(result[key].model + ' (' + result[key].revision + ')');
+                    $('#node_' + key + '_last_checkin').text(result[key].last_checkin);
+                } else {
+                    $('#nodes tr:last').after(
+                            '<tr id="node_' + key + '">'
+                            + '<td id="node_' + key + '_ipaddress">' + key + '</td>'
+                            + '<td id="node_' + key + '_hostname">' + result[key].hostname + '</td>'
+                            + '<td id="node_' + key + '_model">' + result[key].model + ' (' + result[key].revision + ')</td>'
+                            + '<td id="node_' + key + '_last_checkin">' + result[key].last_checkin + '</td>'
+                            + '</tr>'
+                        );
+                }
+            }
+        });
+    }
+
+    setInterval(get_nodes,5000);
+</script>
 {%endblock%}

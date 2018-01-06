@@ -191,6 +191,12 @@ def configuration_update():
 def get_discovered_nodes():
     nodes = get_nodes()
     return(render_template('nodes.html', nodes=nodes))
+
+@app.route('/nodes/refresh')
+@require_login
+def refresh_discovered_nodes():
+    return jsonify(get_nodes())
+
 #####################################################################################
 
 @app.route('/cpu/usage')
