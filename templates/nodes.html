@@ -15,7 +15,7 @@
             <tr>
                 <td>{{ node }}</td>
                 <td>{{ nodes[node].hostname }}</td>
-                <td>{{ nodes[node].model }}({{ nodes[node].revision }})</td>
+                <td>{{ nodes[node].model.model }}({{ nodes[node].revision }})</td>
                 <td>{{ nodes[node].last_checkin }}</td>
             </tr>
         {% endfor %}
