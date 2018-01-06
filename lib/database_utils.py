@@ -149,15 +149,15 @@ def get_nodes(database_file='db/PiControl.db', type='JSON'):
         cursor = conn.cursor()
         cursor.execute("SELECT ipaddress, hostname, revision, last_checkin FROM nodes")
         rows = cursor.fetchall()
-        index = 0
         for row in rows:
             model = pi_model(row[2], type="dict")
-            nodes[index]['ipaddress'] = row[0]
-            nodes[index]['hostname'] = row[1]
-            nodes[index]['revision'] = row[2]
-            nodes[index]['model'] = model['model']
-            nodes[index]['last_checkin'] = datetime.datetime.fromtimestamp(row[3]).strftime('%c')
-            index = index + 1
+            nodes.append({
+                    "ipaddress": row[0],
+                    "hostname": row[1],
+                    "revision": row[2],
+                    "model": model['model'],
+                    "last_checkin": datetime.datetime.fromtimestamp(row[3]).strftime('%c')
+                })
     except Error as (e):
         logging.error(e)
 
