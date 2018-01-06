@@ -13,7 +13,8 @@
     *    ``cd /directory/where/you/cloned-or_unzipped``
     *    ``sudo pip install Flask Flask-SSLify flask_sqlalchemy ipaddress netifaces netaddr psutil simplepam wiringpi``
 4.    *Optional* - Start PiControl when your Raspberry Pi boots
-    *    ``echo sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py & >> /etc/rc.local``
+    *    ``echo "Start PiControl"| sudo tee --append /etc/rc.local``
+    *    ``echo "sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py &"| sudo tee --append /etc/rc.local``
 
     The above command adds a new line to /etc/rc.local which will start PiControl as the "pi" user when the Raspberry Pi boots.
     If you remove the "sudo -u pi" part, PiControl will run as "root" (not advised, for security reasons).
