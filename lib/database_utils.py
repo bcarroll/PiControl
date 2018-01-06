@@ -4,8 +4,7 @@ from time import time
 import logging
 import datetime
 from pprint import pprint
-#from flask import response
-import json
+from flask import jsonify
 
 from lib.pi_utilities import pi_model
 
@@ -143,7 +142,7 @@ def get_config(database_file='db/PiControl.db'):
     except Error as e:
         logging.error(e)
 
-def get_nodes(database_file='db/PiControl.db'):
+def get_nodes(database_file='db/PiControl.db', type='JSON'):
     nodes = {}
     try:
         conn = sqlite3.connect(database_file)
@@ -160,4 +159,8 @@ def get_nodes(database_file='db/PiControl.db'):
             }
     except Error as (e):
         logging.error(e)
-    return (nodes)
+
+    if type == 'JSON':
+        return jsonify(nodes)
+    else:
+        return (nodes)
