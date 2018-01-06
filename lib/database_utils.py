@@ -3,6 +3,8 @@ from sqlite3 import Error
 from time import time
 import logging
 
+from flask import jsonify
+
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 
 def create_database(database_file='db/PiControl.db'):
@@ -59,7 +61,7 @@ def create_config(cursor):
         # No results.  Add the default configuration data
         logging.info('Adding default configuration to the PiControl database.')
         try:
-            cursor.execute("INSERT INTO 'config' ('beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file') VALUES (31415, 60, 'PiControl', 1, 'logs/PiControl.log')")
+            cursor.execute("INSERT INTO 'config' ('beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file') VALUES (31415, 60, 'PiControl', 30, 'logs/PiControl.log')")
         except Error as (e):
             logging.error('Error adding default configuration to PiControl database. ' + str(e))
 
@@ -69,15 +71,55 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            conn.cursor().execute('UPDATE  nodes set (ipaddress={0}, hostname={1}, revision={2}, last_checkin={3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
+            cursor.execute('UPDATE nodes set (ipaddress={0}, hostname={1}, revision={2}, last_checkin={3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
         except:
             try:
-                conn.cursor().execute('INSERT INTO nodes (ipaddress, hostname, revision, last_checkin) VALUES ({0},{1},{2},{3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
+                cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, last_checkin) VALUES ({0},{1},{2},{3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
             except Error as (e):
                 logging.error(e)
         # Commit changes
         conn.commit()
         # Close the database connection
         conn.close()
+    except Error as e:
+        logging.error(e)
+
+def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file):
+    logging.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file))
+    try:
+        conn = sqlite3.connect(database_file)
+        cursor = conn.cursor()
+        try:
+            cursor.execute('UPDATE config set (beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}) WHERE id=0'.format(beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file)))
+        except Error as (e):
+            logging.error(e)
+        # Commit changes
+        conn.commit()
+        # Close the database connection
+        conn.close()
+    except Error as e:
+        logging.error(e)
+
+def get_config():
+    '''
+    Returns PiControl configuration (from the PiControl database) in JSON
+    '''
+    try:
+        conn = sqlite3.connect(database_file)
+        cursor = conn.cursor()
+        try:
+            results = cursor.execute('SELECT beacon_port,beacon_interval,secret_key,log_level,log_file FROM config WHERE id=0')
+            config = {
+                    "beacon_port": results[0],
+                    "beacon_interval": results[1],
+                    "secret_key": results[2],
+                    "log_level": results[3],
+                    "log_file": results[4]
+                }
+            # Close the database connection
+            conn.close()
+            return (jsonify(config))
+        except Error as (e):
+            logging.error(e)
     except Error as e:
         logging.error(e)

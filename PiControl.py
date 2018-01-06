@@ -25,7 +25,7 @@ from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, pi_model, process_list, gpio_info
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
 from lib.pyDash import get_netstat, get_platform
-from lib.database_utils import create_database
+from lib.database_utils import create_database, get_config, update_config
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -157,6 +157,40 @@ def terminal():
 def gpio():
     return( render_template('gpio.html', user=escape(session['username'])) )
 
+@app.route('/settings')
+@require_login
+def configuration():
+    configuration = get_config()
+    return(render_template('config.html',
+                beacon_port=configuration['beacon_port'],
+                beacon_interval=configuration['beacon_interval'],
+                secret_key=configuration['secret_key'],
+                log_level=configuration['log_level'],
+                log_file=configuration['log_file']
+           )
+    )
+
+@app.route('/config/update', methods=['POST'])
+def configuration_update():
+    if request.method == 'POST':
+        beacon_port=request.form['beacon_port'],
+        beacon_interval=request.form['beacon_interval'],
+        secret_key=request.form['secret_key'],
+        log_level=request.form['log_level'],
+        log_file=request.form['log_file']
+        # Update database with new configuration
+        update_config
+        # Get current configuration from database
+        configuration = get_config()
+        return(render_template('config.html',
+                    beacon_port=configuration['beacon_port'],
+                    beacon_interval=configuration['beacon_interval'],
+                    secret_key=configuration['secret_key'],
+                    log_level=configuration['log_level'],
+                    log_file=configuration['log_file']
+               )
+    else:
+        return(render_template('index.html'))
 
 #####################################################################################
 
