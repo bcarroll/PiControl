@@ -2,7 +2,7 @@
 {%block title%}Nodes{% endblock %}
 
 {%block body%}
-<h1 class="page-header" id="page-header" title="Discovered Raspberry Pi devices (running PiControl)"><i class="fas fa-share-alt"></i> Discovered PiControl Nodes</h1>
+<h1 class="page-header" id="page-header" title="Raspberry Pi devices (running PiControl) on the network from which we have received a UDP Beacon"><i class="fas fa-share-alt"></i> Discovered PiControl Nodes</h1>
 <table id="nodes" class="table table-hover" style="width:100%;" width="100%">
     <tr>
         <th>IP Address</th>
@@ -31,14 +31,6 @@
                             + '<td id="' + id + '_hostname"><a href="' + link + '" class="node">' + result[key].hostname + '</a></td>'
                             + '<td id="' + id + '_model"><a href="' + link + '" class="node">' + result[key].model + ' (' + result[key].revision + ')</a></td>'
                             + '<td id="' + id + '_last_checkin"><a href="' + link + '" class="node">' + result[key].last_checkin + '</a></td>'
-                            + '</tr>'
-                        );
-                    $('#nodes tr:last').after(
-                            '<tr id="' + id + '">'
-                            + '<td id="' + id + '_ipaddress1">' + key + '</td>'
-                            + '<td id="' + id + '_hostname2">' + result[key].hostname + '</td>'
-                            + '<td id="' + id + '_model3">' + result[key].model + ' (' + result[key].revision + ')</td>'
-                            + '<td id="' + id + '_last_checkin4">' + result[key].last_checkin + '</td>'
                             + '</tr>'
                         );
                 }
