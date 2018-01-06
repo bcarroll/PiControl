@@ -26,7 +26,7 @@ from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, pi_model, process_list, gpio_info
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
 from lib.pyDash import get_netstat, get_platform
-from lib.database_utils import create_database, get_config, update_config
+from lib.database_utils import create_database, get_config, update_config, get_nodes
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -172,6 +172,7 @@ def configuration():
     )
 
 @app.route('/settings/update', methods=['GET','POST'])
+@require_login
 def configuration_update():
     if request.method == 'POST':
         beacon_port=request.form['beacon_port'],
@@ -184,6 +185,12 @@ def configuration_update():
         # Get current configuration from database
     configuration = get_config()
     return(render_template('config_update.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file']))
+
+@app.route('/nodes')
+@require_login
+def get_discovered_nodes():
+    nodes = get_nodes()
+    return(render_template('nodes.html', nodes=nodes))
 #####################################################################################
 
 @app.route('/cpu/usage')
