@@ -21,6 +21,10 @@ td {
     padding-right: 10px;
 }
 
+.node {
+    text-decoration: none;
+}
+
 .heading {
     background-color: #8c8c8c;
 }
