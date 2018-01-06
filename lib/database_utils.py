@@ -3,8 +3,7 @@ from sqlite3 import Error
 from time import time
 import logging
 import datetime
-
-from flask import jsonify
+from pprint import pprint
 
 from lib.pi_utilities import pi_model
 
@@ -161,4 +160,5 @@ def get_nodes(database_file='db/PiControl.db'):
     return (nodes)
 
 def get_nodes_json():
+    pprint(get_nodes())
     return jsonify(get_nodes())
