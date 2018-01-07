@@ -5,6 +5,8 @@ import re
 import subprocess
 from flask import jsonify
 import psutil
+from lib._logging import logger, handler
+log_handler = handler
 
 ########################################################################
 # vcgencmd command references:
