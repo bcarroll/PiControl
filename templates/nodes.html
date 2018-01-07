@@ -17,8 +17,7 @@
 
     function get_nodes(){
         $.get('/nodes/refresh', function(result){
-            print(result);
-            print (result.node);
+            console.log(result);
             for (i = 0; i < result.node.length; i++) {
                 link = 'https://' + result.node[i].ipaddress + ':31415/';
                 if ( $('#' + i).length ){
