@@ -104,6 +104,13 @@ def pi_revision():
     revision = os.popen("cat /proc/cpuinfo|grep '^Revision'|awk '{print $3}'").read().splitlines()
     return(revision[0])
 
+def get_pi_serialnumber():
+    '''
+    Return the Raspberry Pi serial number
+    '''
+    serialnumber = os.popen("cat /proc/cpuinfo|grep '^Serial'|awk '{print $3}'").read().splitlines()
+    return(serialnumber[0])
+
 def pi_model(revision, type='JSON'):
     pi = {}
     pi['0002']   = {"model": "Model B v1.0","ram": "256MB"}
