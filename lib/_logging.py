@@ -31,7 +31,6 @@ if not os.path.exists(LOG_DIR):
 
 #######################################################################
 #Setup logging
-global logger
 logger    = logging.getLogger(__name__)
 logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
@@ -52,13 +51,11 @@ hander = logging.StreamHandler()
 if log_level == 0:
     #Logging is disabled
     handler = logging.NullHandler()
+    print ('Logging is disabled')
 else:
     handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_roll_size, backupCount=log_files_backup)
+    print('Logging to ' + log_file + '. Rollover size is ' + log_roll_size + ' bytes. Keeping ' + log_files_backup + ' logfiles.')
 
 handler.setFormatter(logformat)
 logger.addHandler(handler)
 logger.setLevel(loglevel)
-
-def get_logger():
-    global logger
-    return(logger)
