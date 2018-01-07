@@ -37,7 +37,7 @@ def create_tables(connection):
     '''
     try:
         cursor = connection.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'last_checkin' DATETIME NOT NULL)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL,'last_checkin' DATETIME NOT NULL)")
         cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL)")
         create_config(cursor)
     except Error as e:
@@ -68,8 +68,8 @@ def create_config(cursor):
         except Error as (e):
             logging.error('Error adding default configuration to PiControl database. ' + str(e))
 
-def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/PiControl.db'):
-    logging.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", last_checkin=" + str(last_checkin))
+def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, database_file='db/PiControl.db'):
+    logging.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
@@ -79,14 +79,14 @@ def update_node(ipaddress, hostname, revision, last_checkin, database_file='db/P
             if results:
                 try:
                     logging.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
-                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, last_checkin={3} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
+                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, last_checkin={3} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
                 except Error as (e):
                     logging.debug(str(e))
                     return()
             else:
                 try:
                     logging.debug('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
-                    cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, last_checkin) VALUES ({0},{1},{2},{3})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), last_checkin))
+                    cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, serialnumber, last_checkin) VALUES ({0},{1},{2},{3},{4})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
                 except Error as (e):
                     logging.error(e)
                     return()
@@ -146,7 +146,7 @@ def get_nodes(database_file='db/PiControl.db'):
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
-        cursor.execute("SELECT ipaddress, hostname, revision, last_checkin FROM nodes")
+        cursor.execute("SELECT ipaddress, hostname, revision, serialnumber, last_checkin FROM nodes")
         rows = cursor.fetchall()
         nodes = []
         for row in rows:
@@ -156,7 +156,8 @@ def get_nodes(database_file='db/PiControl.db'):
                     "hostname": row[1],
                     "revision": row[2],
                     "model": model['model'],
-                    "last_checkin": datetime.datetime.fromtimestamp(row[3]).strftime('%c')
+                    "serialnumber": row[3],
+                    "last_checkin": datetime.datetime.fromtimestamp(row[4]).strftime('%c')
                 })
     except Error as (e):
         logging.error(e)
