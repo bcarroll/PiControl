@@ -1,3 +1,4 @@
+# coding=utf8
 # Functions derived from the pyDash project
 #    https://github.com/k3oni/pydash
 import os

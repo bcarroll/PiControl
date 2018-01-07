@@ -1,3 +1,4 @@
+# coding=utf8
 from flask import jsonify
 import netifaces
 from pprint import pprint

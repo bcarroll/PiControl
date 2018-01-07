@@ -1,4 +1,4 @@
-
+# coding=utf8
 from OpenSSL import crypto, SSL
 from socket import gethostname
 from time import gmtime, mktime
@@ -11,7 +11,7 @@ def generate_ssl_cert(certfile='SSL/server.crt', keyfile='SSL/server.key', key_s
 	# create a key pair
 	key = crypto.PKey()
 	key.generate_key(crypto.TYPE_RSA, key_size)
-	
+
 	# create a self-signed cert
 	cert = crypto.X509()
 	cert.get_subject().CN = cn

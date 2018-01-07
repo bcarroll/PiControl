@@ -1,3 +1,4 @@
+# coding=utf8
 import socket
 import netifaces
 import threading
@@ -29,7 +30,7 @@ class UDPBeacon:
         stop beacon loop thread
         '''
         logger.debug('stop() called...')
-        logger.warn('Stopping UDPBeacon sender thread')
+        logger.info('Stopping UDPBeacon sender thread')
         self.looping = False
         self.status  = "stopped"
 
@@ -37,7 +38,7 @@ class UDPBeacon:
         '''
         start beacon loop thread
         '''
-        logger.warn('Starting UDPBeacon sender thread')
+        logger.info('Starting UDPBeacon sender thread')
         logger.debug('start() called...')
         self.looping = True
         self.thread = threading.Thread(name='udp_beacon_sender', target=self._loop)
@@ -54,7 +55,7 @@ class UDPBeacon:
         logger.debug( 'UDPBeacon _loop() started...' )
         #keep track of the ip addresses we have already scanned
         ip_list = []
-        logger.warn('Sending UDP Beacons to UDP port ' + str(self.port))
+        logger.info('Sending UDP Beacons to UDP port ' + str(self.port))
         while self.looping:
             revision = pi_revision()
             hostname = socket.gethostname()
@@ -94,9 +95,8 @@ class UDPBeacon:
                             for ip in ip_cidr:
                                 #skip the network, broadcast, and local addresses
                                 if (ip != ip_cidr.network) and (ip != ip_cidr.broadcast) and (str(IPAddress(ip)) != ip_info['addr']):
-                                    #logger.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
+                                    logger.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
                                     hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                                    #hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
                                     hbSocket.sendto(str(self.message + ';' + hostname + ';' + revision + ';' + serialnumber), (str(IPAddress(ip)), self.port))
             sleep(self.interval)
         self.thread.join(1)
@@ -116,7 +116,7 @@ class UDPBeaconListener:
         stop UDPBeaconListener loop thread
         '''
         logger.debug('stop() called...')
-        logger.warn('Stopping UDPBeaconListener thread')
+        logger.info('Stopping UDPBeaconListener thread')
         self.looping = False
         self.status  = "stopped"
 
@@ -124,7 +124,7 @@ class UDPBeaconListener:
         '''
         start UDPBeaconListener loop thread
         '''
-        logger.warn('Starting UDPBeaconListener thread')
+        logger.info('Starting UDPBeaconListener thread')
         logger.debug('start() called...')
         self.looping = True
         self.thread = threading.Thread(name='udp_beacon_listener', target=self._loop)
@@ -137,7 +137,7 @@ class UDPBeaconListener:
         loop until self.looping == False
         '''
         logger.debug( '_loop() called...' )
-        logger.debug( 'Listening for UDPBeacons from external clients...' )
+        logger.info( 'Listening for UDPBeacons from external clients...' )
         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         hbSocket.bind(('0.0.0.0', self.port))
         logger.warn('Listening for UDP Beacons on UDP port ' + str(self.port))
@@ -150,7 +150,6 @@ class UDPBeaconListener:
                     continue
                 message, hostname, revision, serialnumber = string.split(';')
                 if message == self.message:
-                    #TODO: Add responding clients to database
                     ipaddress    = str(address[0])
                     hostname     = str(hostname)
                     revision     = str(revision)
