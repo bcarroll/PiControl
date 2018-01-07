@@ -1,4 +1,4 @@
-import logging
+#import logging
 import socket
 import netifaces
 import threading
@@ -9,11 +9,11 @@ from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
 
-from lib._logging import logger
+from lib._logging import logger as logging
 from lib.pi_utilities import pi_revision, pi_serialnumber
 from lib.database_utils import update_node
 
-logging.basicConfig(level=logging.INFO, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
+#logging.basicConfig(level=logging.INFO, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 
 class UDPBeacon:
     def __init__(self,message="PiControl_beacon",port=31415,interval=60):
