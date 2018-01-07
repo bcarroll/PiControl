@@ -19,7 +19,7 @@
             for (i = 0; i < result.length; i++) {
                 link = 'https://' + result[i].ipaddress + ':31415/';
                 if ( $('#' + i).length ){
-                    $('#' + i +  '_ipaddress').text(result[i].ipaddress);
+                    $('#' + i +  '_ipaddress').html('a href="' + link + '" target="_blank">' + result[i].ipaddress + '</a>');
                     $('#' + i + '_hostname').text(result[i].hostname);
                     $('#' + i + '_model').text(result[i].model + ' (' + result[i].revision + ')');
                     $('#' + i + '_last_checkin').text(result[i].last_checkin);
