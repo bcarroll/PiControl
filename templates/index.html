@@ -97,13 +97,12 @@
 		get_swap_usage_json();
 
 	    $.get('/model', function(result){
-	    	console.log (result);
 	        $('#model').text(result.model);
 	    });
 
 		$.get('/model/serialnumber', function(result){
 	    	console.log (result);
-	        $('#serialnumber').text(result[0]);
+	        $('#serialnumber').text(result);
 	    });
 
 		function get_platform(){
