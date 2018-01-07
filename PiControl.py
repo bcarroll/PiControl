@@ -299,7 +299,7 @@ def platform():
 def get_gpio():
     return(gpio_info())
 
-@app.route('/model/serialnumber')
+@app.route('/serialnumber')
 @require_login
 def get_pi_serialnumber():
     return(get_pi_serialnumber())
