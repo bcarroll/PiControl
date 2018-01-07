@@ -104,7 +104,7 @@ def pi_revision():
     revision = os.popen("cat /proc/cpuinfo|grep '^Revision'|awk '{print $3}'").read().splitlines()
     return(revision[0])
 
-def get_pi_serialnumber():
+def pi_serialnumber():
     '''
     Return the Raspberry Pi serial number
     '''

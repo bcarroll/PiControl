@@ -102,7 +102,7 @@
 
 		$.get('/serialnumber', function(result){
 	    	console.log (result);
-	        $('#serialnumber').text(result);
+	        $('#serialnumber').text(result.serialnumber);
 	    });
 
 		function get_platform(){
