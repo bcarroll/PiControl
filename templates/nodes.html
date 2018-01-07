@@ -27,7 +27,7 @@
                     $('#' + i + '_last_checkin').text(result[i].last_checkin);
                 } else {
                     console.log('<tr id="' + i + '"><td id="' + i +  '_ipaddress">' + result[i].ipaddress + '</td><td id="' + i +  '_hostname">' + result[i].hostname + '</td><td id="' + i +  '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + i +  '_last_checkin">' + result[i].last_checkin + '</td></tr>');
-                    $('#nodes tr:last').after(
+                    $('#test tr:last').after(
                             '<tr id="' + i +  '"><td id="' + i +  '_ipaddress">' + result[i].ipaddress + '</td><td id="' + i +  '_hostname">' + result[i].hostname + '</td><td id="' + i +  '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + i +  '_last_checkin">' + result[i].last_checkin + '</td></tr>'
                         );
                 }
