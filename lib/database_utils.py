@@ -4,13 +4,11 @@ from time import time
 import datetime
 from pprint import pprint
 from flask import jsonify
-#import logging
+import logging as logger
 
-from _logging import get_logger
 from lib.pi_utilities import pi_model
 
-#logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
-logger = get_logger()
+logger.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 
 def create_database(database_file='db/PiControl.db'):
     '''
