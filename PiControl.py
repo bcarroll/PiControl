@@ -6,7 +6,6 @@ import socket
 import atexit
 import signal
 import logging
-#from logging.handlers import RotatingFileHandler
 from functools import wraps
 
 from flask import Flask
@@ -38,11 +37,10 @@ create_database()
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['SECRET_KEY'] = 'PiControl'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/PiControl.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-app.config['SECRET_KEY'] = 'PiControl'
-
 ################################################
 # Setup logging
 app.logger.addHandler(handler)
@@ -50,6 +48,10 @@ app.logger.addHandler(handler)
 werkzeug_logger = logging.getLogger('werkzeug')
 werkzeug_logger.setLevel(logger.level)
 werkzeug_logger.addHandler(handler)
+
+sqlalchemy_logger = logging.getLogger('sqlalchemy')
+sqlalchemy_logger.setLevel(logger.level)
+sqlalchemy_logger.addHandler(handler)
 
 ################################################
 
@@ -82,17 +84,17 @@ signal.signal(signal.SIGINT, close_running_threads)
 # Error pages
 @app.errorhandler(403)
 def forbidden(error):
-    logging.debug('Returning 403 error page')
+    logger.debug('Returning 403 error page')
     return render_template('errors/403.html'), 403
 
 @app.errorhandler(404)
 def page_not_found(error):
-    logging.debug('Returning 404 error page')
+    logger.debug('Returning 404 error page')
     return render_template('errors/404.html'), 404
 
 @app.errorhandler(500)
 def internal_server_error(error):
-    logging.debug('Returning 500 error page')
+    logger.debug('Returning 500 error page')
     return render_template('errors/500.html'), 500
 ##########################################################
 
@@ -120,10 +122,10 @@ def login():
         password = request.form['password']
         if authenticate(str(username), str(password)):
             session['username'] = request.form['username']
-            logging.info(str(username) + ' successfully logged in')
+            logger.info(str(username) + ' successfully logged in')
             return ( redirect(url_for('index')) )
         else:
-            logging.info('Login failed for ' + str(username))
+            logger.info('Login failed for ' + str(username))
             flash('Invalid username/password', 'error')
             return(render_template('login.html'))
     else:
