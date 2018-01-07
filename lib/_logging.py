@@ -5,7 +5,7 @@ from logging.handlers import RotatingFileHandler
 
 from lib.database_utils import get_config
 
-log_level        = "40"
+log_level        = 40
 log_file         = "logs/PiControl.log"
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
 log_files_backup = 5
@@ -36,12 +36,12 @@ logger    = logging.getLogger(__name__)
 logformat = logging.Formatter(log_format)
 
 loglevels = {
-    "50": logging.CRITICAL,
-    "40": logging.ERROR,
-    "30": logging.WARNING,
-    "20": logging.INFO,
-    "10": logging.DEBUG,
-    "0": "NONE"
+    50: logging.CRITICAL,
+    40: logging.ERROR,
+    30: logging.WARNING,
+    20: logging.INFO,
+    10: logging.DEBUG,
+    0: "NONE"
 }
 
 # Set the logging level
@@ -49,7 +49,7 @@ loglevel = ( loglevels[log_level] )
 
 hander = logging.StreamHandler()
 
-if log_level == "0":
+if log_level == 0:
     #Logging is disabled
     handler = logging.NullHandler()
 else:
