@@ -20,15 +20,15 @@
             $('#test').after('<tr id="result[0]"><td>' + result[0].ipaddress + '</td><td>' + result[0].hostname + '</td>');
             for (i = 0; i < result.length; i++) {
                 link = 'https://' + result[i].ipaddress + ':31415/';
-                if ( $('#' + result[i]).length ){
-                    $('#' + result[i] + '_ipaddress').text(result[i].ipaddress);
-                    $('#' + result[i] + '_hostname').text(result[i].hostname);
-                    $('#' + result[i] + '_model').text(result[i].model + ' (' + result[i].revision + ')');
-                    $('#' + result[i] + '_last_checkin').text(result[i].last_checkin);
+                if ( $('#' + i).length ){
+                    $('#' + i +  '_ipaddress').text(result[i].ipaddress);
+                    $('#' + i + '_hostname').text(result[i].hostname);
+                    $('#' + i + '_model').text(result[i].model + ' (' + result[i].revision + ')');
+                    $('#' + i + '_last_checkin').text(result[i].last_checkin);
                 } else {
-                    console.log('<tr id="' + result[i] + '"><td id="' + result[i] + '_ipaddress">' + result[i].ipaddress + '</td><td id="' + result[i] + '_hostname">' + result[i].hostname + '</td><td id="' + result[i] + '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + result[i] + '_last_checkin">' + result[i].last_checkin + '</td></tr>');
+                    console.log('<tr id="' + i + '"><td id="' + i +  '_ipaddress">' + result[i].ipaddress + '</td><td id="' + i +  '_hostname">' + result[i].hostname + '</td><td id="' + i +  '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + i +  '_last_checkin">' + result[i].last_checkin + '</td></tr>');
                     $('#nodes tr:last').after(
-                            '<tr id="' + result[i] + '"><td id="' + result[i] + '_ipaddress">' + result[i].ipaddress + '</td><td id="' + result[i] + '_hostname">' + result[i].hostname + '</td><td id="' + result[i] + '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + result[i] + '_last_checkin">' + result[i].last_checkin + '</td></tr>'
+                            '<tr id="' + i +  '"><td id="' + i +  '_ipaddress">' + result[i].ipaddress + '</td><td id="' + i +  '_hostname">' + result[i].hostname + '</td><td id="' + i +  '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + i +  '_last_checkin">' + result[i].last_checkin + '</td></tr>'
                         );
                 }
             }
