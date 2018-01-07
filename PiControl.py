@@ -299,10 +299,10 @@ def platform():
 def get_gpio():
     return(gpio_info())
 
-#@app.route('/serialnumber')
-#@require_login
-#def get_pi_serialnumber():
-#    return(get_pi_serialnumber())
+@app.route('/serialnumber')
+@require_login
+def get_pi_serialnumber():
+    return(get_pi_serialnumber())
 
 if __name__ == '__main__':
     context = ('SSL/server.crt', 'SSL/server.key')
