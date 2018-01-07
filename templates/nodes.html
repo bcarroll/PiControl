@@ -18,17 +18,17 @@
     function get_nodes(){
         $.get('/nodes/refresh', function(result){
             console.log(result);
-            for (i = 0; i < result.node.length; i++) {
-                link = 'https://' + result.node[i].ipaddress + ':31415/';
+            for (i = 0; i < result.nodes.length; i++) {
+                link = 'https://' + result.nodes[i].ipaddress + ':31415/';
                 if ( $('#' + i).length ){
-                    $('#' + i +  '_ipaddress').html('<a href="' + link + '" target="_blank">' + result.node[i].ipaddress + '</a>');
-                    $('#' + i + '_hostname').html('<a href="' + link + '" target="_blank">' + result.node[i].hostname + '</a>');
-                    $('#' + i + '_model').html('<a href="' + link + '" target="_blank">' + result.node[i].model + ' (' + result.node[i].revision + ')</a>');
-                    $('#' + i + '_serialnumber').html('<a href="' + link + '" target="_blank">' + result.node[i].serialnumber + '</a>');
-                    $('#' + i + '_last_checkin').html('<a href="' + link + '" target="_blank">' + result.node[i].last_checkin + ' <i class="' + status_icon(result.node[i].last_checkin) + '"></i></a>');
+                    $('#' + i +  '_ipaddress').html('<a href="' + link + '" target="_blank">' + result.nodes[i].ipaddress + '</a>');
+                    $('#' + i + '_hostname').html('<a href="' + link + '" target="_blank">' + result.nodes[i].hostname + '</a>');
+                    $('#' + i + '_model').html('<a href="' + link + '" target="_blank">' + result.nodes[i].model + ' (' + result.nodes[i].revision + ')</a>');
+                    $('#' + i + '_serialnumber').html('<a href="' + link + '" target="_blank">' + result.nodes[i].serialnumber + '</a>');
+                    $('#' + i + '_last_checkin').html('<a href="' + link + '" target="_blank">' + result.nodes[i].last_checkin + ' <i class="' + status_icon(result.nodes[i].last_checkin) + '"></i></a>');
                 } else {
                     $('#nodes_table tr:last').after(
-                            '<tr id="' + i +  '"><td id="' + i +  '_ipaddress"><a href="' + link + '" target="_blank">' + result.node[i].ipaddress + '</a></td><td id="' + i +  '_hostname"><a href="' + link + '" target="_blank">' + result.node[i].hostname + '</a></td><td id="' + i +  '_model"><a href="' + link + '" target="_blank">' + result.node[i].model + ' (' + result.node[i].revision + ')</a></td><td id=' + i + '_serialnumber><a href="' + link + '" target="_blank">' + result.node[i].serialnumber + '</a></td><td id="' + i +  '_last_checkin"><a href="' + link + '" target="_blank">' + result.node[i].last_checkin + ' <i class="' + status_icon(result.node[i].last_checkin) + '"></i></a></td></tr>'
+                            '<tr id="' + i +  '"><td id="' + i +  '_ipaddress"><a href="' + link + '" target="_blank">' + result.nodes[i].ipaddress + '</a></td><td id="' + i +  '_hostname"><a href="' + link + '" target="_blank">' + result.nodes[i].hostname + '</a></td><td id="' + i +  '_model"><a href="' + link + '" target="_blank">' + result.nodes[i].model + ' (' + result.nodes[i].revision + ')</a></td><td id=' + i + '_serialnumber><a href="' + link + '" target="_blank">' + result.nodes[i].serialnumber + '</a></td><td id="' + i +  '_last_checkin"><a href="' + link + '" target="_blank">' + result.nodes[i].last_checkin + ' <i class="' + status_icon(result.nodes[i].last_checkin) + '"></i></a></td></tr>'
                         );
                 }
             }
