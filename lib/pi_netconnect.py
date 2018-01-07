@@ -1,4 +1,4 @@
-import logging
+#import logging
 import socket
 import netifaces
 import threading
@@ -9,6 +9,7 @@ from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
 
+from lib._logging import logger
 from lib.pi_utilities import pi_revision, pi_serialnumber
 from lib.database_utils import update_node
 
