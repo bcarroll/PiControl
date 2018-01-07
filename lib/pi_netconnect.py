@@ -13,8 +13,6 @@ from lib._logging import logger as logging
 from lib.pi_utilities import pi_revision, pi_serialnumber
 from lib.database_utils import update_node
 
-#logging.basicConfig(level=logging.INFO, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
-
 class UDPBeacon:
     def __init__(self,message="PiControl_beacon",port=31415,interval=60):
         '''
@@ -32,7 +30,7 @@ class UDPBeacon:
         stop beacon loop thread
         '''
         logging.debug('stop() called...')
-        logging.info('Stopping UDPBeacon sender thread')
+        logging.warn('Stopping UDPBeacon sender thread')
         self.looping = False
         self.status  = "stopped"
 
@@ -40,6 +38,7 @@ class UDPBeacon:
         '''
         start beacon loop thread
         '''
+        logging.warn('Starting UDPBeacon sender thread')
         logging.debug('start() called...')
         self.looping = True
         self.thread = threading.Thread(name='udp_beacon_sender', target=self._loop)
@@ -56,6 +55,7 @@ class UDPBeacon:
         logging.debug( 'UDPBeacon _loop() started...' )
         #keep track of the ip addresses we have already scanned
         ip_list = []
+        logger.warn('Sending UDP Beacons to UDP port ' + str(self.port))
         while self.looping:
             revision = pi_revision()
             hostname = socket.gethostname()
@@ -117,7 +117,7 @@ class UDPBeaconListener:
         stop UDPBeaconListener loop thread
         '''
         logging.debug('stop() called...')
-        logging.info('Stopping UDPBeaconListener thread')
+        logging.warn('Stopping UDPBeaconListener thread')
         self.looping = False
         self.status  = "stopped"
 
@@ -125,6 +125,7 @@ class UDPBeaconListener:
         '''
         start UDPBeaconListener loop thread
         '''
+        logging.warn('Starting UDPBeaconListener thread')
         logging.debug('start() called...')
         self.looping = True
         self.thread = threading.Thread(name='udp_beacon_listener', target=self._loop)
@@ -140,6 +141,7 @@ class UDPBeaconListener:
         logging.debug( 'Listening for UDPBeacons from external clients...' )
         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         hbSocket.bind(('0.0.0.0', self.port))
+        logger.warn('Listening for UDP Beacons on UDP port ' + str(self.port))
         while self.looping:
             (rfd,wfd,efd) = select.select([hbSocket],[],[])
             if hbSocket in rfd:
