@@ -20,7 +20,7 @@
             $('#test').after('<tr id="result[0]"><td>' + result[0].ipaddress + '</td><td>' + result[0].hostname + '</td>');
             for (i = 0; i < result.length; i++) {
                 link = 'https://' + result[i].ipaddress + ':31415/';
-                if ( $('#' + i).length ){
+                if ( document.getElementById(i) ){
                     $('#' + i +  '_ipaddress').text(result[i].ipaddress);
                     $('#' + i + '_hostname').text(result[i].hostname);
                     $('#' + i + '_model').text(result[i].model + ' (' + result[i].revision + ')');
