@@ -1,4 +1,4 @@
-#import logging
+import logging
 import socket
 import netifaces
 import threading
