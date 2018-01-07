@@ -109,7 +109,7 @@ def get_pi_serialnumber():
     Return the Raspberry Pi serial number
     '''
     serialnumber = os.popen("cat /proc/cpuinfo|grep '^Serial'|awk '{print $3}'").read().splitlines()
-    return(serialnumber[0])
+    return jsonify(serialnumber=serialnumber)
 
 def pi_model(revision, type='JSON'):
     pi = {}
