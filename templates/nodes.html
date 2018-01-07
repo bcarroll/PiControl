@@ -26,7 +26,7 @@
                     $('#' + result[i] + '_model').text(result[i].model + ' (' + result[i].revision + ')');
                     $('#' + result[i] + '_last_checkin').text(result[i].last_checkin);
                 } else {
-                    console.log('$(\'#' + result[i] + '\') does not exist');
+                    console.log('<tr id="' + result[i] + '"><td id="' + result[i] + '_ipaddress">' + result[i].ipaddress + '</td><td id="' + result[i] + '_hostname">' + result[i].hostname + '</td><td id="' + result[i] + '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + result[i] + '_last_checkin">' + result[i].last_checkin + '</td></tr>');
                     $('#nodes tr:last').after(
                             '<tr id="' + result[i] + '"><td id="' + result[i] + '_ipaddress">' + result[i].ipaddress + '</td><td id="' + result[i] + '_hostname">' + result[i].hostname + '</td><td id="' + result[i] + '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + result[i] + '_last_checkin">' + result[i].last_checkin + '</td></tr>'
                         );
