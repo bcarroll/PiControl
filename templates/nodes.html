@@ -11,14 +11,28 @@
         <th>Last Checkin</th>
     </tr>
 </table>
-<table id="test"></table>
 <script>
     get_nodes();
 
     function get_nodes(){
         $.get('/nodes/refresh', function(result){
-            $('#test').after('<tr id="' + result[0] + '><td>' + result[0].ipaddress + '</td><td>' + result[0].hostname + '</td>');
             for (i = 0; i < result.length; i++) {
+                var table = document.getElementById("nodes");
+                var tr = document.createElement("tr");
+                var ipaddress = document.createElement("td");
+                var hostname = document.createElement("td");
+                var model = document.createElement("td");
+                var last_checkin = document.createElement("td");
+                ipaddress.appendChild(document.createTextNode(result[i].ipaddress));
+                hostname.appendChild(document.createTextNode(result[i].hostname));
+                model.appendChild(document.createTextNode(result[i].model));
+                last_checkin.appendChild(document.createTextNode(result[i].last_checkin));
+                tr.appendChild(ipaddress);
+                tr.appendChild(hostname);
+                tr.appendChild(model);
+                tr.appendChild(last_checkin);
+                table.appendChild(tr);
+                /*
                 console.log('i=' + i);
                 link = 'https://' + result[i].ipaddress + ':31415/';
                 if ( document.getElementById(i) ){
@@ -29,12 +43,13 @@
                 } else {
                     console.log('<tr id="' + i + '"><td id="' + i +  '_ipaddress">' + result[i].ipaddress + '</td><td id="' + i +  '_hostname">' + result[i].hostname + '</td><td id="' + i +  '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + i +  '_last_checkin">' + result[i].last_checkin + '</td></tr>');
                     $('test tr:last').after('<tr id="' + i + '"><td id="' + i +  '_ipaddress">' + result[i].ipaddress + '</td><td id="' + i +  '_hostname">' + result[i].hostname + '</td><td id="' + i +  '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + i +  '_last_checkin">' + result[i].last_checkin + '</td></tr>');
-                    /*
+
                     $('#nodes tr:last').after(
                             '<tr id="' + i +  '"><td id="' + i +  '_ipaddress">' + result[i].ipaddress + '</td><td id="' + i +  '_hostname">' + result[i].hostname + '</td><td id="' + i +  '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + i +  '_last_checkin">' + result[i].last_checkin + '</td></tr>'
                         );
-                    */
+
                 }
+                */
             }
         });
     }
