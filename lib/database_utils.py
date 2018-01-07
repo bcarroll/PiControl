@@ -40,7 +40,7 @@ def create_tables(connection):
     try:
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL,'last_checkin' DATETIME NOT NULL)")
-        cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL, 'log_files_backup' INTEGER NOT NULL, 'log_roll_size' INTEGER NOT NULL)")
         create_config(cursor)
     except Error as e:
         logger.error(e)
@@ -66,7 +66,7 @@ def create_config(cursor):
         # No results.  Add the default configuration data
         logger.info('Adding default configuration to the PiControl database.')
         try:
-            cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file') VALUES ('active', 31415, 60, 'PiControl', 10, 'logs/PiControl.log')")
+            cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file', 'log_files_backup', 'log_file_size') VALUES ('active', 31415, 60, 'PiControl', 10, 'logs/PiControl.log', 5, 4096000)")
         except Error as (e):
             logger.error('Error adding default configuration to PiControl database. ' + str(e))
 
@@ -103,13 +103,13 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
         logger.error(e)
         return()
 
-def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, database_file='db/PiControl.db'):
-    logger.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file))
+def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, log_files_backup, log_roll_size, database_file='db/PiControl.db'):
+    logger.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file) + ', log_files_backup=' + str(log_files_backup) + ', log_file_size=' + str(log_file_size))
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            cursor.execute('UPDATE config set (beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}) WHERE id="active"'.format(beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file)))
+            cursor.execute('UPDATE config set (beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}, log_files_backup={5}, log_file_size={6}) WHERE id="active"'.format(beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file), log_files_backup, log_file_size))
         except Error as (e):
             logger.error(e)
         # Commit changes
@@ -127,14 +127,16 @@ def get_config(database_file='db/PiControl.db'):
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            cursor.execute('SELECT beacon_port,beacon_interval,secret_key,log_level,log_file FROM config WHERE id=?', ("active",))
+            cursor.execute('SELECT beacon_port,beacon_interval,secret_key,log_level,log_file,log_files_backup,log_file_size FROM config WHERE id=?', ("active",))
             results = cursor.fetchone()
             config = {
                     "beacon_port": results[0],
                     "beacon_interval": results[1],
                     "secret_key": results[2],
                     "log_level": results[3],
-                    "log_file": results[4]
+                    "log_file": results[4],
+                    "log_files_backup": results[5],
+                    "log_file_size": results[6]
                 }
             # Close the database connection
             conn.close()
