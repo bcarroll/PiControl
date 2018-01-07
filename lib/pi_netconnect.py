@@ -5,6 +5,7 @@ import threading
 import select
 import sqlite3
 
+from flask import jsonify
 from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
