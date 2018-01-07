@@ -120,8 +120,10 @@ def login():
         password = request.form['password']
         if authenticate(str(username), str(password)):
             session['username'] = request.form['username']
+            logging.info(str(username) + ' successfully logged in')
             return ( redirect(url_for('index')) )
         else:
+            logging.info('Login failed for ' + str(username))
             flash('Invalid username/password', 'error')
             return(render_template('login.html'))
     else:
