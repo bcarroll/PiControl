@@ -6,11 +6,10 @@ from pprint import pprint
 from flask import jsonify
 #import logging
 
-from lib._logging import get_logger
+from _logging import logger
 from lib.pi_utilities import pi_model
 
 #logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
-logger = get_logger()
 
 def create_database(database_file='db/PiControl.db'):
     '''
