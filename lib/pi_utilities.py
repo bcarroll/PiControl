@@ -112,7 +112,7 @@ def pi_serialnumber(type='JSON'):
     if type == 'JSON':
         return jsonify(serialnumber=serialnumber)
     else:
-        return(serialnumber)
+        return(serialnumber[0])
 
 def pi_model(revision, type='JSON'):
     pi = {}
