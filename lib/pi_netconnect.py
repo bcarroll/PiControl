@@ -55,7 +55,7 @@ class UDPBeacon:
         logging.debug( 'UDPBeacon _loop() started...' )
         #keep track of the ip addresses we have already scanned
         ip_list = []
-        logger.warn('Sending UDP Beacons to UDP port ' + str(self.port))
+        logging.warn('Sending UDP Beacons to UDP port ' + str(self.port))
         while self.looping:
             revision = pi_revision()
             hostname = socket.gethostname()
@@ -141,7 +141,7 @@ class UDPBeaconListener:
         logging.debug( 'Listening for UDPBeacons from external clients...' )
         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         hbSocket.bind(('0.0.0.0', self.port))
-        logger.warn('Listening for UDP Beacons on UDP port ' + str(self.port))
+        logging.warn('Listening for UDP Beacons on UDP port ' + str(self.port))
         while self.looping:
             (rfd,wfd,efd) = select.select([hbSocket],[],[])
             if hbSocket in rfd:
