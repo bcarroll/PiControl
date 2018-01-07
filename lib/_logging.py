@@ -9,7 +9,7 @@ log_level        = 10
 log_file         = "logs/PiControl_default.log"
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
 log_files_backup = 5
-log_roll_size    = 1024
+log_roll_size    = 4096000
 
 try:
     config            = get_config()
