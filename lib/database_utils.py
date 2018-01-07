@@ -11,8 +11,6 @@ from logging.handlers import RotatingFileHandler
 
 from lib.pi_utilities import pi_model
 
-#logger.basicConfig(level=logger.DEBUG, format='[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
-
 def create_database(database_file='db/PiControl.db'):
     '''
     Create a blank SQLite3 database
@@ -213,16 +211,12 @@ loglevels = {
 # Set the logging level
 loglevel = ( loglevels[log_level] )
 
-#hander = logging.StreamHandler()
 handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_roll_size, backupCount=log_files_backup)
 
 if log_level == 0:
     #Logging is disabled
     handler = logging.NullHandler()
     print ('Logging is disabled')
-else:
-    #handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_roll_size, backupCount=log_files_backup)
-    print('Logging to ' + str(log_file) + '. Rollover size is ' + str(log_roll_size) + ' bytes. Keeping ' + str(log_files_backup) + ' logfiles.')
 
 handler.setFormatter(logformat)
 logger.addHandler(handler)
