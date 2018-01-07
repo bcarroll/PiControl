@@ -151,14 +151,25 @@ def get_nodes(database_file='db/PiControl.db'):
         rows = cursor.fetchall()
         for row in rows:
             model = pi_model(row[2], type="dict")
-            nodes.append({
-                    "ipaddress": row[0],
-                    "hostname": row[1],
-                    "revision": row[2],
-                    "model": model['model'],
-                    "serialnumber": row[3],
-                    "last_checkin": datetime.datetime.fromtimestamp(row[4]).strftime('%c')
-                })
+            try:
+                nodes.append({
+                        "ipaddress": row[0],
+                        "hostname": row[1],
+                        "revision": row[2],
+                        "model": model['model'],
+                        "serialnumber": row[3],
+                        "last_checkin": datetime.datetime.fromtimestamp(row[4]).strftime('%c')
+                    })
+            except:
+                logging.error('nodes.append failed')
     except Error as (e):
         logging.error(e)
     return jsonify(nodes)
+
+database_file='db/PiControl.db'
+conn = sqlite3.connect(database_file)
+cursor = conn.cursor()
+cursor.execute("SELECT ipaddress, hostname, revision, serialnumber, last_checkin FROM nodes")
+rows = cursor.fetchall()
+for row in rows:
+    print (row)
