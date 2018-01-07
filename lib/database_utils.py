@@ -8,7 +8,7 @@ import logging as logger
 
 from lib.pi_utilities import pi_model
 
-logger.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
+logger.basicConfig(level=logger.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
 
 def create_database(database_file='db/PiControl.db'):
     '''
