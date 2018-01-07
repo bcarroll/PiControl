@@ -5,7 +5,6 @@ import threading
 import select
 import sqlite3
 
-from flask import jsonify
 from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
@@ -59,7 +58,7 @@ class UDPBeacon:
         while self.looping:
             revision = pi_revision()
             hostname = socket.gethostname()
-            serialnumber = pi_serialnumber()
+            serialnumber = pi_serialnumber(type='text')
             if self.last_scan + self.interval >= int(time()):
                 logging.debug("\n"
                             + 'Current time  : ' + str(int(time())) + "\n"
