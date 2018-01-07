@@ -6,7 +6,7 @@ import socket
 import atexit
 import signal
 import logging
-
+from logging.handlers import RotatingFileHandler
 from functools import wraps
 
 from flask import Flask
@@ -22,6 +22,7 @@ from flask import escape
 
 from flask_sqlalchemy import SQLAlchemy
 
+from lib._logging import logger, handler
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
 from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, pi_model, process_list, gpio_info, pi_serialnumber
@@ -41,6 +42,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/PiControl.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 app.config['SECRET_KEY'] = 'PiControl'
+
+################################################
+# Setup logging
+app.logger.addHandler(handler)
+
+werkzeug_logger = logging.getLogger('werkzeug')
+werkzeug_logger.setLevel(logger.level)
+werkzeug_logger.addHandler(handler)
+
+################################################
 
 # Create a UDP Beacon sender and receiver
 pi_discovery = UDPBeacon()
@@ -63,6 +74,21 @@ atexit.register(close_running_threads)
 
 #stop threads when the application is killed
 signal.signal(signal.SIGINT, close_running_threads)
+
+##########################################################
+# Error pages
+@app.errorhandler(403)
+def forbidden(error):
+    return render_template('errors/403.html'), 403
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('errors/404.html'), 404
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('errors/500.html'), 500
+##########################################################
 
 def require_login(f):
     '''
@@ -90,7 +116,8 @@ def login():
             session['username'] = request.form['username']
             return ( redirect(url_for('index')) )
         else:
-            return('Invalid username/password')
+            flash('Invalid username/password', 'error')
+            return(render_template('login.html'))
     else:
         return(render_template('login.html'))
 
@@ -181,9 +208,13 @@ def configuration_update():
         secret_key=request.form['secret_key'],
         log_level=request.form['log_level'],
         log_file=request.form['log_file']
-        # Update database with new configuration
-        update_config(beacon_port, beacon_interval, secret_key, log_level, log_file)
-        # Get current configuration from database
+        try:
+            # Update database with new configuration
+            update_config(beacon_port, beacon_interval, secret_key, log_level, log_file)
+            flash('Error updating configuration', 'error')
+        except:
+            flash('Configuration updated')
+    # Get current configuration from database
     configuration = get_config()
     return(render_template('config_update.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file']))
 
