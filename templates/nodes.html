@@ -17,12 +17,10 @@
 
     function get_nodes(){
         $.get('/nodes/refresh', function(result){
-            console.log(result);
-            console.log(result[0].ipaddress);
+            $('#test').after('<tr><td>' + result[0].ipaddress + '</td><td>' + result[0].hostname + '</td>');
             for (i = 0; i < result.length; i++) {
                 id = result[i].ipaddress.replace(/\./g, '');
                 link = 'https://' + result[i].ipaddress + ':31415/';
-                $('#test tr:after').after('<tr><td>' + id + '</td><td>' + link + '</td>')
                 console.log('ID: ' + id);
                 console.log('LINK: ' + link);
                 console.log('ipaddress: ' + result[i].ipaddress);
