@@ -9,7 +9,7 @@ from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
 
-from lib.pi_utilities import pi_revision
+from lib.pi_utilities import pi_revision, pi_serialnumber
 from lib.database_utils import update_node
 
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] (%(threadName)-10s) %(message)s')
@@ -58,6 +58,7 @@ class UDPBeacon:
         while self.looping:
             revision = pi_revision()
             hostname = socket.gethostname()
+            serialnumber = pi_serialnumber()
             if self.last_scan + self.interval >= int(time()):
                 logging.debug("\n"
                             + 'Current time  : ' + str(int(time())) + "\n"
@@ -96,7 +97,7 @@ class UDPBeacon:
                                     #logging.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
                                     hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                                     #hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-                                    hbSocket.sendto(str(self.message + ';' + hostname + ';' + revision), (str(IPAddress(ip)), self.port))
+                                    hbSocket.sendto(str(self.message + ';' + hostname + ';' + revision + ';' + serialnumber), (str(IPAddress(ip)), self.port))
             sleep(self.interval)
         self.thread.join(1)
 
@@ -145,14 +146,15 @@ class UDPBeaconListener:
                 #skip loopback connections
                 if address == '127.0.0.1':
                     continue
-                message, hostname, revision = string.split(';')
+                message, hostname, revision, serialnumber = string.split(';')
                 if message == self.message:
                     #TODO: Add responding clients to database
                     ipaddress    = str(address[0])
                     hostname     = str(hostname)
                     revision     = str(revision)
+                    serialnumber = str(serialnumber)
                     last_checkin = str( int( time() ) )
-                    logging.debug('Beacon received from ' + str(address))
+                    logging.debug('Beacon received from ' + str(address) + ' (' + serialnumber + ')')
                     update_node(ipaddress, hostname, revision, last_checkin)
             sleep(0.1)
         self.thread.join(1)
