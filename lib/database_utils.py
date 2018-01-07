@@ -7,6 +7,7 @@ import datetime
 from pprint import pprint
 from flask import jsonify
 import logging
+from logging.handlers import RotatingFileHandler
 
 from lib.pi_utilities import pi_model
 
