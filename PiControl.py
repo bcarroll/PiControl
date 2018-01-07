@@ -60,13 +60,16 @@ pi_discoverer = UDPBeaconListener()
 pi_discoverer.start()
 
 def close_running_threads(signum=None, frame=None):
-    print 'close_running_threads() called with signal', signum
+    logger.debug('close_running_threads() called with signal %s', signum)
     pi_discovery.stop()
     pi_discoverer.stop()
     try:
         request.environ.get('werkzeug.server.shutdown')
+        logger.debug('Shutting down werkzeug webserver')
     except:
+        logger.debug('Error shutting down werkzeug webserver')
         pass
+    logger.info('Exiting')
     sys.exit(0)
 
 #stop threads when the application stops
@@ -79,14 +82,17 @@ signal.signal(signal.SIGINT, close_running_threads)
 # Error pages
 @app.errorhandler(403)
 def forbidden(error):
+    logging.debug('Returning 403 error page')
     return render_template('errors/403.html'), 403
 
 @app.errorhandler(404)
 def page_not_found(error):
+    logging.debug('Returning 404 error page')
     return render_template('errors/404.html'), 404
 
 @app.errorhandler(500)
 def internal_server_error(error):
+    logging.debug('Returning 500 error page')
     return render_template('errors/500.html'), 500
 ##########################################################
 
