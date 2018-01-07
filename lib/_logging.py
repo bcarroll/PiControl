@@ -31,6 +31,7 @@ if not os.path.exists(LOG_DIR):
 
 #######################################################################
 #Setup logging
+global logger
 logger    = logging.getLogger(__name__)
 logformat = logging.Formatter(log_format)
 
@@ -57,3 +58,7 @@ else:
 handler.setFormatter(logformat)
 logger.addHandler(handler)
 logger.setLevel(loglevel)
+
+def get_logger():
+    global logger
+    return(logger)
