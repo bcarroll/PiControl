@@ -79,7 +79,7 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
             if results:
                 try:
                     logging.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
-                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, last_checkin={3} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
+                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, serialnumber={3}, last_checkin={4} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
                 except Error as (e):
                     logging.debug(str(e))
                     return()
