@@ -8,7 +8,7 @@
     * [Download the repository as a zip file](https://github.com/bcarroll/PiControl/archive/master.zip)
 2. Install Operating System dependencies (mostly for SSL support)
     *    ``sudo apt-get update``
-    *    ``sudo apt-get install gcc libffi-dev libssl-dev python-dev python-cryptography``
+    *    ``sudo apt-get install gcc libffi-dev libssl-dev python-dev python-cryptography wiringpi``
 3. Install Python dependencies
     *    ``cd /directory/where/you/cloned-or_unzipped``
     *    ``sudo pip install Flask Flask-SSLify flask_sqlalchemy ipaddress netifaces netaddr psutil simplepam wiringpi``
