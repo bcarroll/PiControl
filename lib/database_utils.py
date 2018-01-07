@@ -164,7 +164,7 @@ def get_nodes(database_file='db/PiControl.db'):
                 logging.error('nodes.append failed')
     except Error as (e):
         logging.error(e)
-    return jsonify(nodes)
+    return jsonify({'nodes': nodes})
 
 database_file='db/PiControl.db'
 conn = sqlite3.connect(database_file)
