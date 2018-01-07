@@ -5,8 +5,8 @@ from logging.handlers import RotatingFileHandler
 
 from lib.database_utils import get_config
 
-log_level        = 40
-log_file         = "logs/PiControl.log"
+log_level        = 10
+log_file         = "logs/PiControl_default.log"
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
 log_files_backup = 5
 log_roll_size    = 1024
@@ -33,7 +33,7 @@ if not os.path.exists(LOG_DIR):
 #Setup logging
 global logger
 logger    = logging.getLogger(__name__)
-logformat = logging.Formatter(log_format)
+logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
 loglevels = {
     50: logging.CRITICAL,
