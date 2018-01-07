@@ -27,7 +27,7 @@
                     $('#' + i + '_last_checkin').html('<a href="' + link + '" target="_blank">' + result[i].last_checkin + ' <i class="' + status_icon(result[i].last_checkin) + '"></i></a>');
                 } else {
                     $('#nodes_table tr:last').after(
-                            '<tr id="' + i +  '"><td id="' + i +  '_ipaddress"><a href="' + link + '" target="_blank">' + result[i].ipaddress + '</a></td><td id="' + i +  '_hostname"><a href="' + link + '" target="_blank">' + result[i].hostname + '</a></td><td id="' + i +  '_model"><a href="' + link + '" target="_blank">' + result[i].model + ' (' + result[i].revision + ')</a></td><td id=' + id + '_serialnumber><a href="' + link + '" target="_blank">' + result[i].serialnumber + '</a></td><td id="' + i +  '_last_checkin"><a href="' + link + '" target="_blank">' + result[i].last_checkin + ' <i class="' + status_icon(result[i].last_checkin) + '"></i></a></td></tr>'
+                            '<tr id="' + i +  '"><td id="' + i +  '_ipaddress"><a href="' + link + '" target="_blank">' + result[i].ipaddress + '</a></td><td id="' + i +  '_hostname"><a href="' + link + '" target="_blank">' + result[i].hostname + '</a></td><td id="' + i +  '_model"><a href="' + link + '" target="_blank">' + result[i].model + ' (' + result[i].revision + ')</a></td><td id=' + i + '_serialnumber><a href="' + link + '" target="_blank">' + result[i].serialnumber + '</a></td><td id="' + i +  '_last_checkin"><a href="' + link + '" target="_blank">' + result[i].last_checkin + ' <i class="' + status_icon(result[i].last_checkin) + '"></i></a></td></tr>'
                         );
                 }
             }
