@@ -20,12 +20,12 @@
                 link = 'https://' + result[i].ipaddress + ':31415/';
                 if ( $('#' + i).length ){
                     $('#' + i +  '_ipaddress').html('<a href="' + link + '" target="_blank">' + result[i].ipaddress + '</a>');
-                    $('#' + i + '_hostname').text(result[i].hostname);
-                    $('#' + i + '_model').text(result[i].model + ' (' + result[i].revision + ')');
-                    $('#' + i + '_last_checkin').text(result[i].last_checkin);
+                    $('#' + i + '_hostname').text('<a href="' + link + '" target="_blank">' + result[i].hostname + '</a>');
+                    $('#' + i + '_model').text('<a href="' + link + '" target="_blank">' + result[i].model + ' (' + result[i].revision + ')</a>');
+                    $('#' + i + '_last_checkin').text('<a href="' + link + '" target="_blank">' + result[i].last_checkin + '</a>');
                 } else {
                     $('#nodes_table tr:last').after(
-                            '<tr id="' + i +  '"><td id="' + i +  '_ipaddress"><a href="' + link + '" target="_blank">' + result[i].ipaddress + '</a></td><td id="' + i +  '_hostname">' + result[i].hostname + '</td><td id="' + i +  '_model">' + result[i].model + ' (' + result[i].revision + ')</td><td id="' + i +  '_last_checkin">' + result[i].last_checkin + '</td></tr>'
+                            '<tr id="' + i +  '"><td id="' + i +  '_ipaddress"><a href="' + link + '" target="_blank">' + result[i].ipaddress + '</a></td><td id="' + i +  '_hostname"><a href="' + link + '" target="_blank">' + result[i].hostname + '</a></td><td id="' + i +  '_model"><a href="' + link + '" target="_blank">' + result[i].model + ' (' + result[i].revision + ')</a></td><td id="' + i +  '_last_checkin"><a href="' + link + '" target="_blank">' + result[i].last_checkin + '</a></td></tr>'
                         );
                 }
             }
