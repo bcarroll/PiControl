@@ -83,11 +83,11 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
                     logger.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
                     cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, serialnumber={3}, last_checkin={4} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
                 except Error as (e):
-                    logger.debug(str(e))
+                    logger.error(str(e))
                     return()
             else:
                 try:
-                    logger.debug('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
+                    logger.info('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
                     cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, serialnumber, last_checkin) VALUES ({0},{1},{2},{3},{4})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
                 except Error as (e):
                     logger.error(e)
