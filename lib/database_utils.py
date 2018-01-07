@@ -103,7 +103,7 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
         logger.error(e)
         return()
 
-def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, log_files_backup, log_roll_size, database_file='db/PiControl.db'):
+def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, log_files_backup, log_file_size, database_file='db/PiControl.db'):
     logger.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file) + ', log_files_backup=' + str(log_files_backup) + ', log_file_size=' + str(log_file_size))
     try:
         conn = sqlite3.connect(database_file)
@@ -177,7 +177,7 @@ log_level        = 10
 log_file         = "logs/PiControl_default.log"
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
 log_files_backup = 5
-log_roll_size    = 4096000
+log_file_size    = 4096000
 
 try:
     config            = get_config()
@@ -185,7 +185,7 @@ try:
     log_file          = str(config['log_file'])
     #log_format       = str(config['log_format'])
     #log_files_backup = int(config['log_files_backup'])
-    #log_role_size    = int(config['log_roll_size'])
+    #log_role_size    = int(config['log_file_size'])
 except:
     logging.error('Error getting configuration from PiControl database')
 
@@ -214,7 +214,7 @@ loglevels = {
 # Set the logging level
 loglevel = ( loglevels[log_level] )
 
-handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_roll_size, backupCount=log_files_backup)
+handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
 
 if log_level == 0:
     #Logging is disabled
