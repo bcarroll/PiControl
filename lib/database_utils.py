@@ -165,11 +165,3 @@ def get_nodes(database_file='db/PiControl.db'):
     except Error as (e):
         logging.error(e)
     return jsonify({'nodes': nodes})
-
-database_file='db/PiControl.db'
-conn = sqlite3.connect(database_file)
-cursor = conn.cursor()
-cursor.execute("SELECT ipaddress, hostname, revision, serialnumber, last_checkin FROM nodes")
-rows = cursor.fetchall()
-for row in rows:
-    print (row)
