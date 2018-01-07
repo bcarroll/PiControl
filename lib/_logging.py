@@ -13,11 +13,11 @@ log_roll_size    = 1024
 
 try:
     config            = get_config()
-    log_level         = config['log_level']
-    log_file          = config['log_file']
-    #log_format       = config['log_format']
-    #log_files_backup = config['log_files_backup']
-    #log_role_size    = config['log_roll_size']
+    log_level         = int(config['log_level'])
+    log_file          = str(config['log_file'])
+    #log_format       = str(config['log_format'])
+    #log_files_backup = int(config['log_files_backup'])
+    #log_role_size    = int(config['log_roll_size'])
 except:
     logging.error('Error getting configuration from PiControl database')
 
@@ -54,7 +54,7 @@ if log_level == 0:
     print ('Logging is disabled')
 else:
     handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_roll_size, backupCount=log_files_backup)
-    print('Logging to ' + log_file + '. Rollover size is ' + log_roll_size + ' bytes. Keeping ' + log_files_backup + ' logfiles.')
+    print('Logging to ' + str(log_file) + '. Rollover size is ' + str(log_roll_size) + ' bytes. Keeping ' + str(log_files_backup) + ' logfiles.')
 
 handler.setFormatter(logformat)
 logger.addHandler(handler)
