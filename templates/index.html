@@ -96,6 +96,10 @@
 	</tr>
 </table>
 	<script>
+		// Charts
+		var cpu_usage_chart = new Chartist.Bar('#cpu_usage_chart', { labels: ['Usage'], series: [] });
+
+
 		get_platform();
 		get_cpu_frequency();
 		get_cpu_voltage();
@@ -184,12 +188,6 @@
 		setInterval(get_mem_usage_json,5000);
 		setInterval(get_swap_usage_json,5000);
 		setInterval(update_cpu_charts,1000)
-
-// Charts
-var cpu_usage_chart = new Chartist.Bar('#cpu_usage_chart', { labels: ['Usage'], series: [] });
-
-
-
 
 </script>
 <script src="/static/js/chartist.min.js"></script>
