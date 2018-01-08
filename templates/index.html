@@ -102,6 +102,7 @@
 
 		// Create placeholders for cpu usage stats
 		$.get('/cpu/count', function(result){
+			console.log(result);
 			for ( cpu_num = 0; cpu_num < result.cpu_count; cpu_num++ ){
 				console.log('CPU ' + cpu_num);
 				$('#cpu_usage tr:last').after('<tr><th>CPU ' + cpu_num + '</th><td id="cpu_' + cpu_num + '"></td></tr>');
