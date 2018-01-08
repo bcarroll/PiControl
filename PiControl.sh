@@ -4,12 +4,12 @@ cd ${SCRIPT_DIR}
 
 start(){
     echo "Starting PiControl" >&2
-    python PiControl.py
+    python PiControl.py &
 }
 
 stop(){
     echo "Stopping PiControl" >&2
-    ps -ef|grep PiControl|xargs kill
+     pgrep PiControl|xargs kill 2>/dev/null
 }
 
 restart(){
