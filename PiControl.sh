@@ -14,10 +14,10 @@ stop(){
 
 restart(){
     echo "Restarting PiControl" >&2
-    stop()
+    stop
     sleep 3
     done
-    start()
+    start
 }
 
 case "$1" in
