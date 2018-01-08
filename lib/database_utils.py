@@ -185,7 +185,6 @@ def get_nodes():
 
 ###############################################################################
 # Logging workaround
-config = get_config()
 log_level        = 10
 log_file         = database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'logs/PiControl_database_utils.log')
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
