@@ -13,18 +13,14 @@
     *    ``cd /directory/where/you/cloned-or_unzipped``
     *    ``sudo pip install Flask Flask-SSLify flask_sqlalchemy ipaddress netifaces netaddr psutil simplepam wiringpi``
 4.    *Optional* - Start PiControl when your Raspberry Pi boots
-    *    ``echo "Start PiControl"| sudo tee --append /etc/rc.local``
-    *    ``echo "sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py &"| sudo tee --append /etc/rc.local``
+    *    Copy the PiControl init script to /etc/rc3.d/
+    *    ``sudo cp /directory/where/you/cloned-or_unzipped/PiControl.sh /etc/rc3.d/``
+    *    By deafult, PiControl runs as the pi user.  To change the user, edit the PiControl init script and change the value of the RUN_AS_USER variable.
 
-    The above command adds a new line to /etc/rc.local which will start PiControl as the "pi" user when the Raspberry Pi boots.
-    If you remove the "sudo -u pi" part, PiControl will run as "root" (not advised, for security reasons).
-    You can also create a new account to run PiControl as with the [adduser](https://www.raspberrypi.org/documentation/linux/usage/users.md) command.
+    You can create a new account to run PiControl as with the [adduser](https://www.raspberrypi.org/documentation/linux/usage/users.md) command.
 
 5.    Start PiControl
-    *    ``sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py &``
-
-     The ampersand at the end of the command string is important if you want PiControl to remain running once you logout.
-     Without the ampersand, PiControl will be killed when the shell is terminated.
+    *    ``/directory/where/you/cloned-or_unzipped/PiControl.sh start``
 
 ***
 
