@@ -95,6 +95,7 @@
 		</td>
 	</tr>
 </table>
+	<script src="/static/js/chartist.min.js"></script>
 	<script>
 		// Charts
 		var cpu_usage_chart = new Chartist.Bar('#cpu_usage_chart', { labels: ['Usage'] });
@@ -190,5 +191,4 @@
 		setInterval(update_cpu_charts,1000)
 
 </script>
-<script src="/static/js/chartist.min.js"></script>
 {%endblock%}
