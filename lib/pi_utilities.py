@@ -18,7 +18,7 @@ def cpu_count():
     '''
     Returns the number of CPUs in the system
     '''
-    return(psutil.cpu_count())
+    return jsonify({'cpu_count': psutil.cpu_count()})
 
 def cpu_usage():
     '''
