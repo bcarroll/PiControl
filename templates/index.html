@@ -103,6 +103,7 @@
 		// Create placeholders for cpu usage stats
 		$.get('/cpu/count', function(result){
 			for ( cpu_num = 0; cpu_num < result; cpu_num++ ){
+				console.log('CPU ' + cpu_num);
 				$('#cpu_usage tr:last').after('<tr><th>CPU ' + cpu_num + '</th><td id="cpu_' + cpu_num + '"></td></tr>');
 			}
 		});
@@ -146,7 +147,9 @@
 
 		function get_cpu_usage(){
 			$.get('/cpu/usage', function(result){
+					console.log(result);
 					for ( cpu_num=0; cpu_num<result; cpu_num++ ){
+						console.log('CPU: ' + cpu_num + ', Usage: ' + result.cpu_usage[cpu_num]);
 						$('#cpu_' + cpu_num).text(result.cpu_usage[cpu_num]);
 					}
 				});
