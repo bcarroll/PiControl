@@ -49,33 +49,33 @@ def memory_usage_json():
     except:
         logger.error('Error getting memory_usage_json')
     return jsonify(
-    	total=total_mem,
-    	used=used_mem,
-    	free=free_mem,
-    	shared=shared_mem,
-    	buffers=buffers_mem,
-    	cached=cached_mem,
-    	)
+        total=total_mem,
+        used=used_mem,
+        free=free_mem,
+        shared=shared_mem,
+        buffers=buffers_mem,
+        cached=cached_mem,
+        )
 
 def memory_voltage_json():
-	'''
-	Returns
-	'''
+    '''
+    Returns
+    '''
     sdram_c = sdram_i = sdram_p = 'ERROR'
     try:
-    	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_c']).decode('utf-8')
-    	sdram_c = output.replace('volt=', '')
-    	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_i']).decode('utf-8')
-    	sdram_i = output.replace('volt=', '')
-    	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_p']).decode('utf-8')
-    	sdram_p = output.replace('volt=', '')
+        output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_c']).decode('utf-8')
+        sdram_c = output.replace('volt=', '')
+        output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_i']).decode('utf-8')
+        sdram_i = output.replace('volt=', '')
+        output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_p']).decode('utf-8')
+        sdram_p = output.replace('volt=', '')
     except:
         logger.error('Error getting memory_voltage_json')
-	return jsonify(
-			sdram_c=sdram_c,
-			sdram_i=sdram_i,
-			sdram_p=sdram_p
-		)
+    return jsonify(
+            sdram_c=sdram_c,
+            sdram_i=sdram_i,
+            sdram_p=sdram_p
+        )
 
 def swap_usage():
     '''
@@ -113,21 +113,21 @@ def swap_usage_json():
     except:
         logger.error('Error getting swap_usage_json')
     return jsonify(
-	    	total=total_swap,
-	    	used=used_swap,
-	    	free=free_swap
-    	)
+            total=total_swap,
+            used=used_swap,
+            free=free_swap
+        )
 
 def memory_split():
     arm = gpu = 'ERROR'
     try:
-    	output = subprocess.check_output(['vcgencmd', 'get_mem', 'arm']).decode('utf-8')
-    	arm = output.replace('arm=', '')
-    	output = subprocess.check_output(['vcgencmd', 'get_mem', 'gpu']).decode('utf-8')
-    	gpu = output.replace('gpu=', '')
+        output = subprocess.check_output(['vcgencmd', 'get_mem', 'arm']).decode('utf-8')
+        arm = output.replace('arm=', '')
+        output = subprocess.check_output(['vcgencmd', 'get_mem', 'gpu']).decode('utf-8')
+        gpu = output.replace('gpu=', '')
     except:
         logger.error('Error getting memory_split')
-	return jsonify(
-			arm=arm,
-			gpu=gpu
-		)
+    return jsonify(
+            arm=arm,
+            gpu=gpu
+        )
