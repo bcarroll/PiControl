@@ -28,6 +28,7 @@ from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_volt
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
 from lib.pyDash import get_netstat, get_platform
 from lib.database_utils import create_database, get_config, update_config, get_nodes
+from lib.chart_utils import PiControlChart
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -61,10 +62,15 @@ pi_discovery.start()
 pi_discoverer = UDPBeaconListener()
 pi_discoverer.start()
 
+# Create background chart data collectors
+cpu_temperature_chart = PiControlChart(cpu_temperature)
+cpu_temperature_chart.start()
+
 def close_running_threads(signum=None, frame=None):
     logger.debug('close_running_threads() called with signal %s', signum)
     pi_discovery.stop()
     pi_discoverer.stop()
+    cpu_temperature_chart.stop()
     try:
         request.environ.get('werkzeug.server.shutdown')
         logger.debug('Shutting down werkzeug webserver')
@@ -113,7 +119,7 @@ def require_login(f):
 @app.route('/')
 @require_login
 def index():
-    return( render_template('index.html') )
+    return( render_template('index.html', charts=[cpu_temperature_chart.list]) )
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
