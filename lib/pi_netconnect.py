@@ -98,8 +98,11 @@ class UDPBeacon:
                                 #skip the network, broadcast, and local addresses
                                 if (ip != ip_cidr.network) and (ip != ip_cidr.broadcast) and (str(IPAddress(ip)) != ip_info['addr']):
                                     logger.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
-                                    hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                                    hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber), (str(IPAddress(ip)), self.port))
+                                    try:
+                                        hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                                        hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber), (str(IPAddress(ip)), self.port))
+                                    except Exception as (e):
+                                        logger.error(e.message)
             sleep(self.interval)
         self.thread.join(1)
 
@@ -144,20 +147,23 @@ class UDPBeaconListener:
         hbSocket.bind(('0.0.0.0', self.port))
         logger.warn('Listening for UDP Beacons on UDP port ' + str(self.port))
         while self.looping:
-            (rfd,wfd,efd) = select.select([hbSocket],[],[])
-            if hbSocket in rfd:
-                (string, address) = hbSocket.recvfrom(100)
-                #skip loopback connections
-                if address == '127.0.0.1':
-                    continue
-                message, hostname, revision, serialnumber = string.split(';')
-                if message == self.message:
-                    ipaddress    = str(address[0])
-                    hostname     = str(hostname)
-                    revision     = str(revision)
-                    serialnumber = str(serialnumber)
-                    last_checkin = str( int( time() ) )
-                    logger.debug('Beacon received from ' + str(address[0]) + ' (' + serialnumber + ')')
-                    update_node(ipaddress, hostname, revision, serialnumber, last_checkin)
+            try:
+                (rfd,wfd,efd) = select.select([hbSocket],[],[])
+                if hbSocket in rfd:
+                    (string, address) = hbSocket.recvfrom(100)
+                    #skip loopback connections
+                    if address == '127.0.0.1':
+                        continue
+                    message, hostname, revision, serialnumber = string.split(';')
+                    if message == self.message:
+                        ipaddress    = str(address[0])
+                        hostname     = str(hostname)
+                        revision     = str(revision)
+                        serialnumber = str(serialnumber)
+                        last_checkin = str( int( time() ) )
+                        logger.debug('Beacon received from ' + str(address[0]) + ' (' + serialnumber + ')')
+                        update_node(ipaddress, hostname, revision, serialnumber, last_checkin)
+            except Exception as (e):
+                logger.error(e.message)
             sleep(0.1)
         self.thread.join(1)
