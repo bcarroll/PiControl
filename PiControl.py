@@ -42,7 +42,7 @@ config = get_config()
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SECRET_KEY'] = config['secret_key']
+app.config['SECRET_KEY'] = str(config['secret_key'])
 app.config['SQLALCHEMY_DATABASE_URI'] = config['database_file']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
