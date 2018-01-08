@@ -147,7 +147,7 @@
 		function get_cpu_usage(){
 			$.get('/cpu/usage', function(result){
 					for ( cpu_num=0; cpu_num<result; cpu_num++ ){
-						$('#cpu_' + cpu_num).text(result[cpu_num]);
+						$('#cpu_' + cpu_num).text(result.cpu_usage[cpu_num]);
 					}
 				});
 		}
