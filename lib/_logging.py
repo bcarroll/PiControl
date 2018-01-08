@@ -6,6 +6,11 @@ from logging.handlers import RotatingFileHandler
 
 from lib.database_utils import get_config
 
+#######################################################################
+#Setup logging
+logger    = logging.getLogger(__name__)
+logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(pathname)s] %(message)s')
+
 log_level        = 10
 log_file         = "logs/PiControl_logging.log"
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(pathname)s] %(message)s'
@@ -16,16 +21,11 @@ try:
     config            = get_config()
     log_level         = int(config['log_level'])
     log_file          = str(config['log_file'])
-    log_format       = str(config['log_format'])
-    log_files_backup = int(config['log_files_backup'])
-    log_role_size    = int(config['log_roll_size'])
+    log_format        = str(config['log_format'])
+    log_files_backup  = int(config['log_files_backup'])
+    log_role_size     = int(config['log_roll_size'])
 except:
-    logging.error('Error getting configuration from PiControl database')
-
-#######################################################################
-#Setup logging
-logger    = logging.getLogger(__name__)
-logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(pathname)s] %(message)s')
+    logger.error('Error getting configuration from PiControl database')
 
 loglevels = {
     50: logging.CRITICAL,
