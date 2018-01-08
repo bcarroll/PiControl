@@ -141,7 +141,11 @@
 			$.get('/cpu/usage', function(result){
 				var cpu_usage_data = "";
 				for ( cpu_num=0; cpu_num<result.cpu_usage.length; cpu_num++ ){
-					cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + result.cpu_usage[cpu_num] + '%<br/>';
+					var cpu_percent = result.cpu_usage[cpu_num]
+					if (!cpu_percent.includes('.')){
+						cpu_percent = cpu_percent + '.0';
+					}
+					cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + cpu_percent + '%<br/>';
 				}
 				console.log(cpu_usage_data);
 				$('#cpu_usage').html(cpu_usage_data);
