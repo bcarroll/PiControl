@@ -42,8 +42,8 @@
 						</tr>
 					</table>
 				</td>
-				<td style="width:100%">
-					<div id="cpu_usage_chart" style="height: 300px; width: 100%;"></div>
+				<td>
+					<div id="cpu_usage_chart" class="ct-chart"></div>
 				</td>
 			</tr>
 			<tr id="mem_usage">
@@ -171,7 +171,7 @@
 
 		function update_cpu_charts(){
 			$.get('/cpu/usage', function(result){
-					cpu_usage_chart.dataPoints = [{ y: (Math.round(100.0 - parseFloat(result)).toFixed(2)) }];
+					cpu_usage_chart.update({"data": [{ y: (Math.round(100.0 - parseFloat(result)).toFixed(2)) }]});
 				});
 		}
 
@@ -186,6 +186,9 @@
 		setInterval(update_cpu_charts,1000)
 
 // Charts
+var cpu_usage_chart = new Chartist.Bar('#cpu_usage_chart', { labels: ['Usage'], series: [] });
+
+
 
 
 </script>
