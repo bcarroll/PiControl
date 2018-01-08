@@ -29,7 +29,7 @@ def cpu_usage():
         cpu_usage_list = psutil.cpu_percent(interval=1, percpu=True)
     except:
         logger.error('Error getting cpu_usage')
-    return(cpu_usage_list)
+    return jsonify({'cpu_usage': cpu_usage_list})
 
 def cpu_temperature(type='JSON'):
     '''
