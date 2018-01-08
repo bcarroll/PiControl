@@ -14,16 +14,22 @@ from lib._logging import logger
 #https://github.com/nezticle/RaspberryPi-BuildRoot/wiki/VideoCore-Tools
 ########################################################################
 
+def cpu_count():
+    '''
+    Returns the number of CPUs in the system
+    '''
+    return(psutil.cpu_count())
+
 def cpu_usage():
     '''
     Returns CPU usage in percent
     '''
     cpu_usage = 'ERROR'
     try:
-        cpu_percent_idle = os.popen("top -n1 | awk '/Cpu\(s\):/ {print $8}'").readline().strip()
+        cpu_usage_list = psutil.cpu_percent(interval=1, percpu=True)
     except:
         logger.error('Error getting cpu_usage')
-    return(cpu_percent_idle)
+    return(cpu_usage_list)
 
 def cpu_temperature(type='JSON'):
     '''
@@ -125,7 +131,7 @@ def disk_usage_summary():
     '''
     output = '<th class="heading">Disk</th><td><table class="table-hover" style="width:100%;"><tr><td>ERROR</td></tr>'
     try:
-        df = [s.split() for s in os.popen("df -Ph|grep -v Filesystem|egrep -v '^tmpfs'").read().splitlines()]
+        df = [s.split() for s in os.popen("df -Ph|grep -v Filesystem|egrep -v '^tmpfs' 2>/dev/null").read().splitlines()]
         #output = '<th class="heading">Disk</th><td><table class="table-hover" style="width:100%;"><tr><th>Filesystem</th><th>Size</th><th>Used</th><th>Available</th><th>Use%</th><th>Mount Point</th></tr>'
         output = '<th class="heading"><i class="fas fa-hdd"></i> Disk</th><td><table class="table-hover" style="width:100%;text-align:center;"><tr><th>Mount Point</th><th>Available</th><th>Use%</th></tr>'
         for line in range(0, len(df)):
@@ -141,7 +147,7 @@ def pi_revision():
     https://www.raspberrypi-spy.co.uk/2012/09/checking-your-raspberry-pi-board-version/
     '''
     try:
-        revision = os.popen("cat /proc/cpuinfo|grep '^Revision'|awk '{print $3}'").read().splitlines()
+        revision = os.popen("cat /proc/cpuinfo|grep '^Revision'|awk '{print $3}' 2>/dev/null").read().splitlines()
     except:
         logger.error('Error getting pi_revision')
     try:
@@ -155,7 +161,7 @@ def pi_serialnumber(type='JSON'):
     Return the Raspberry Pi serial number
     '''
     try:
-        serialnumber = os.popen("cat /proc/cpuinfo|grep '^Serial'|awk '{print $3}'").read().splitlines()
+        serialnumber = os.popen("cat /proc/cpuinfo|grep '^Serial'|awk '{print $3}' 2>/dev/null").read().splitlines()
     except:
         logger.error('Error getting pi_serialnumber')
     if type == 'JSON':
@@ -208,7 +214,7 @@ def pi_model(revision, type='JSON'):
 def gpio_info():
     gpio_info = ['ERROR']
     try:
-        gpio_info = os.popen("gpio readall|grep -v '\-\-\-'| grep -v 'Physical'|tr -s ' '").read().replace('||', '|').splitlines()
+        gpio_info = os.popen("gpio readall|grep -v '\-\-\-'| grep -v 'Physical'|tr -s ' ' 2>/dev/null").read().replace('||', '|').splitlines()
     except:
         logger.error('Error getting gpio_info')
     pins = {}

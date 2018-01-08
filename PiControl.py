@@ -25,7 +25,7 @@ from flask_sqlalchemy import SQLAlchemy
 from lib._logging import logger, handler
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
 from lib.network_utilities import get_interfaces
-from lib.pi_utilities import cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, process_list, gpio_info, pi_serialnumber
+from lib.pi_utilities import cpu_count, cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, process_list, gpio_info, pi_serialnumber
 from lib.pi_model import pi_model
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
 from lib.pyDash import get_netstat, get_platform
@@ -257,6 +257,12 @@ def refresh_discovered_nodes():
 @require_login
 def get_charts():
     return jsonify({"charts": {"title": "CPU Temperature", "data": cpu_temperature_chart.list}})
+
+
+@app.route('/cpu/count')
+@require_login
+def get_cpu_count():
+    return(cpu_count())
 
 @app.route('/cpu/usage')
 @require_login

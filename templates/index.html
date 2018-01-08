@@ -26,7 +26,7 @@
 				<td>
 					<table class="table-hover" style="width:100%;">
 						<tr>
-							<th>Usage</th><td class="pull-right" id='cpu_usage'></td>
+							<th>Usage</th><td class="pull-right"><table id='cpu_usage'></table></td>
 						</tr>
 						<tr>
 							<th>Temperature</th><td class="pull-right" id='cpu_temperature'></td>
@@ -100,6 +100,12 @@
 		// Charts
 		var cpu_usage_chart = new Chartist.Bar('#cpu_usage_chart', { labels: ['Usage'] });
 
+		// Create placeholders for cpu usage stats
+		$.get('/platform', function(result){
+			for ( cpu_num = 0; cpu_num < result; cpu_num++ ){
+				$('#cpu_usage tr:last').after('<tr><th>CPU ' + cpu_num + '</th><td id="cpu_' + cpu_num + '"></td></tr>');
+			}
+		}
 
 		get_platform();
 		get_cpu_frequency();
@@ -139,10 +145,11 @@
 		}
 
 		function get_cpu_usage(){
-			$.get('/cpu/usage', function(cpu_idle){
-					$('#cpu_usage').text(Math.round(100.0 - parseFloat(cpu_idle)).toFixed(2) + "%");
+			$.get('/cpu/usage', function(result){
+					for ( cpu_num=0; cpu_num<result; cpu_num++ ){
+						$('#cpu_' + cpu_num).text(result[cpu_num]);
+					}
 				});
-
 		}
 
 		function get_cpu_temp(){
