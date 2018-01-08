@@ -20,7 +20,7 @@ def create_database(app_dir='./'):
         app_dir {str} -- Path to PiControl base directory (default: {'./'})
         database_file {str} -- Path to the database file to create (default: {'PiControl.db'})
     '''
-    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'../db/PiControl.db')
     try:
         conn = sqlite3.connect(database_file)
         # Create PiControl database tables
@@ -39,7 +39,7 @@ def create_tables(connection, app_dir):
     Arguments:
         connection {sqlite3.Connection} -- A previously created sqlite3 database connection object
     '''
-    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'../db/PiControl.db')
     try:
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL,'last_checkin' DATETIME NOT NULL)")
@@ -56,7 +56,7 @@ def create_config(cursor, app_dir):
     Arguments:
         cursor {sqlite3.Cursor} -- A previsouly created sqlite3 cursor object
     '''
-    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'../db/PiControl.db')
     try:
         # Get all rows from the config database table
         cursor.execute("SELECT * FROM 'config' WHERE id='active'")
@@ -78,7 +78,7 @@ def create_config(cursor, app_dir):
 
 def update_node(ipaddress, hostname, revision, serialnumber, last_checkin):
     logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
-    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'../db/PiControl.db')
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
@@ -112,7 +112,7 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin):
 
 def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, log_files_backup, log_file_size):
     logger.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file) + ', log_files_backup=' + str(log_files_backup) + ', log_file_size=' + str(log_file_size))
-    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'../db/PiControl.db')
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
@@ -131,7 +131,7 @@ def get_config():
     '''
     Returns PiControl configuration (from the PiControl database) in JSON
     '''
-    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'../db/PiControl.db')
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
@@ -159,7 +159,7 @@ def get_config():
 
 def get_nodes():
     nodes = []
-    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'../db/PiControl.db')
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
