@@ -19,7 +19,7 @@ def cpu_usage():
     cpu_percent_idle = os.popen("top -n1 | awk '/Cpu\(s\):/ {print $8}'").readline().strip()
     return(cpu_percent_idle)
 
-def cpu_temperature():
+def cpu_temperature(type='JSON'):
     '''
     Returns the core temperature in Celsius.
     https://github.com/nschloe/stressberry/blob/master/stressberry/main.py
@@ -28,9 +28,10 @@ def cpu_temperature():
     celcius     = output.replace('temp=', '').replace('\'C', '')
     fahrenheit  = float(celcius) * 9/5 + 32
     temperature_string = str(fahrenheit) + ' F (' + str(celcius) + 'C)'
-    return jsonify(
-            temp=temperature_string
-        )
+    if type == 'JSON':
+        return jsonify(temp=temperature_string)
+    else:
+        return(temperature_string)
 
 def cpu_frequency():
     '''
