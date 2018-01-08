@@ -3,13 +3,10 @@
 import sqlite3
 from sqlite3 import Error
 
-from lib._logging import logger
-
 def get_config(database_file='db/PiControl.db'):
     '''
     Returns PiControl configuration (from the PiControl database) in JSON
     '''
-    logger.debug('get_config() called...')
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
@@ -29,6 +26,6 @@ def get_config(database_file='db/PiControl.db'):
             conn.close()
             return (config)
         except Error as (e):
-            logger.error(e)
+            print(e)
     except Error as e:
-        logger.error(e)
+        print(e)
