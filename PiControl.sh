@@ -1,10 +1,14 @@
 #!/bin/bash
+
+# Change the RUN_AS_USER variable to the user you want PiControl to run as
+RUN_AS_USER="pi"
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${SCRIPT_DIR}
 
 start(){
     echo "Starting PiControl" >&2
-    python PiControl.py &
+    sudo -u ${RUN_AS_USER} python PiControl.py &
 }
 
 stop(){
