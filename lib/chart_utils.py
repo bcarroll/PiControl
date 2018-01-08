@@ -52,7 +52,6 @@ class PiControlChart():
         logger.debug( 'PiControlChart_' + str(self.function.__name__) + ' thread loop started')
         while self.looping:
             self.addData(self.function(self.function_args))
-            print (self.list)
             sleep(self.interval)
         self.thread.join(1)
 

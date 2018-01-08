@@ -30,8 +30,10 @@ def cpu_temperature(type='JSON'):
     temperature_string = str(fahrenheit) + ' F (' + str(celcius) + 'C)'
     if type == 'JSON':
         return jsonify(temp=temperature_string)
-    else:
-        return(temperature_string)
+    elif type == 'fahrenheit':
+        return(fahrenheit)
+    elif type == 'celcius':
+        return(celcius)
 
 def cpu_frequency():
     '''
