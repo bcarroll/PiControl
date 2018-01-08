@@ -164,7 +164,8 @@
 					if (!cpu_percent.includes('.')){
 						cpu_percent = cpu_percent + '.0';
 					}
-					addChartData( cpu_usage_chart,'CPU' + cpu_num, cpu_percent );
+					removeChartData(cpu_usage_chart);
+					addChartData(cpu_usage_chart,'CPU' + cpu_num, cpu_percent);
 					cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + cpu_percent + '%<br/>';
 				}
 				$('#cpu_usage').html(cpu_usage_data);
