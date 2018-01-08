@@ -105,7 +105,7 @@
 			for ( cpu_num = 0; cpu_num < result; cpu_num++ ){
 				$('#cpu_usage tr:last').after('<tr><th>CPU ' + cpu_num + '</th><td id="cpu_' + cpu_num + '"></td></tr>');
 			}
-		}
+		});
 
 		get_platform();
 		get_cpu_frequency();
