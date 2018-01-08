@@ -41,7 +41,7 @@ class UDPBeacon:
         logger.info('Starting UDPBeacon sender thread')
         logger.debug('start() called...')
         self.looping = True
-        self.thread = threading.Thread(name='udp_beacon_sender', target=self._loop)
+        self.thread  = threading.Thread(name='udp_beacon_sender', target=self._loop)
         self.thread.daemon = True
         self.thread.start()
         self.status  = "running"
