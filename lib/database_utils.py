@@ -29,7 +29,7 @@ def create_database(database_file='db/PiControl.db'):
         # Close the database connection
         conn.close()
     except Error as e:
-        logger.error(e)
+        logging.error('Error opening/creating database. ' + e)
 
 def create_tables(connection):
     '''
@@ -70,11 +70,13 @@ def create_config(cursor):
         logger.info('Adding default configuration to the PiControl database.')
         try:
             cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file', 'log_files_backup', 'log_file_size') VALUES ('active', 31415, 60, 'PiControl', 10, 'logs/PiControl.log', 5, 4096000)")
-        except Error as (e):
-            logger.error('Error adding default configuration to PiControl database. ' + str(e))
+        except:
+            logger.error('Error adding default configuration to PiControl database. ')
 
 def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, database_file='db/PiControl.db'):
     logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
+    if ipaddress == '127.0.0.1':
+        return
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
@@ -85,15 +87,15 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
                 try:
                     logger.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
                     cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, serialnumber={3}, last_checkin={4} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
-                except Error as (e):
-                    logger.error(str(e))
+                except:
+                    logger.error('Error updating node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table.')
                     return()
             else:
                 try:
                     logger.info('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
                     cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, serialnumber, last_checkin) VALUES ({0},{1},{2},{3},{4})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
-                except Error as (e):
-                    logger.error(e)
+                except:
+                    logger.error('Error inserting node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table.')
                     return()
         except Error as (e):
             logger.error(e)
@@ -183,14 +185,6 @@ log_file         = "logs/PiControl_default.log"
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
 log_files_backup = 5
 log_file_size    = 4096000
-
-#Create log directory if it does not already exist
-LOG_DIR = "logs"
-if not os.path.exists(LOG_DIR):
-    try:
-        os.makedirs(LOG_DIR)
-    except PermissionError:
-        sys.exit("Error creating " + LOG_DIR + '. PERMISSION DENIED')
 
 #######################################################################
 #Setup logging

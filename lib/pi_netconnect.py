@@ -84,6 +84,8 @@ class UDPBeacon:
                     if netifaces.AF_INET in addrs:
                         #iterate over each ipaddress on the interface
                         for ip_info in addrs[netifaces.AF_INET]:
+                            if ip_info['addr'] == '127.0.0.1':
+                                continue
                             #get all the ipaddresses in the ipaddress' network
                             ip_cidr      = IPNetwork(ip_info['addr'] + '/' + ip_info['netmask']).cidr
                             logger.debug('Sending UDPBeacon to ' + str(ip_cidr))
@@ -97,7 +99,7 @@ class UDPBeacon:
                                 if (ip != ip_cidr.network) and (ip != ip_cidr.broadcast) and (str(IPAddress(ip)) != ip_info['addr']):
                                     logger.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
                                     hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                                    hbSocket.sendto(str(self.message + ';' + hostname + ';' + revision + ';' + serialnumber), (str(IPAddress(ip)), self.port))
+                                    hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber), (str(IPAddress(ip)), self.port))
             sleep(self.interval)
         self.thread.join(1)
 

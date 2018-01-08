@@ -38,7 +38,10 @@ def cpu_temperature(type='JSON'):
         logger.error('Error getting cpu_temperature from vcgencmd')
 
     celcius     = output.replace('temp=', '').replace('\'C', '')
-    fahrenheit  = float(celcius) * 9/5 + 32
+    try:
+        fahrenheit  = float(celcius) * 9/5 + 32
+    except:
+        fahrenheit = 'ERROR'
     temperature_string = str(fahrenheit) + ' F (' + str(celcius) + 'C)'
     if type == 'JSON':
         return jsonify(temp=temperature_string)
@@ -138,18 +141,20 @@ def pi_revision():
     Return the Raspberry Pi revision number
     https://www.raspberrypi-spy.co.uk/2012/09/checking-your-raspberry-pi-board-version/
     '''
-    revision = 'ERROR'
     try:
         revision = os.popen("cat /proc/cpuinfo|grep '^Revision'|awk '{print $3}'").read().splitlines()
     except:
         logger.error('Error getting pi_revision')
-    return(revision[0])
+    try:
+        revision_string = revision[0]
+    except:
+        revision_string = ['ERROR']
+    return(revision_string)
 
 def pi_serialnumber(type='JSON'):
     '''
     Return the Raspberry Pi serial number
     '''
-    serialnumber = 'ERROR'
     try:
         serialnumber = os.popen("cat /proc/cpuinfo|grep '^Serial'|awk '{print $3}'").read().splitlines()
     except:
@@ -157,7 +162,11 @@ def pi_serialnumber(type='JSON'):
     if type == 'JSON':
         return jsonify(serialnumber=serialnumber)
     else:
-        return(serialnumber[0])
+        try:
+            serialnumber_string = serialnumber[0]
+        except:
+            serialnumber_string = 'ERROR'
+        return(serialnumber_string)
 
 def pi_model(revision, type='JSON'):
     pi = {}
@@ -237,28 +246,11 @@ def service_status():
 ###############################################################################
 # Logging workaround
 log_level        = 10
-log_file         = "logs/PiControl_default.log"
+log_file         = "logs/PiControl_pi_utilities.log"
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
 log_files_backup = 5
 log_file_size    = 4096000
 
-try:
-    config            = get_config()
-    log_level         = int(config['log_level'])
-    log_file          = str(config['log_file'])
-    #log_format       = str(config['log_format'])
-    #log_files_backup = int(config['log_files_backup'])
-    #log_role_size    = int(config['log_file_size'])
-except:
-    logging.error('Error getting configuration from PiControl database')
-
-#Create log directory if it does not already exist
-LOG_DIR = "logs"
-if not os.path.exists(LOG_DIR):
-    try:
-        os.makedirs(LOG_DIR)
-    except PermissionError:
-        sys.exit("Error creating " + LOG_DIR + '. PERMISSION DENIED')
 
 #######################################################################
 #Setup logging

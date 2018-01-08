@@ -32,23 +32,21 @@ from lib.database_utils import create_database, get_config, update_config, get_n
 from lib.chart_utils import PiControlChart
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
-from simplepam import authenticate
+#from simplepam import authenticate
 
 APP_DIR = os.path.abspath(os.path.dirname(__file__))
 
-# Create and initialize the PiControl database (if it hasn't already been done)
-create_database()
-
+logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SECRET_KEY'] = get_config()['secret_key']
+app.config['SECRET_KEY'] = 'PiControl' #get_config()['secret_key']
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/PiControl.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ################################################
 # Setup logging
-app.logger.addHandler(handler)
+#app.logger.addHandler(handler)
 
 werkzeug_logger = logging.getLogger('werkzeug')
 werkzeug_logger.setLevel(logger.level)
@@ -130,14 +128,14 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if authenticate(str(username), str(password)):
-            session['username'] = request.form['username']
-            logger.info(str(username) + ' successfully logged in')
-            return ( redirect(url_for('index')) )
-        else:
-            logger.info('Login failed for ' + str(username))
-            flash('Invalid username/password', 'error')
-            return(render_template('login.html'))
+        #if authenticate(str(username), str(password)):
+        #    session['username'] = request.form['username']
+        #    logger.info(str(username) + ' successfully logged in')
+        #    return ( redirect(url_for('index')) )
+        #else:
+        #    logger.info('Login failed for ' + str(username))
+        #    flash('Invalid username/password', 'error')
+        #    return(render_template('login.html'))
     else:
         return(render_template('login.html'))
 
@@ -366,5 +364,7 @@ def get_pi_serialnumber():
     return(pi_serialnumber())
 
 if __name__ == '__main__':
+    # Create and initialize the PiControl database (if it hasn't already been done)
+    create_database()
     context = ('SSL/server.crt', 'SSL/server.key')
     app.run(ssl_context=context, threaded=True, debug=False, host='0.0.0.0', port=31415)
