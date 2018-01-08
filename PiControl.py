@@ -34,13 +34,16 @@ from lib.chart_utils import PiControlChart
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
 
+APP_DIR = os.path.abspath(os.path.dirname(__file__))
+
 # Create and initialize the PiControl database (if it hasn't already been done)
-create_database()
+create_database(app_dir=APP_DIR, database_file='db/PiControl.db')
+config = get_config()
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SECRET_KEY'] = 'PiControl'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/PiControl.db'
+app.config['SECRET_KEY'] = config['secret_key']
+app.config['SQLALCHEMY_DATABASE_URI'] = config['database_file']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ################################################
