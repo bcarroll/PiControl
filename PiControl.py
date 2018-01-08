@@ -37,7 +37,7 @@ from simplepam import authenticate
 APP_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Create and initialize the PiControl database (if it hasn't already been done)
-create_database(app_dir=APP_DIR, database_file='db/PiControl.db')
+create_database(app_dir=APP_DIR)
 config = get_config()
 
 app = Flask(__name__)

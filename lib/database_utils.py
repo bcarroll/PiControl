@@ -12,7 +12,7 @@ from logging.handlers import RotatingFileHandler
 
 from lib.pi_utilities import pi_model
 
-def create_database(app_dir='./', database_file='PiControl.db'):
+def create_database(app_dir='./'):
     '''
     Create a blank SQLite3 database
 
@@ -20,6 +20,7 @@ def create_database(app_dir='./', database_file='PiControl.db'):
         app_dir {str} -- Path to PiControl base directory (default: {'./'})
         database_file {str} -- Path to the database file to create (default: {'PiControl.db'})
     '''
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
     try:
         conn = sqlite3.connect(database_file)
         # Create PiControl database tables
@@ -31,15 +32,14 @@ def create_database(app_dir='./', database_file='PiControl.db'):
     except Error as e:
         logger.error(e)
 
-def create_tables(connection, app_dir, database_file):
+def create_tables(connection, app_dir):
     '''
     Create PiControl database tables using the provided database connection
 
     Arguments:
         connection {sqlite3.Connection} -- A previously created sqlite3 database connection object
     '''
-    if not os.path.isabs(database_file):
-        database_file = os.path.join(app_dir, database_file)
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
     try:
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL,'last_checkin' DATETIME NOT NULL)")
@@ -48,7 +48,7 @@ def create_tables(connection, app_dir, database_file):
     except Error as e:
         logger.error(e)
 
-def create_config(cursor, app_dir, database_file):
+def create_config(cursor, app_dir):
     '''
     Insert default configuration to config table
     Silently catches the exception if the config data already exists
@@ -56,6 +56,7 @@ def create_config(cursor, app_dir, database_file):
     Arguments:
         cursor {sqlite3.Cursor} -- A previsouly created sqlite3 cursor object
     '''
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
     try:
         # Get all rows from the config database table
         cursor.execute("SELECT * FROM 'config' WHERE id='active'")
@@ -77,9 +78,9 @@ def create_config(cursor, app_dir, database_file):
 
 def update_node(ipaddress, hostname, revision, serialnumber, last_checkin):
     logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
-    config = get_config()
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
     try:
-        conn = sqlite3.connect(config['database_file'])
+        conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
             cursor.execute('SELECT ipaddress FROM nodes WHERE ipaddress={0}'.format("'{}'".format(ipaddress)))
@@ -110,10 +111,10 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin):
         return()
 
 def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, log_files_backup, log_file_size):
-    config = get_config()
     logger.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file) + ', log_files_backup=' + str(log_files_backup) + ', log_file_size=' + str(log_file_size))
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
     try:
-        conn = sqlite3.connect(config['database_file'])
+        conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
             cursor.execute('UPDATE config set (beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}, log_files_backup={5}, log_file_size={6}) WHERE id="active"'.format(beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file), log_files_backup, log_file_size))
@@ -130,9 +131,9 @@ def get_config():
     '''
     Returns PiControl configuration (from the PiControl database) in JSON
     '''
-    config = get_config()
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
     try:
-        conn = sqlite3.connect(config['database_file'])
+        conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
             cursor.execute('SELECT app_dir,database_file,beacon_port,beacon_interval,secret_key,log_level,log_file,log_files_backup,log_file_size FROM config WHERE id=?', ("active",))
@@ -156,8 +157,9 @@ def get_config():
     except Error as e:
         logger.error(e)
 
-def get_nodes(database_file='db/PiControl.db'):
+def get_nodes():
     nodes = []
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'db/PiControl.db')
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
@@ -185,7 +187,7 @@ def get_nodes(database_file='db/PiControl.db'):
 # Logging workaround
 config = get_config()
 log_level        = 10
-log_file         = "logs/PiControl_database_utils.log"
+log_file         = database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'logs/PiControl_database_utils.log')
 log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
 log_files_backup = 5
 log_file_size    = 4096000
