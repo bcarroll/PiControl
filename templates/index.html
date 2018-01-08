@@ -26,7 +26,7 @@
 				<td>
 					<table class="table-hover" style="width:100%;">
 						<tr>
-							<th>Usage</th><td class="pull-right"><table id='cpu_usage'></table></td>
+							<th>Usage</th><td class="pull-right" id='cpu_usage'></td>
 						</tr>
 						<tr>
 							<th>Temperature</th><td class="pull-right" id='cpu_temperature'></td>
@@ -103,10 +103,13 @@
 		// Create placeholders for cpu usage stats
 		$.get('/cpu/count', function(result){
 			console.log(result);
+			var cpu_usage_data = "";
 			for ( cpu_num = 0; cpu_num < result.cpu_count; cpu_num++ ){
 				console.log('CPU ' + cpu_num);
-				$('#cpu_usage tr:last').after('<tr><th>CPU ' + cpu_num + '</th><td id="cpu_' + cpu_num + '"></td></tr>');
+				cpu_usage_data = 'CPU ' + cpu_num + '<br/>'
+				//$('#cpu_usage tr:last').after('<tr><th>CPU ' + cpu_num + '</th><td id="cpu_' + cpu_num + '"></td></tr>');
 			}
+			$('#cpu_usage').html(cpu_usage_data);
 		});
 
 		get_platform();
