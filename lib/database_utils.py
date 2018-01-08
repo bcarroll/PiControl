@@ -20,7 +20,7 @@ def create_database(app_dir='./'):
         app_dir {str} -- Path to PiControl base directory (default: {'./'})
         database_file {str} -- Path to the database file to create (default: {'PiControl.db'})
     '''
-    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'../db/PiControl.db')
+    database_file = os.path.join(os.path.abspath(os.path.dirname(__file__)),'/PiControl.db').replace('lib','db')
     logger.debug('database_file = ' + database_file)
     try:
         conn = sqlite3.connect(database_file)
