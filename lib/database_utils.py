@@ -20,6 +20,7 @@ def create_database(database_file='db/PiControl.db'):
         database_file {str} -- Path to the database file to create (default: {'../db/PiControl.db'})
     '''
     try:
+        logger.debug('create_database() called...')
         conn = sqlite3.connect(database_file)
         # Create PiControl database tables
         create_tables(conn)
@@ -38,6 +39,7 @@ def create_tables(connection):
         connection {sqlite3.Connection} -- A previously created sqlite3 database connection object
     '''
     try:
+        logger.debug('create_tables() called...')
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL,'last_checkin' DATETIME NOT NULL)")
         cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL, 'log_files_backup' INTEGER NOT NULL, 'log_file_size' INTEGER NOT NULL)")
@@ -53,6 +55,7 @@ def create_config(cursor):
     Arguments:
         cursor {sqlite3.Cursor} -- A previsouly created sqlite3 cursor object
     '''
+    logger.debug('create_config() called...')
     # Get all rows from the config database table
     cursor.execute("SELECT * FROM 'config'")
     #There should never be more than one row in the config table
@@ -123,6 +126,7 @@ def get_config(database_file='db/PiControl.db'):
     '''
     Returns PiControl configuration (from the PiControl database) in JSON
     '''
+    logger.debug('get_config() called...')
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
@@ -147,6 +151,7 @@ def get_config(database_file='db/PiControl.db'):
         logger.error(e)
 
 def get_nodes(database_file='db/PiControl.db'):
+    logger.debug('get_nodes() called...')
     nodes = []
     try:
         conn = sqlite3.connect(database_file)
@@ -183,9 +188,9 @@ try:
     config            = get_config()
     log_level         = int(config['log_level'])
     log_file          = str(config['log_file'])
-    #log_format       = str(config['log_format'])
-    #log_files_backup = int(config['log_files_backup'])
-    #log_role_size    = int(config['log_file_size'])
+    log_format       = str(config['log_format'])
+    log_files_backup = int(config['log_files_backup'])
+    log_role_size    = int(config['log_file_size'])
 except:
     logging.error('Error getting configuration from PiControl database')
 
