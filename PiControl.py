@@ -37,13 +37,13 @@ from simplepam import authenticate
 APP_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Create and initialize the PiControl database (if it hasn't already been done)
-create_database(app_dir=APP_DIR)
+create_database()
 config = get_config()
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SECRET_KEY'] = str(config['secret_key'])
-app.config['SQLALCHEMY_DATABASE_URI'] = config['database_file']
+app.config['SECRET_KEY'] = config['secret_key']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/PiControl.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ################################################
