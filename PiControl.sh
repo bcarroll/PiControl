@@ -15,7 +15,6 @@ stop(){
 restart(){
     echo "Restarting PiControl"
     stop()
-    counter=1
     sleep(3)
     done
     start()
