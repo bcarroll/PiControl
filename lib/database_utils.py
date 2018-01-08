@@ -7,9 +7,8 @@ from time import time
 import datetime
 from pprint import pprint
 from flask import jsonify
-import logging
-from logging.handlers import RotatingFileHandler
 
+from lib._logging import logger
 from lib.pi_model import pi_model
 
 def create_database(database_file='db/PiControl.db'):
@@ -176,40 +175,3 @@ def get_nodes(database_file='db/PiControl.db'):
     except Error as (e):
         logger.error(e)
     return jsonify({'nodes': nodes})
-
-
-###############################################################################
-# Logging workaround
-log_level        = 10
-log_file         = "logs/PiControl_default.log"
-log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
-log_files_backup = 5
-log_file_size    = 4096000
-
-#######################################################################
-#Setup logging
-logger    = logging.getLogger(__name__)
-logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
-
-loglevels = {
-    50: logging.CRITICAL,
-    40: logging.ERROR,
-    30: logging.WARNING,
-    20: logging.INFO,
-    10: logging.DEBUG,
-    0: "NONE"
-}
-
-# Set the logging level
-loglevel = ( loglevels[log_level] )
-
-handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
-
-if log_level == 0:
-    #Logging is disabled
-    handler = logging.NullHandler()
-    print ('Logging is disabled')
-
-handler.setFormatter(logformat)
-logger.addHandler(handler)
-logger.setLevel(loglevel)
