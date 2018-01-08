@@ -140,10 +140,10 @@
 		function get_cpu_usage(){
 			$.get('/cpu/usage', function(result){
 				var cpu_usage_data = "";
-				console.log(result);
-				for ( cpu_num=0; cpu_num<result.cpu_usage; cpu_num++ ){
+				for ( cpu_num=0; cpu_num<result.cpu_usage.length; cpu_num++ ){
 					cpu_usage_data = cpu_usage_data + 'CPU ' + cpu_num + ': ' + result.cpu_usage[cpu_num] + '<br/>';
 				}
+				console.log(cpu_usage_data);
 				$('#cpu_usage').html(cpu_usage_data);
 			});
 		}
