@@ -5,86 +5,101 @@
 <h1 class="page-header" id="page-header"><img src="/static/img/logo-color.jpg" width="31"></i></i> Raspberry Pi <span id="model"></span></h1>
 <table class="table-bordered table-hover" style="width:100%;" width="100%">
 	<tr>
-		<th class="heading"><i class="fab fa-linux"></i> OS</th>
 		<td>
-			<table class="table-hover" style="width:100%;">
+			<tr>
+				<th class="heading"><i class="fab fa-linux"></i> OS</th>
+				<td>
+					<table class="table-hover" style="width:100%;">
+						<tr>
+							<th>Version</th><td class="pull-right" id='osname'></td>
+						</tr>
+						<tr>
+							<th>Kernel</th><td class="pull-right" id='kernel'></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<th class="heading"><i class="fas fa-tachometer-alt"></i> CPU</th>
+				<td>
+					<table class="table-hover" style="width:100%;">
+						<tr>
+							<th>Usage</th><td class="pull-right" id='cpu_usage'></td>
+						</tr>
+						<tr>
+							<th>Temperature</th><td class="pull-right" id='cpu_temperature'></td>
+						</tr>
+						<tr>
+							<th>Frequency</th><td class="pull-right" id='cpu_frequency'></td>
+						</tr>
+						<tr>
+							<th>Voltage</th><td class="pull-right" id='cpu_voltage'></td>
+						</tr>
+						<tr>
+							<th>Serial Number</th><td class="pull-right" id='serialnumber'></td></tr>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr id="mem_usage">
+				<th class="heading">
+					<i class="fas fa-microchip"></i> Memory
+				</th>
+				<td>
+					<table class="table-hover" style="width:100%;">
+						<tr>
+							<th>Total</th><td class="pull-right" id="mem_total"></td>
+						</tr>
+						<tr>
+							<th>Used</th><td class="pull-right" id="mem_used"></td>
+						</tr>
+						<tr>
+							<th>Free</th><td class="pull-right" id="mem_free"></td>
+						</tr>
+						<tr>
+							<th>Shared</th><td class="pull-right" id="mem_shared"></td>
+						</tr>
+						<tr>
+							<th>Buffers</th><td class="pull-right" id="mem_buffers"></td>
+						</tr>
+						<tr>
+							<th>Cached</th><td class="pull-right" id="mem_cached"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr id="swap_usage">
+				<th class="heading">
+						<i class="fas fa-hdd"></i> Swap
+				</th>
+				<td>
+					<table class="table-hover" style="width:100%;">
+						<tr>
+							<th>Total</th><td class="pull-right" id="swap_total"></td>
+						</tr>
+						<tr>
+							<th>Free</th><td class="pull-right" id="swap_free"></td>
+						</tr>
+						<tr>
+							<th>Used</th><td class="pull-right" id="swap_used"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr id="disk_usage"></tr>
+		</td>
+		<td id="charts">
+			<table>
+				{% for chart in charts %}
 				<tr>
-					<th>Version</th><td class="pull-right" id='osname'></td>
+					<td>
+						{{ chart }}
+					</td>
 				</tr>
-				<tr>
-					<th>Kernel</th><td class="pull-right" id='kernel'></td>
-				</tr>
+				{% endfor %}
 			</table>
 		</td>
 	</tr>
-	<tr>
-		<th class="heading"><i class="fas fa-tachometer-alt"></i> CPU</th>
-		<td>
-			<table class="table-hover" style="width:100%;">
-				<tr>
-					<th>Usage</th><td class="pull-right" id='cpu_usage'></td>
-				</tr>
-				<tr>
-					<th>Temperature</th><td class="pull-right" id='cpu_temperature'></td>
-				</tr>
-				<tr>
-					<th>Frequency</th><td class="pull-right" id='cpu_frequency'></td>
-				</tr>
-				<tr>
-					<th>Voltage</th><td class="pull-right" id='cpu_voltage'></td>
-				</tr>
-				<tr>
-					<th>Serial Number</th><td class="pull-right" id='serialnumber'></td></tr>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr id="mem_usage">
-		<th class="heading">
-			<i class="fas fa-microchip"></i> Memory
-		</th>
-		<td>
-			<table class="table-hover" style="width:100%;">
-				<tr>
-					<th>Total</th><td class="pull-right" id="mem_total"></td>
-				</tr>
-				<tr>
-					<th>Used</th><td class="pull-right" id="mem_used"></td>
-				</tr>
-				<tr>
-					<th>Free</th><td class="pull-right" id="mem_free"></td>
-				</tr>
-				<tr>
-					<th>Shared</th><td class="pull-right" id="mem_shared"></td>
-				</tr>
-				<tr>
-					<th>Buffers</th><td class="pull-right" id="mem_buffers"></td>
-				</tr>
-				<tr>
-					<th>Cached</th><td class="pull-right" id="mem_cached"></td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr id="swap_usage">
-		<th class="heading">
-				<i class="fas fa-hdd"></i> Swap
-		</th>
-		<td>
-			<table class="table-hover" style="width:100%;">
-				<tr>
-					<th>Total</th><td class="pull-right" id="swap_total"></td>
-				</tr>
-				<tr>
-					<th>Free</th><td class="pull-right" id="swap_free"></td>
-				</tr>
-				<tr>
-					<th>Used</th><td class="pull-right" id="swap_used"></td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr id="disk_usage"></tr>
 </table>
 	<script>
 		get_platform();
