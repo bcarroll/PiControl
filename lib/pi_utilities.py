@@ -6,8 +6,10 @@ import subprocess
 from flask import jsonify
 import psutil
 
-import logging
-from logging.handlers import RotatingFileHandler
+#import logging
+#from logging.handlers import RotatingFileHandler
+
+from lib._logging import logger
 
 ########################################################################
 # vcgencmd command references:
@@ -243,39 +245,39 @@ def service_status():
     #services = os.popen("for svc in `service --status-all|awk '{print $4}'`;do service $svc status|grep -v \"Warning: Unit\";done").read().splitlines()
     pass
 
-###############################################################################
-# Logging workaround
-log_level        = 10
-log_file         = "logs/PiControl_pi_utilities.log"
-log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
-log_files_backup = 5
-log_file_size    = 4096000
+# ###############################################################################
+# # Logging workaround
+# log_level        = 10
+# log_file         = "logs/PiControl_pi_utilities.log"
+# log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s'
+# log_files_backup = 5
+# log_file_size    = 4096000
 
 
-#######################################################################
-#Setup logging
-logger    = logging.getLogger(__name__)
-logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
+# #######################################################################
+# #Setup logging
+# logger    = logging.getLogger(__name__)
+# logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
-loglevels = {
-    50: logging.CRITICAL,
-    40: logging.ERROR,
-    30: logging.WARNING,
-    20: logging.INFO,
-    10: logging.DEBUG,
-    0: "NONE"
-}
+# loglevels = {
+#     50: logging.CRITICAL,
+#     40: logging.ERROR,
+#     30: logging.WARNING,
+#     20: logging.INFO,
+#     10: logging.DEBUG,
+#     0: "NONE"
+# }
 
-# Set the logging level
-loglevel = ( loglevels[log_level] )
+# # Set the logging level
+# loglevel = ( loglevels[log_level] )
 
-handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
+# handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
 
-if log_level == 0:
-    #Logging is disabled
-    handler = logging.NullHandler()
-    print ('Logging is disabled')
+# if log_level == 0:
+#     #Logging is disabled
+#     handler = logging.NullHandler()
+#     print ('Logging is disabled')
 
-handler.setFormatter(logformat)
-logger.addHandler(handler)
-logger.setLevel(loglevel)
+# handler.setFormatter(logformat)
+# logger.addHandler(handler)
+# logger.setLevel(loglevel)
