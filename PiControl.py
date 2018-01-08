@@ -34,8 +34,6 @@ from lib.chart_utils import PiControlChart
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 #from simplepam import authenticate
 
-APP_DIR = os.path.abspath(os.path.dirname(__file__))
-
 logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
 app = Flask(__name__)
@@ -364,6 +362,10 @@ def get_pi_serialnumber():
     return(pi_serialnumber())
 
 if __name__ == '__main__':
+    # Get PiControl base directory
+    APP_DIR = os.path.abspath(os.path.dirname(__file__))
+    # cd to the PiControl base directory
+    os.chdir(APP_DIR)
     # Create and initialize the PiControl database (if it hasn't already been done)
     create_database()
     context = ('SSL/server.crt', 'SSL/server.key')
