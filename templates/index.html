@@ -104,6 +104,7 @@
 		get_disk_usage();
 		get_mem_usage_json();
 		get_swap_usage_json();
+		get_charts();
 
 	    $.get('/model', function(result){
 	        $('#model').text(result.model);
@@ -165,6 +166,14 @@
 				$('#swap_total').text(result.total);
 				$('#swap_free').text(result.used);
 				$('#swap_used').text(result.free);
+			});
+		}
+
+		function get_charts(){
+			$.get('/charts', function(result){
+				console.log(result)
+				console.log(result.charts)
+				//$('#charts tr:last').after
 			});
 		}
 

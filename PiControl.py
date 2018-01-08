@@ -119,7 +119,7 @@ def require_login(f):
 @app.route('/')
 @require_login
 def index():
-    return( render_template('index.html', charts=[cpu_temperature_chart.list]) )
+    return( render_template('index.html') )
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -250,6 +250,11 @@ def refresh_discovered_nodes():
     return (get_nodes())
 
 #####################################################################################
+
+@app.route('/charts')
+@require_login
+def get_charts():
+    return({'charts': [cpu_temperature_chart.list]})
 
 @app.route('/cpu/usage')
 @require_login
