@@ -4,40 +4,50 @@ import re
 import subprocess
 from flask import jsonify
 
+from lib._logging import logger
+
 def memory_usage():
     '''
     Returns memory usage statistics
     '''
-    output = subprocess.check_output(['free', '-o', '-h']).decode('utf-8')
-    m = re.search('Mem:\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])', output)
-    total_mem = used_mem = free_mem = shared_mem = buffers_mem = cached_mem = ""
+    total_mem = used_mem = free_mem = shared_mem = buffers_mem = cached_mem = 'ERROR'
     try:
-        total_mem = m.group(1)
-        used_mem = m.group(2)
-        free_mem = m.group(3)
-        shared_mem = m.group(4)
-        buffers_mem = m.group(5)
-        cached_mem = m.group(6)
+        output = subprocess.check_output(['free', '-o', '-h']).decode('utf-8')
+        m = re.search('Mem:\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])', output)
+
+        try:
+            total_mem = m.group(1)
+            used_mem = m.group(2)
+            free_mem = m.group(3)
+            shared_mem = m.group(4)
+            buffers_mem = m.group(5)
+            cached_mem = m.group(6)
+        except:
+            pass
     except:
-        pass
+        logger.error('Error getting memory_usage')
+
     return('''<th class="heading"><i class="fas fa-microchip"></i> Memory</th><td><table class="table-hover" style="width:100%;"><tr><th>Total</th><td class="pull-right">''' + total_mem + '''</td></tr><tr><th>Used</th><td class="pull-right">''' + used_mem + '''</td></tr><tr><th>Free</th><td class="pull-right">''' + free_mem + '''</td></tr><tr><th>Shared</th><td class="pull-right">''' + shared_mem + '''</td></tr><tr><th>Buffers</th><td class="pull-right">''' + buffers_mem + '''</td></tr><tr><th>Cached</th><td class="pull-right">''' + cached_mem + '''</td></tr></table></td>''')
 
 def memory_usage_json():
     '''
     Returns memory usage statistics in JSON
     '''
-    output = subprocess.check_output(['free', '-o', '-h']).decode('utf-8')
-    m = re.search('Mem:\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])', output)
-    total_mem = used_mem = free_mem = shared_mem = buffers_mem = cached_mem = ""
+    total_mem = used_mem = free_mem = shared_mem = buffers_mem = cached_mem = 'ERROR'
     try:
-        total_mem = m.group(1)
-        used_mem = m.group(2)
-        free_mem = m.group(3)
-        shared_mem = m.group(4)
-        buffers_mem = m.group(5)
-        cached_mem = m.group(6)
+        output = subprocess.check_output(['free', '-o', '-h']).decode('utf-8')
+        m = re.search('Mem:\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])', output)
+        try:
+            total_mem = m.group(1)
+            used_mem = m.group(2)
+            free_mem = m.group(3)
+            shared_mem = m.group(4)
+            buffers_mem = m.group(5)
+            cached_mem = m.group(6)
+        except:
+            pass
     except:
-        pass
+        logger.error('Error getting memory_usage_json')
     return jsonify(
     	total=total_mem,
     	used=used_mem,
@@ -51,12 +61,16 @@ def memory_voltage_json():
 	'''
 	Returns
 	'''
-	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_c']).decode('utf-8')
-	sdram_c = output.replace('volt=', '')
-	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_i']).decode('utf-8')
-	sdram_i = output.replace('volt=', '')
-	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_p']).decode('utf-8')
-	sdram_p = output.replace('volt=', '')
+    sdram_c = sdram_i = sdram_p = 'ERROR'
+    try:
+    	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_c']).decode('utf-8')
+    	sdram_c = output.replace('volt=', '')
+    	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_i']).decode('utf-8')
+    	sdram_i = output.replace('volt=', '')
+    	output = subprocess.check_output(['vcgencmd', 'measure_volts', 'sdram_p']).decode('utf-8')
+    	sdram_p = output.replace('volt=', '')
+    except:
+        logger.error('Error getting memory_voltage_json')
 	return jsonify(
 			sdram_c=sdram_c,
 			sdram_i=sdram_i,
@@ -67,30 +81,37 @@ def swap_usage():
     '''
     Returns swap usage statistics
     '''
-    output = subprocess.check_output(['free', '-o', '-h']).decode('utf-8')
-    m = re.search('Swap:\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\\n', output)
-    total_swap = used_swap = free_swap = ""
+    total_swap = used_swap = free_swap = 'ERROR'
     try:
-        total_swap = m.group(1)
-        used_swap = m.group(2)
-        free_swap = m.group(3)
+        output = subprocess.check_output(['free', '-o', '-h']).decode('utf-8')
+        m = re.search('Swap:\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\\n', output)
+        try:
+            total_swap = m.group(1)
+            used_swap = m.group(2)
+            free_swap = m.group(3)
+        except:
+            pass
     except:
-        pass
+        logger.error('Error getting swap_usage')
     return('''<th class="heading"><i class="fas fa-hdd"></i> Swap</th><td><table class="table-hover" style="width:100%;"><tr><th>Total</th><td class="pull-right">''' + total_swap + '''</td></tr><tr><th>Used</th><td class="pull-right">''' + used_swap + '''</td></tr><tr><th>Free</th><td class="pull-right">''' + free_swap + '''</td></tr></table></td>''')
 
 def swap_usage_json():
     '''
     Returns swap usage statistics in JSON
     '''
-    output = subprocess.check_output(['free', '-o', '-h']).decode('utf-8')
-    m = re.search('Swap:\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\\n', output)
-    total_swap = used_swap = free_swap = ""
+    total_swap = used_swap = free_swap = 'ERROR'
     try:
-        total_swap = m.group(1)
-        used_swap = m.group(2)
-        free_swap = m.group(3)
+        output = subprocess.check_output(['free', '-o', '-h']).decode('utf-8')
+        m = re.search('Swap:\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\s+([0-9\.]+[MKB])\\n', output)
+        total_swap = used_swap = free_swap = ""
+        try:
+            total_swap = m.group(1)
+            used_swap = m.group(2)
+            free_swap = m.group(3)
+        except:
+            pass
     except:
-        pass
+        logger.error('Error getting swap_usage_json')
     return jsonify(
 	    	total=total_swap,
 	    	used=used_swap,
@@ -98,10 +119,14 @@ def swap_usage_json():
     	)
 
 def memory_split():
-	output = subprocess.check_output(['vcgencmd', 'get_mem', 'arm']).decode('utf-8')
-	arm = output.replace('arm=', '')
-	output = subprocess.check_output(['vcgencmd', 'get_mem', 'gpu']).decode('utf-8')
-	gpu = output.replace('gpu=', '')
+    arm = gpu = 'ERROR'
+    try:
+    	output = subprocess.check_output(['vcgencmd', 'get_mem', 'arm']).decode('utf-8')
+    	arm = output.replace('arm=', '')
+    	output = subprocess.check_output(['vcgencmd', 'get_mem', 'gpu']).decode('utf-8')
+    	gpu = output.replace('gpu=', '')
+    except:
+        logger.error('Error getting memory_split')
 	return jsonify(
 			arm=arm,
 			gpu=gpu

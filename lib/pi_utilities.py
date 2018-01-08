@@ -6,6 +6,8 @@ import subprocess
 from flask import jsonify
 import psutil
 
+from lib._logging import logger
+
 ########################################################################
 # vcgencmd command references:
 #https://elinux.org/RPI_vcgencmd_usage
@@ -16,7 +18,11 @@ def cpu_usage():
     '''
     Returns CPU usage in percent
     '''
-    cpu_percent_idle = os.popen("top -n1 | awk '/Cpu\(s\):/ {print $8}'").readline().strip()
+    cpu_usage = 'ERROR'
+    try:
+        cpu_percent_idle = os.popen("top -n1 | awk '/Cpu\(s\):/ {print $8}'").readline().strip()
+    except:
+        logger.error('Error getting cpu_usage')
     return(cpu_percent_idle)
 
 def cpu_temperature(type='JSON'):
@@ -24,7 +30,12 @@ def cpu_temperature(type='JSON'):
     Returns the core temperature in Celsius.
     https://github.com/nschloe/stressberry/blob/master/stressberry/main.py
     '''
-    output      = subprocess.check_output(['vcgencmd', 'measure_temp']).decode('utf-8')
+    output = 'ERROR'
+    try:
+        output      = subprocess.check_output(['vcgencmd', 'measure_temp']).decode('utf-8')
+    except:
+        logger.error('Error getting cpu_temperature from vcgencmd')
+
     celcius     = output.replace('temp=', '').replace('\'C', '')
     fahrenheit  = float(celcius) * 9/5 + 32
     temperature_string = str(fahrenheit) + ' F (' + str(celcius) + 'C)'
@@ -40,7 +51,11 @@ def cpu_frequency():
     Returns the processor frequency in Hz.
     https://github.com/nschloe/stressberry/blob/master/stressberry/main.py
     '''
-    output = subprocess.check_output(['vcgencmd', 'measure_clock', 'arm']).decode('utf-8')
+    output = 'ERROR'
+    try:
+        output = subprocess.check_output(['vcgencmd', 'measure_clock', 'arm']).decode('utf-8')
+    except:
+        logger.error('Error getting cpu_frequency')
 
     # frequency(45)=102321321
     m = re.match('frequency\\([0-9]+\\)=([0-9]+)', output)
@@ -59,7 +74,12 @@ def cpu_voltage():
     '''
     Returns the processor voltage
     '''
-    output = subprocess.check_output(['vcgencmd', 'measure_volts', 'core']).decode('utf-8')
+    output = 'ERROR'
+    try:
+        output = subprocess.check_output(['vcgencmd', 'measure_volts', 'core']).decode('utf-8')
+    except:
+        logger.error('Error getting cpu_voltage')
+
     voltage = output.replace('volt=', '').replace('V', '')
     return jsonify(
             cpu_volts=str(float(voltage)) + 'V'
@@ -69,34 +89,47 @@ def av_codecs():
     '''
     Returns status of audio/video codecs (enabled/disabled)
     '''
-    H264 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'H264']).decode('utf-8') + '</td></tr>'
-    MPG2 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'MPG2']).decode('utf-8') + '</td></tr>'
-    MPG4 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'MPG4']).decode('utf-8') + '</td></tr>'
-    MJPG = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'WMV9']).decode('utf-8') + '</td></tr>'
-    WVC1 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'WVC1']).decode('utf-8') + '</td></tr>'
-    WMV9 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'WMV9']).decode('utf-8') + '</td></tr>'
+    H264 = MPG2 = MPG4 = MJPG = MVC1 = WMV9 = '<tr><th></th><td>ERROR</td></tr>'
+    try:
+        H264 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'H264']).decode('utf-8') + '</td></tr>'
+        MPG2 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'MPG2']).decode('utf-8') + '</td></tr>'
+        MPG4 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'MPG4']).decode('utf-8') + '</td></tr>'
+        MJPG = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'WMV9']).decode('utf-8') + '</td></tr>'
+        WVC1 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'WVC1']).decode('utf-8') + '</td></tr>'
+        WMV9 = '<tr><th>' + subprocess.check_output(['vcgencmd', 'codec_enabled', 'WMV9']).decode('utf-8') + '</td></tr>'
+    except:
+        logger.error('Error getting av_codecs')
+
     return(H264 + MPG2 + MPG4 + MJPG + WVC1 + WMV9).replace('=', '</th><td>')
 
 def disk_usage():
     '''
     Return disk usage statistics
     '''
-    df = [s.split() for s in os.popen("df -Ph|grep -v Filesystem").read().splitlines()]
-    output = '<th class="heading">Disk</th><td><table class="table-hover" style="width:100%;"><tr><th>Filesystem</th><th>Size</th><th>Used</th><th>Available</th><th>Use%</th><th>Mount Point</th></tr>'
-    for line in range(0, len(df)):
-        output = output + '<tr><td>' + df[line][0] + '</td><td>' + df[line][1] + '</td><td>' + df[line][2] + '</td><td>' + df[line][3] + '</td><td>' + df[line][4] + '</td><td>' + df[line][5] + '</td></tr>'
+    output = '<th class="heading">Disk</th><td><table class="table-hover" style="width:100%;"><tr><td>ERROR</td></tr>'
+    try:
+        df = [s.split() for s in os.popen("df -Ph|grep -v Filesystem").read().splitlines()]
+        output = '<th class="heading">Disk</th><td><table class="table-hover" style="width:100%;"><tr><th>Filesystem</th><th>Size</th><th>Used</th><th>Available</th><th>Use%</th><th>Mount Point</th></tr>'
+        for line in range(0, len(df)):
+            output = output + '<tr><td>' + df[line][0] + '</td><td>' + df[line][1] + '</td><td>' + df[line][2] + '</td><td>' + df[line][3] + '</td><td>' + df[line][4] + '</td><td>' + df[line][5] + '</td></tr>'
+    except:
+        logger.error('Error getting disk_usage')
     return(output + "</table></td>")
 
 def disk_usage_summary():
     '''
     Return minimal disk usage statistics
     '''
-    df = [s.split() for s in os.popen("df -Ph|grep -v Filesystem|egrep -v '^tmpfs'").read().splitlines()]
-    #output = '<th class="heading">Disk</th><td><table class="table-hover" style="width:100%;"><tr><th>Filesystem</th><th>Size</th><th>Used</th><th>Available</th><th>Use%</th><th>Mount Point</th></tr>'
-    output = '<th class="heading"><i class="fas fa-hdd"></i> Disk</th><td><table class="table-hover" style="width:100%;text-align:center;"><tr><th>Mount Point</th><th>Available</th><th>Use%</th></tr>'
-    for line in range(0, len(df)):
-        #output = output + '<tr><td>' + df[line][0] + '</td><td>' + df[line][1] + '</td><td>' + df[line][2] + '</td><td>' + df[line][3] + '</td><td>' + df[line][4] + '</td><td>' + df[line][5] + '</td></tr>'
-        output = output + '<tr><td> ' + df[line][5] + '</td><td> ' + df[line][3] + '</td><td> ' + df[line][4] + '</td></tr>'
+    output = '<th class="heading">Disk</th><td><table class="table-hover" style="width:100%;"><tr><td>ERROR</td></tr>'
+    try:
+        df = [s.split() for s in os.popen("df -Ph|grep -v Filesystem|egrep -v '^tmpfs'").read().splitlines()]
+        #output = '<th class="heading">Disk</th><td><table class="table-hover" style="width:100%;"><tr><th>Filesystem</th><th>Size</th><th>Used</th><th>Available</th><th>Use%</th><th>Mount Point</th></tr>'
+        output = '<th class="heading"><i class="fas fa-hdd"></i> Disk</th><td><table class="table-hover" style="width:100%;text-align:center;"><tr><th>Mount Point</th><th>Available</th><th>Use%</th></tr>'
+        for line in range(0, len(df)):
+            #output = output + '<tr><td>' + df[line][0] + '</td><td>' + df[line][1] + '</td><td>' + df[line][2] + '</td><td>' + df[line][3] + '</td><td>' + df[line][4] + '</td><td>' + df[line][5] + '</td></tr>'
+            output = output + '<tr><td> ' + df[line][5] + '</td><td> ' + df[line][3] + '</td><td> ' + df[line][4] + '</td></tr>'
+    except:
+        logger.error('Error getting disk_usage_summary')
     return(output + "</table></td>")
 
 def pi_revision():
@@ -104,14 +137,22 @@ def pi_revision():
     Return the Raspberry Pi revision number
     https://www.raspberrypi-spy.co.uk/2012/09/checking-your-raspberry-pi-board-version/
     '''
-    revision = os.popen("cat /proc/cpuinfo|grep '^Revision'|awk '{print $3}'").read().splitlines()
+    revision = 'ERROR'
+    try:
+        revision = os.popen("cat /proc/cpuinfo|grep '^Revision'|awk '{print $3}'").read().splitlines()
+    except:
+        logger.error('Error getting pi_revision')
     return(revision[0])
 
 def pi_serialnumber(type='JSON'):
     '''
     Return the Raspberry Pi serial number
     '''
-    serialnumber = os.popen("cat /proc/cpuinfo|grep '^Serial'|awk '{print $3}'").read().splitlines()
+    serialnumber = 'ERROR'
+    try:
+        serialnumber = os.popen("cat /proc/cpuinfo|grep '^Serial'|awk '{print $3}'").read().splitlines()
+    except:
+        logger.error('Error getting pi_serialnumber')
     if type == 'JSON':
         return jsonify(serialnumber=serialnumber)
     else:
@@ -156,7 +197,11 @@ def pi_model(revision, type='JSON'):
         return(pi[revision])
 
 def gpio_info():
-    gpio_info = os.popen("gpio readall|grep -v '\-\-\-'| grep -v 'Physical'|tr -s ' '").read().replace('||', '|').splitlines()
+    gpio_info = ['ERROR']
+    try:
+        gpio_info = os.popen("gpio readall|grep -v '\-\-\-'| grep -v 'Physical'|tr -s ' '").read().replace('||', '|').splitlines()
+    except:
+        logger.error('Error getting gpio_info')
     pins = {}
     for line in gpio_info:
         undef,BCM,wPi,Name,Mode,V,Physical,Physical2,V2,Mode2,Name2,wPi2,BCM2,undef2 = line.replace(' ', '').split('|')
