@@ -363,7 +363,7 @@ def get_pi_serialnumber():
 
 if __name__ == '__main__':
     # Get PiControl base directory
-    APP_DIR = os.path.abspath(os.path.dirname(__file__))
+    APP_DIR = os.path.abspath(sys.path[0])
     # cd to the PiControl base directory
     os.chdir(APP_DIR)
     # Create and initialize the PiControl database (if it hasn't already been done)
