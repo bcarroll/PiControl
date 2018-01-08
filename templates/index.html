@@ -148,7 +148,7 @@
 		function get_cpu_usage(){
 			$.get('/cpu/usage', function(result){
 					console.log(result);
-					for ( cpu_num=0; cpu_num<result; cpu_num++ ){
+					for ( cpu_num=0; cpu_num<result.cpu_usage; cpu_num++ ){
 						console.log('CPU: ' + cpu_num + ', Usage: ' + result.cpu_usage[cpu_num]);
 						$('#cpu_' + cpu_num).text(result.cpu_usage[cpu_num]);
 					}
