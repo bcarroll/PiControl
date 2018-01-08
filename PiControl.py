@@ -254,7 +254,7 @@ def refresh_discovered_nodes():
 @app.route('/charts')
 @require_login
 def get_charts():
-    return({'charts': [cpu_temperature_chart.list]})
+    return({"charts": {"title": "CPU Temperature", "data": cpu_temperature_chart.list}})
 
 @app.route('/cpu/usage')
 @require_login
