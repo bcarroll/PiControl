@@ -4,7 +4,7 @@ import sys
 import logging
 from logging.handlers import RotatingFileHandler
 
-#from lib.database_utils import get_config
+from lib.database_utils import get_config
 
 log_level        = 10
 log_file         = "logs/PiControl_logging.log"
@@ -12,15 +12,15 @@ log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(pathname)s] %(mes
 log_files_backup = 5
 log_roll_size    = 4096000
 
-#try:
-#    config            = get_config()
-#    #log_level         = int(config['log_level'])
-#    #log_file          = str(config['log_file'])
-#    #log_format       = str(config['log_format'])
-#    #log_files_backup = int(config['log_files_backup'])
-#    #log_role_size    = int(config['log_roll_size'])
-#except:
-#    logging.error('Error getting configuration from PiControl database')
+try:
+    config            = get_config()
+    log_level         = int(config['log_level'])
+    log_file          = str(config['log_file'])
+    log_format       = str(config['log_format'])
+    log_files_backup = int(config['log_files_backup'])
+    log_role_size    = int(config['log_roll_size'])
+except:
+    logging.error('Error getting configuration from PiControl database')
 
 #######################################################################
 #Setup logging
@@ -47,7 +47,6 @@ if log_level == 0:
     handler = logging.NullHandler()
     print ('Logging is disabled')
 else:
-    #handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_roll_size, backupCount=log_files_backup)
     print('Logging to ' + str(log_file) + '. Rollover size is ' + str(log_roll_size) + ' bytes. Keeping ' + str(log_files_backup) + ' logfiles.')
 
 handler.setFormatter(logformat)
