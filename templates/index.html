@@ -1,6 +1,8 @@
 {%extends "base.html"%}
 {%block title%}Index{% endblock %}
-
+{% block javascript %}
+<script src="/static/js/canvasjs.min.js"></script>
+{% endblock %}
 {%block body%}
 <h1 class="page-header" id="page-header"><img src="/static/img/logo-color.jpg" width="31"></i></i> Raspberry Pi <span id="model"></span></h1>
 <table class="table-bordered table-hover" style="width:100%;" width="100%">
