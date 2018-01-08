@@ -1,7 +1,7 @@
 {%extends "base.html"%}
 {%block title%}Index{% endblock %}
-{% block javascript %}
-<script src="/static/js/canvasjs.min.js"></script>
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/css/chartist.min.css" />
 {% endblock %}
 {%block body%}
 <h1 class="page-header" id="page-header"><img src="/static/img/logo-color.jpg" width="31"></i></i> Raspberry Pi <span id="model"></span></h1>
@@ -186,10 +186,8 @@
 		setInterval(update_cpu_charts,1000)
 
 // Charts
-var cpu_usage_chart = new CanvasJS.Chart("cpu_usage_chart", { title:{text: "CPU Usage"}, data: [{ type: "column", dataPoints: [] }] });
-cpu_usage_chart.options.axisY = { suffix: "%" };
-cpu_usage_chart.render();
 
 
-	</script>
+</script>
+<script src="/static/js/chartist.min.js"></script>
 {%endblock%}
