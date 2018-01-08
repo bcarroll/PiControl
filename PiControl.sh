@@ -9,7 +9,7 @@ start(){
 
 stop(){
     echo "Stopping PiControl" >&2
-    sudo ps -ef|grep PiControl|xargs kill
+    ps -ef|grep PiControl|xargs kill
 }
 
 restart(){
