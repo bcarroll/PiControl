@@ -63,7 +63,7 @@ pi_discoverer = UDPBeaconListener()
 pi_discoverer.start()
 
 # Create background chart data collectors
-cpu_temperature_chart = PiControlChart(cpu_temperature)
+cpu_temperature_chart = PiControlChart(cpu_temperature, args='text')
 cpu_temperature_chart.start()
 
 def close_running_threads(signum=None, frame=None):

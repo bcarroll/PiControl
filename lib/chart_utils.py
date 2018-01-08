@@ -1,5 +1,4 @@
 # coding=utf-8
-import flask
 import threading
 from time import sleep
 
@@ -8,7 +7,7 @@ from lib.pi_utilities import cpu_temperature
 
 class PiControlChart():
     instances = []
-    def __init__(self, data_function, interval=5, max_elements=60, fill_empty=True, fill_data=0):
+    def __init__(self, data_function, args=None interval=5, max_elements=60, fill_empty=True, fill_data=0):
         '''
         Arguments:
             data_function {function} -- Name of a function that will return data to be added to the chart
@@ -16,6 +15,7 @@ class PiControlChart():
             max_elements {integer} -- Maximum number of elements in the list
         '''
         self.function     = data_function
+        self.function_args= args
         self.interval     = interval
         self.list         = []
         self.max_elements = max_elements
@@ -51,7 +51,7 @@ class PiControlChart():
     def _loop(self):
         logger.debug( 'PiControlChart_' + str(self.function.__name__) + ' thread loop started')
         while self.looping:
-            self.addData(self.function())
+            self.addData(self.function(self.function_args))
             print (self.list)
             sleep(self.interval)
         self.thread.join(1)
