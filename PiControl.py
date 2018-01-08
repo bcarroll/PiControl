@@ -32,7 +32,7 @@ from lib.database_utils import create_database, get_config, update_config, get_n
 from lib.chart_utils import PiControlChart
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
-#from simplepam import authenticate
+from simplepam import authenticate
 
 logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
@@ -44,7 +44,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 ################################################
 # Setup logging
-#app.logger.addHandler(handler)
+app.logger.addHandler(handler)
 
 werkzeug_logger = logging.getLogger('werkzeug')
 werkzeug_logger.setLevel(logger.level)
@@ -126,14 +126,14 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        #if authenticate(str(username), str(password)):
-        #    session['username'] = request.form['username']
-        #    logger.info(str(username) + ' successfully logged in')
-        #    return ( redirect(url_for('index')) )
-        #else:
-        #    logger.info('Login failed for ' + str(username))
-        #    flash('Invalid username/password', 'error')
-        #    return(render_template('login.html'))
+        if authenticate(str(username), str(password)):
+            session['username'] = request.form['username']
+            logger.info(str(username) + ' successfully logged in')
+            return ( redirect(url_for('index')) )
+        else:
+            logger.info('Login failed for ' + str(username))
+            flash('Invalid username/password', 'error')
+            return(render_template('login.html'))
     else:
         return(render_template('login.html'))
 
