@@ -9,11 +9,10 @@ from lib.database_config import get_config
 #######################################################################
 #Setup logging
 logger    = logging.getLogger(__name__)
-logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(pathname)s] %(message)s')
+logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(threadName)s][%(module)s][%(funcName)s][%(lineno)d] %(message)s')
 
 log_level        = 10
 log_file         = "logs/PiControl_logging.log"
-log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(pathname)s] %(message)s'
 log_files_backup = 5
 log_roll_size    = 4096000
 
