@@ -7,7 +7,7 @@ from lib.pi_utilities import cpu_temperature
 
 class PiControlChart():
     instances = []
-    def __init__(self, data_function, args=None interval=5, max_elements=60, fill_empty=True, fill_data=0):
+    def __init__(self, data_function, args=None, interval=5, max_elements=60, fill_empty=True, fill_data=0):
         '''
         Arguments:
             data_function {function} -- Name of a function that will return data to be added to the chart
