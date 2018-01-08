@@ -184,16 +184,6 @@ log_format       = '[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message
 log_files_backup = 5
 log_file_size    = 4096000
 
-try:
-    config            = get_config()
-    log_level         = int(config['log_level'])
-    log_file          = str(config['log_file'])
-    log_format       = str(config['log_format'])
-    log_files_backup = int(config['log_files_backup'])
-    log_role_size    = int(config['log_file_size'])
-except:
-    logging.error('Error getting configuration from PiControl database')
-
 #Create log directory if it does not already exist
 LOG_DIR = "logs"
 if not os.path.exists(LOG_DIR):

@@ -42,7 +42,7 @@ create_database()
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SECRET_KEY'] = 'PiControl'
+app.config['SECRET_KEY'] = get_config()['secret_key']
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/PiControl.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
