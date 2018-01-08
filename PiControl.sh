@@ -3,17 +3,17 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${SCRIPT_DIR}
 
 start(){
-    echo "Starting PiControl"
+    echo "Starting PiControl" >&2
     python PiControl.py
 }
 
 stop(){
-    echo "Stopping PiControl"
+    echo "Stopping PiControl" >&2
     sudo ps -ef|grep PiControl|xargs kill
 }
 
 restart(){
-    echo "Restarting PiControl"
+    echo "Restarting PiControl" >&2
     stop()
     sleep(3)
     done
@@ -32,4 +32,5 @@ case "$1" in
         ;;
     *)
         echo "Usage: $0 {start|stop|restart}"
+        ;;
 esac
