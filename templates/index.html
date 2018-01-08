@@ -158,7 +158,6 @@
 
 		function get_cpu_usage(){
 			$.get('/cpu/usage', function(result){
-				removeChartData(cpu_usage_chart);
 				var cpu_usage_data = "";
 				for ( cpu_num=0; cpu_num<result.cpu_usage.length; cpu_num++ ){
 					var cpu_percent = String(result.cpu_usage[cpu_num])
@@ -166,6 +165,7 @@
 						cpu_percent = cpu_percent + '.0';
 					}
 					addChartData(cpu_usage_chart,'CPU' + cpu_num, cpu_percent);
+					removeChartData(cpu_usage_chart);
 					cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + cpu_percent + '%<br/>';
 				}
 				$('#cpu_usage').html(cpu_usage_data);
