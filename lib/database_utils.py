@@ -2,7 +2,6 @@
 import os
 import sys
 import sqlite3
-from sqlite3 import Error
 from time import time
 import datetime
 from pprint import pprint
@@ -27,8 +26,8 @@ def create_database(database_file='db/PiControl.db'):
         conn.commit()
         # Close the database connection
         conn.close()
-    except Error as e:
-        logging.error('Error opening/creating database. ' + e)
+    except Exception as e:
+        logging.error('Error opening/creating database. ' + e.message)
 
 def create_tables(connection):
     '''
@@ -43,8 +42,8 @@ def create_tables(connection):
         cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL,'last_checkin' DATETIME NOT NULL)")
         cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL, 'log_files_backup' INTEGER NOT NULL, 'log_file_size' INTEGER NOT NULL)")
         create_config(cursor)
-    except Error as e:
-        logger.error(e)
+    except Exception as e:
+        logger.error(e.message)
 
 def create_config(cursor):
     '''
@@ -64,13 +63,14 @@ def create_config(cursor):
         # If the config table already has data, we don't need to do anything
         t = config_rows[0]
         logger.debug('config table previously initialized.')
-    except:
+    except Exception as e:
+        logger.debug(e.message)
         # No results.  Add the default configuration data
         logger.info('Adding default configuration to the PiControl database.')
         try:
             cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file', 'log_files_backup', 'log_file_size') VALUES ('active', 31415, 60, 'PiControl', 10, 'logs/PiControl.log', 5, 4096000)")
-        except:
-            logger.error('Error adding default configuration to PiControl database. ')
+        except Exception as e:
+            logger.error('Error adding default configuration to PiControl database. ' + e.message)
 
 def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, database_file='db/PiControl.db'):
     logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
@@ -86,25 +86,25 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
                 try:
                     logger.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
                     cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, serialnumber={3}, last_checkin={4} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
-                except:
-                    logger.error('Error updating node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table.')
+                except Exception as e:
+                    logger.error('Error updating node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table. ' + e.message)
                     return()
             else:
                 try:
                     logger.info('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
                     cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, serialnumber, last_checkin) VALUES ({0},{1},{2},{3},{4})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
-                except:
-                    logger.error('Error inserting node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table.')
+                except Exception as e:
+                    logger.error('Error inserting node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table. ' + e.message)
                     return()
-        except Error as (e):
-            logger.error(e)
+        except Exception as e:
+            logger.error(e.message)
             return()
         # Commit changes
         conn.commit()
         # Close the database connection
         conn.close()
-    except Error as e:
-        logger.error(e)
+    except Exception as e:
+        logger.error(e.message)
         return()
 
 def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, log_files_backup, log_file_size, database_file='db/PiControl.db'):
@@ -114,14 +114,14 @@ def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file,
         cursor = conn.cursor()
         try:
             cursor.execute('UPDATE config set (beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}, log_files_backup={5}, log_file_size={6}) WHERE id="active"'.format(beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file), log_files_backup, log_file_size))
-        except Error as (e):
-            logger.error(e)
+        except Exception as e:
+            logger.error(e.message)
         # Commit changes
         conn.commit()
         # Close the database connection
         conn.close()
-    except Error as e:
-        logger.error(e)
+    except Exception as e:
+        logger.error(e.message)
 
 #MOVED TO database_config.py
 # def get_config(database_file='db/PiControl.db'):
@@ -147,9 +147,9 @@ def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file,
 #             # Close the database connection
 #             conn.close()
 #             return (config)
-#         except Error as (e):
+#         except Exception as (e):
 #             logger.error(e)
-#     except Error as e:
+#     except Exception as e:
 #         logger.error(e)
 
 def get_nodes(database_file='db/PiControl.db'):
@@ -173,6 +173,6 @@ def get_nodes(database_file='db/PiControl.db'):
                     })
             except:
                 logger.error('nodes.append failed')
-    except Error as (e):
+    except Exception as (e):
         logger.error(e)
     return jsonify({'nodes': nodes})

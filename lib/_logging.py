@@ -11,7 +11,7 @@ from lib.database_config import get_config
 logger    = logging.getLogger(__name__)
 logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(threadName)s][%(module)s][%(funcName)s][%(lineno)d] %(message)s')
 
-log_level        = 10
+log_level        = 30
 log_file         = "logs/PiControl_logging.log"
 log_files_backup = 5
 log_roll_size    = 4096000
@@ -23,8 +23,8 @@ try:
     log_format        = str(config['log_format'])
     log_files_backup  = int(config['log_files_backup'])
     log_role_size     = int(config['log_roll_size'])
-except:
-    logger.error('Error getting configuration from PiControl database')
+except Exception as e:
+    logger.error('Error getting configuration from PiControl database. ' + e.message)
 
 loglevels = {
     50: logging.CRITICAL,

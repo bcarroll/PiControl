@@ -1,7 +1,6 @@
 # coding=utf-8
 
 import sqlite3
-from sqlite3 import Error
 
 def get_config(database_file='db/PiControl.db'):
     '''
@@ -25,7 +24,7 @@ def get_config(database_file='db/PiControl.db'):
             # Close the database connection
             conn.close()
             return (config)
-        except Error as (e):
-            print(e)
-    except Error as e:
-        print(e)
+        except Exception as e:
+            print(e.message)
+    except Exception as e:
+        print(e.message)
