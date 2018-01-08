@@ -152,7 +152,7 @@
 					cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + cpu_percent + '%<br/>';
 				}
 				$('#cpu_usage').html(cpu_usage_data);
-				cpu_usage_chart.update(data={"labels": labels, "series": series});
+				cpu_usage_chart.update(data={"labels": labels, "series": [series]});
 			});
 		}
 
