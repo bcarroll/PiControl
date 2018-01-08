@@ -4,7 +4,7 @@ import sys
 import logging
 from logging.handlers import RotatingFileHandler
 
-from lib.database_utils import get_config
+from lib.database_config import get_config
 
 #######################################################################
 #Setup logging
