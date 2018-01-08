@@ -100,18 +100,6 @@
 		// Charts
 		var cpu_usage_chart = new Chartist.Bar('#cpu_usage_chart', { labels: ['Usage'] });
 
-		// Create placeholders for cpu usage stats
-		$.get('/cpu/count', function(result){
-			console.log(result);
-			var cpu_usage_data = "";
-			for ( cpu_num = 0; cpu_num < result.cpu_count; cpu_num++ ){
-				console.log('CPU ' + cpu_num);
-				cpu_usage_data = 'CPU ' + cpu_num + '<br/>'
-				//$('#cpu_usage tr:last').after('<tr><th>CPU ' + cpu_num + '</th><td id="cpu_' + cpu_num + '"></td></tr>');
-			}
-			$('#cpu_usage').html(cpu_usage_data);
-		});
-
 		get_platform();
 		get_cpu_frequency();
 		get_cpu_voltage();
@@ -151,12 +139,13 @@
 
 		function get_cpu_usage(){
 			$.get('/cpu/usage', function(result){
-					console.log(result);
-					for ( cpu_num=0; cpu_num<result.cpu_usage; cpu_num++ ){
-						console.log('CPU: ' + cpu_num + ', Usage: ' + result.cpu_usage[cpu_num]);
-						$('#cpu_' + cpu_num).text(result.cpu_usage[cpu_num]);
-					}
-				});
+				var cpu_usage_data = "";
+				console.log(result);
+				for ( cpu_num=0; cpu_num<result.cpu_usage; cpu_num++ ){
+					cpu_usage_data = cpu_usage_data + 'CPU ' + cpu_num + ': ' + result.cpu_usage[cpu_num] + '<br/>';
+				}
+				$('#cpu_usage').html(cpu_usage_data);
+			});
 		}
 
 		function get_cpu_temp(){
