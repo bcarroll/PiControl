@@ -6,9 +6,6 @@ import subprocess
 from flask import jsonify
 import psutil
 
-#import logging
-#from logging.handlers import RotatingFileHandler
-
 from lib._logging import logger
 
 ########################################################################
