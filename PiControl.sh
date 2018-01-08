@@ -13,7 +13,7 @@ start(){
 
 stop(){
     echo "Stopping PiControl" >&2
-     pgrep PiControl|xargs kill 2>/dev/null
+     pgrep PiControl|xargs kill -9 2>/dev/null
 }
 
 restart(){
