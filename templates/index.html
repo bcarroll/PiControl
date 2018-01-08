@@ -158,14 +158,13 @@
 
 		function get_cpu_usage(){
 			$.get('/cpu/usage', function(result){
-				cpu_usage_chart.clear();
 				var cpu_usage_data = "";
 				for ( cpu_num=0; cpu_num<result.cpu_usage.length; cpu_num++ ){
 					var cpu_percent = String(result.cpu_usage[cpu_num])
 					if (!cpu_percent.includes('.')){
 						cpu_percent = cpu_percent + '.0';
 					}
-					addChartData(cpu_usage_chart,'CPU' + cpu_num, cpu_percent);
+					cpu_usage_chart.config.data = ("label": 'CPU' + cpu_num, "data": [cpu_percent]);
 					cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + cpu_percent + '%<br/>';
 				}
 				$('#cpu_usage').html(cpu_usage_data);
