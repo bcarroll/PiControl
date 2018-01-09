@@ -33,10 +33,10 @@
                     <h3></h3>
                 </div>
                 <ul class="list-unstyled components">
-                    <li class="active">
+                    <li>
                         <a id="nodes" href="{{ url_for('get_discovered_nodes') }}" title="Discovered Raspberry Pi devices (running PiControl)"><i class="fas fa-share-alt"></i> Nodes</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="#osSubmenu" data-toggle="collapse" aria-expanded="false">System</a>
                         <ul class="collapse list-unstyled" id="osSubmenu">
                             <li><a href="{{ url_for('process_info') }}"><i class="fas fa-cogs"></i> Processes</a></li>
@@ -49,7 +49,7 @@
                             <li><a href="{{ url_for('video_info') }}"><i class="fas fa-video"></i> Video</a></li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="#piSubmenu" data-toggle="collapse" aria-expanded="false">Hardware</a>
                         <ul class="collapse list-unstyled" id="piSubmenu">
                             <li><a href="{{ url_for('pi_overview') }}"><i class="fas fa-info-circle"></i> Overview</a></li>
