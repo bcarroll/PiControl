@@ -24,7 +24,7 @@ try:
     log_files_backup  = int(config['log_files_backup'])
     log_role_size     = int(config['log_roll_size'])
 except Exception as e:
-    logger.error('Error getting configuration from PiControl database. ' + e.message)
+    logging.error('Error getting configuration from PiControl database. ' + e.message)
 
 loglevels = {
     50: logging.CRITICAL,
