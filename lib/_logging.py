@@ -20,7 +20,6 @@ try:
     config            = get_config()
     log_level         = int(config['log_level'])
     log_file          = str(config['log_file'])
-    log_format        = str(config['log_format'])
     log_files_backup  = int(config['log_files_backup'])
     log_role_size     = int(config['log_roll_size'])
 except Exception as e:
