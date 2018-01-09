@@ -20,13 +20,13 @@
         <tr>
             <th>Logging Level</th>
             <td>
-                <select name="log_level" value="{{log_level}}">
-                    <option value="50">Critical</option>
-                    <option value="40">Error</option>
-                    <option value="30">Warning</option>
-                    <option value="20">Info</option>
-                    <option value="10">Debug</option>
-                    <option value="0">No Logging</option>
+                <select name="log_level">
+                    <option value="50" {%if (log_level==50)%} selected {%endif%}>Critical</option>
+                    <option value="40" {%if (log_level==50)%} selected {%endif%}>Error</option>
+                    <option value="30" {%if (log_level==50)%} selected {%endif%}>Warning</option>
+                    <option value="20" {%if (log_level==50)%} selected {%endif%}>Info</option>
+                    <option value="10" {%if (log_level==50)%} selected {%endif%}>Debug</option>
+                    <option value="0" {%if (log_level==50)%} selected {%endif%}>No Logging</option>
                 </select>
             </td>
         </tr>
