@@ -46,12 +46,19 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
         return()
 
 def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file, log_files_backup, log_file_size, database_file='db/PiControl.db'):
-    logger.debug('Updating config: beacon_port=' + str(beacon_port) + ', beacon_interval=' + str(beacon_interval) + ', secret_key=' + str(secret_key) + ', log_level=' + str(log_level) + ', log_file=' + str(log_file) + ', log_files_backup=' + str(log_files_backup) + ', log_file_size=' + str(log_file_size))
+    beacon_port      = int(beacon_port[0])
+    beacon_interval  = int(beacon_interval[0])
+    secret_key       = str(secret_key[0])
+    log_level        = int(log_level[0])
+    log_file         = str(log_file[0])
+    log_files_backup = int(log_files_backup[0])
+    log_file_size    = int(log_file_size[0])
+    logger.debug('Updating config: beacon_port=' + beacon_port + ', beacon_interval=' + beacon_interval + ', secret_key=' + secret_key + ', log_level=' + log_level + ', log_file=' + log_file + ', log_files_backup=' + log_files_backup + ', log_file_size=' + log_file_size)
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            cursor.execute('UPDATE config set beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}, log_files_backup={5}, log_file_size={6} WHERE id=?'.format('active', int(beacon_port), int(beacon_interval), "'{}'".format(secret_key), int(log_level), "'{}'".format(log_file), int(log_files_backup), int(log_file_size)))
+            cursor.execute('UPDATE config set beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}, log_files_backup={5}, log_file_size={6} WHERE id=?'.format('active', beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file), log_files_backup, log_file_size))
         except Exception as e:
             logger.error(e.message)
         # Commit changes
