@@ -7,20 +7,20 @@
     <table class="table-hover" style="width:100%;" width="100%">
         <tr>
             <th>Beacon Port</th>
-            <td><input type="number" name="beacon_port" value="{{beacon_port}}"></input></td>
+            <td class="form-group"><input class="form-control" type="number" name="beacon_port" value="{{beacon_port}}"></input></td>
         </tr>
         <tr>
             <th>Beacon Interval</th>
-            <td><input type="number" name="beacon_interval" value={{beacon_interval}}></input></td>
+            <td class="form-group"><input class="form-control" type="number" name="beacon_interval" value={{beacon_interval}}></input></td>
         </tr>
         <tr>
             <th>Secret Key</th>
-            <td><input type="text" name="secret_key" value="{{secret_key}}"></input></td>
+            <td class="form-group"><input class="form-control" type="text" name="secret_key" value="{{secret_key}}"></input></td>
         </tr>
         <tr>
             <th>Logging Level</th>
-            <td>
-                <select name="log_level">
+            <td class="form-group">
+                <select class="form-control" name="log_level">
                     <option value="50" {%if (log_level==50)%} selected {%endif%}>Critical</option>
                     <option value="40" {%if (log_level==40)%} selected {%endif%}>Error</option>
                     <option value="30" {%if (log_level==30)%} selected {%endif%}>Warning</option>
@@ -32,19 +32,19 @@
         </tr>
         <tr>
             <th>Log File</th>
-            <td><input type="text" name="log_file" value="{{log_file}}"></input></td>
+            <td class="form-group"><input class="form-control" type="text" name="log_file" value="{{log_file}}"></input></td>
         </tr>
         <tr>
             <th>Log File Backups to Keep</th>
-            <td><input type="text" name="log_files_backup" value="{{log_files_backup}}"></input></td>
+            <td class="form-group"><input class="form-control" type="text" name="log_files_backup" value="{{log_files_backup}}"></input></td>
         </tr>
         <tr>
             <th>Log File Size (bytes)</th>
-            <td><input type="text" name="log_file_size" value="{{log_file_size}}"></input></td>
+            <td class="form-group"><input class="form-control" type="text" name="log_file_size" value="{{log_file_size}}"></input></td>
         </tr>
         <tr>
-            <td colspan="2">
-                <input type="submit" value="Submit Changes"></input>
+            <td colspan="2" class="form-group">
+                <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
             </td>
         </tr>
     </table>
