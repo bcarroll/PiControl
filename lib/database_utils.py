@@ -2,10 +2,11 @@
 import os
 import sys
 import sqlite3
-from time import time
 import datetime
-from pprint import pprint
+import logging
+
 from flask import jsonify
+from time import time
 
 from lib._logging import logger, get_logging_level
 from lib.pi_model import pi_model
@@ -65,7 +66,8 @@ def update_config(_beacon_port, _beacon_interval, _secret_key, _log_level, _log_
         conn.commit()
         # Close the database connection
         conn.close()
-        logger.setLevel(get_logging_level(log_level))
+        logging.getLogger().setLevel(get_logging_level(log_level))
+        #logger.setLevel(get_logging_level(log_level))
     except Exception as e:
         logger.error(e.message)
 
