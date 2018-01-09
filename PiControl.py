@@ -204,24 +204,9 @@ def terminal():
 def gpio():
     return( render_template('gpio.html', user=escape(session['username'])) )
 
-@app.route('/settings')
+@app.route('/settings', methods=['GET','POST'])
 @require_login
 def configuration():
-    configuration = get_config()
-    return(render_template('config.html',
-                beacon_port=configuration['beacon_port'],
-                beacon_interval=configuration['beacon_interval'],
-                secret_key=configuration['secret_key'],
-                log_level=configuration['log_level'],
-                log_file=configuration['log_file'],
-                log_files_backup=configuration['log_files_backup'],
-                log_file_size=configuration['log_file_size']
-           )
-    )
-
-@app.route('/settings/update', methods=['GET','POST'])
-@require_login
-def configuration_update():
     if request.method == 'POST':
         beacon_port=request.form['beacon_port'],
         beacon_interval=request.form['beacon_interval'],
@@ -239,7 +224,38 @@ def configuration_update():
 
     # Get current configuration from database
     configuration = get_config()
-    return(render_template('config_update.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file'],log_files_backup=request.form['log_files_backup'],log_file_size=request.form['log_file_size']))
+    return(render_template('config.html',
+                beacon_port=configuration['beacon_port'],
+                beacon_interval=configuration['beacon_interval'],
+                secret_key=configuration['secret_key'],
+                log_level=configuration['log_level'],
+                log_file=configuration['log_file'],
+                log_files_backup=configuration['log_files_backup'],
+                log_file_size=configuration['log_file_size']
+           )
+    )
+
+#@app.route('/settings/update', methods=['GET','POST'])
+#@require_login
+#def configuration_update():
+#    if request.method == 'POST':
+#        beacon_port=request.form['beacon_port'],
+#        beacon_interval=request.form['beacon_interval'],
+#        secret_key=request.form['secret_key'],
+#        log_level=request.form['log_level'],
+#        log_file=request.form['log_file'],
+#        log_files_backup=request.form['log_files_backup'],
+#        log_file_size=request.form['log_file_size'],
+#        try:
+#            # Update database with new configuration
+#            update_config(beacon_port, beacon_interval, secret_key, log_level, log_file,log_files_backup,log_file_size)
+#            flash('Configuration updated')
+#        except:
+#            flash('Error updating configuration', 'error')
+#
+#    # Get current configuration from database
+#    configuration = get_config()
+#    return(render_template('config_update.html',beacon_port=configuration['beacon_port'],beacon_interval=configuration['beacon_interval'],secret_key=configuration['secret_key'],log_level=configuration['log_level'],log_file=configuration['log_file'],log_files_backup=request.form['log_files_backup'],log_file_size=request.form['log_file_size']))
 
 @app.route('/nodes')
 @require_login
