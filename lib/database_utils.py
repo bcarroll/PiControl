@@ -115,7 +115,8 @@ def update_config(beacon_port, beacon_interval, secret_key, log_level, log_file,
         try:
             cursor.execute('UPDATE config set (beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}, log_files_backup={5}, log_file_size={6}) WHERE id="active"'.format(beacon_port, beacon_interval, "'{}'".format(secret_key), log_level, "'{}'".format(log_file), log_files_backup, log_file_size))
         except Exception as e:
-            logger.error(e.message)
+            print (e.message)
+            #logger.error(e.message)
         # Commit changes
         conn.commit()
         # Close the database connection
