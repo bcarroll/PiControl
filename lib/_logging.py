@@ -14,14 +14,14 @@ logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(threadName)s][%(mo
 log_level        = 30
 log_file         = "logs/PiControl_logging.log"
 log_files_backup = 5
-log_roll_size    = 4096000
+log_file_size    = 4096000
 
 try:
     config            = get_config()
     log_level         = int(config['log_level'])
     log_file          = str(config['log_file'])
     log_files_backup  = int(config['log_files_backup'])
-    log_role_size     = int(config['log_roll_size'])
+    log_file_size     = int(config['log_file_size'])
 except Exception as e:
     logging.error('Error getting configuration from PiControl database. ' + e.message)
 
@@ -38,14 +38,14 @@ loglevels = {
 loglevel = ( loglevels[log_level] )
 
 #hander = logging.StreamHandler()
-handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_roll_size, backupCount=log_files_backup)
+handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
 
 if log_level == 0:
     #Logging is disabled
     handler = logging.NullHandler()
     print ('Logging is disabled')
 else:
-    print('Logging to ' + str(log_file) + '. Rollover size is ' + str(log_roll_size) + ' bytes. Keeping ' + str(log_files_backup) + ' logfiles.')
+    print('Logging to ' + str(log_file) + '. Rollover size is ' + str(log_file_size) + ' bytes. Keeping ' + str(log_files_backup) + ' logfiles.')
 
 handler.setFormatter(logformat)
 logger.addHandler(handler)
