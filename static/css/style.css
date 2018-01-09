@@ -163,10 +163,13 @@ ul.CTAs a {
     position: absolute;
     top: 0;
     right: 0;
+    left: -250px;
 }
 
 #content.active {
     width: 100%;
+    left:0px;
+    transition: all 0.3s;
 }
 
 #pi_model{
