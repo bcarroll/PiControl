@@ -22,7 +22,7 @@ from flask import jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 
-from lib.database_utils import create_database, update_config, get_nodes
+from lib.database_utils import update_config, get_nodes
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
 from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_count, cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, process_list, gpio_info, pi_serialnumber
