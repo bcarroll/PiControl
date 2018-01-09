@@ -157,18 +157,14 @@ ul.CTAs a {
 ----------------------------------------------------- */
 #content {
     width: calc(100% - 250px);
-    padding: 40px;
+    padding: 130px;
     min-height: 100vh;
     transition: all 0.3s;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: -250px;
 }
 
 #content.active {
     width: 100%;
-    left:0px;
+    padding:0px;
     transition: all 0.3s;
 }
 
