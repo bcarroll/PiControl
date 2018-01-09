@@ -44,7 +44,7 @@ def cpu_temperature(type='JSON'):
 
     celcius     = output.replace('temp=', '').replace('\'C', '')
     try:
-        fahrenheit  = float(celcius) * 9/5 + 32
+        fahrenheit  = float(format(float(celcius) * 9/5 + 32, '.1f'))
     except:
         fahrenheit = 'ERROR'
     temperature_string = str(fahrenheit) + ' F (' + str(celcius) + 'C)'
