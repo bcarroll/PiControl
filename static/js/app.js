@@ -15,6 +15,7 @@ $(document).ready(function () {
     $('#sidebarCollapse').on('click', function () {
        // open or close navbar
         $('#sidebar').toggleClass('active');
+        $('#content').toggleClass('active');
         // close dropdowns
         $('.collapse.in').toggleClass('in');
         // and also adjust aria-expanded attributes we use for the open/closed arrows
