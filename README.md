@@ -12,7 +12,12 @@
 3. Install Python dependencies
     *    ``cd /directory/where/you/cloned-or_unzipped``
     *    ``sudo pip install Flask Flask-SSLify flask_sqlalchemy ipaddress netifaces netaddr psutil simplepam wiringpi``
-4.    *Optional* - Start PiControl when your Raspberry Pi boots
+4. Set executable flag on the PiControl start script
+    *    chmod +x /directory/where/you/cloned-or_unzipped/PiControl.sh
+
+    The above command changes the mode of the PiControl.sh script so it can be executed from a shell.
+
+5.    *Optional* - Start PiControl when your Raspberry Pi boots
     *    ``echo "Start PiControl"| sudo tee --append /etc/rc.local``
     *    ``echo "sudo -u pi python /directory/where/you/cloned-or_unzipped/PiControl.py &"| sudo tee --append /etc/rc.local``
 
@@ -20,7 +25,7 @@
     If you remove the "sudo -u pi" part, PiControl will run as "root" (not advised, for security reasons).
     You can also create a new account to run PiControl as with the [adduser](https://www.raspberrypi.org/documentation/linux/usage/users.md) command.
 
-5.    Start PiControl
+6.    Start PiControl
     *    ``/directory/where/you/cloned-or_unzipped/PiControl.sh start``
 
 ***
