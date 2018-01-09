@@ -7,7 +7,7 @@ import datetime
 from pprint import pprint
 from flask import jsonify
 
-from lib._logging import logger
+from lib._logging import logger, get_logging_level
 from lib.pi_model import pi_model
 
 def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, database_file='db/PiControl.db'):
@@ -65,6 +65,7 @@ def update_config(_beacon_port, _beacon_interval, _secret_key, _log_level, _log_
         conn.commit()
         # Close the database connection
         conn.close()
+        logger.setLevel(get_logging_level(loglevel))
     except Exception as e:
         logger.error(e.message)
 

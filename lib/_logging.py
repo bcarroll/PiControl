@@ -6,6 +6,18 @@ from logging.handlers import RotatingFileHandler
 
 from lib.database_config import get_config
 
+def get_logging_level(log_level_int):
+    loglevels = {
+        50: logging.CRITICAL,
+        40: logging.ERROR,
+        30: logging.WARNING,
+        20: logging.INFO,
+        10: logging.DEBUG,
+        0: "NONE"
+    }
+    return(loglevels[log_level_int])
+
+
 #######################################################################
 #Setup logging
 logger    = logging.getLogger(__name__)
@@ -25,17 +37,8 @@ try:
 except Exception as e:
     logging.error('Error getting configuration from PiControl database. ' + e.message)
 
-loglevels = {
-    50: logging.CRITICAL,
-    40: logging.ERROR,
-    30: logging.WARNING,
-    20: logging.INFO,
-    10: logging.DEBUG,
-    0: "NONE"
-}
-
 # Set the logging level
-loglevel = ( loglevels[log_level] )
+loglevel = ( get_logging_level(log_level) )
 
 #hander = logging.StreamHandler()
 handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
