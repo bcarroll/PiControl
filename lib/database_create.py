@@ -53,7 +53,6 @@ def create_config(cursor):
         t = config_rows[0]
         print('PiControl config table already exists.')
     except Exception as e:
-        print(e.message)
         # No results.  Add the default configuration data
         print('Adding default configuration to the PiControl database.')
         try:
