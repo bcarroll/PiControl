@@ -1,0 +1,9 @@
+{%extends "base.html"%}
+{%block title%}405 Method Not Allowed{% endblock %}
+
+{%block body%}
+<h1 class="page-header" id="page-header">Method Not Allowed</h1>
+<p>
+    The requested resource does not allow the {{ request.method }} method
+</p>
+{%endblock%}
