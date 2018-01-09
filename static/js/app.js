@@ -6,13 +6,20 @@
 
 $.ajaxSetup({'cache' : false});
 
+// https://bootstrapious.com/p/bootstrap-sidebar
 $(document).ready(function () {
 	$("#sidebar").mCustomScrollbar({
          theme: "minimal"
     });
 
     $('#sidebarCollapse').on('click', function () {
+       // open or close navbar
         $('#sidebar').toggleClass('active');
+        // close dropdowns
+        $('.collapse.in').toggleClass('in');
+        // and also adjust aria-expanded attributes we use for the open/closed arrows
+        // in our CSS
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
 });
 
@@ -38,15 +45,15 @@ function dump(arr,level) {
 	 */
 	var dumped_text = "";
 	if(!level) level = 0;
-	
+
 	//The padding given at the beginning of the line.
 	var level_padding = "";
 	for(var j=0;j<level+1;j++) level_padding += "    ";
-	
-	if(typeof(arr) == 'object') { //Array/Hashes/Objects 
+
+	if(typeof(arr) == 'object') { //Array/Hashes/Objects
 		for(var item in arr) {
 			var value = arr[item];
-			
+
 			if(typeof(value) == 'object') { //If it is an array,
 				dumped_text += level_padding + "'" + item + "' ...\n";
 				dumped_text += dump(value,level+1);
