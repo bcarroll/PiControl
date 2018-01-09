@@ -58,7 +58,7 @@ def update_config(_beacon_port, _beacon_interval, _secret_key, _log_level, _log_
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
         try:
-            cursor.execute('UPDATE config set beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}, log_files_backup={5}, log_file_size={6} WHERE id=?'.format('active', int(beacon_port), int(beacon_interval), "'{}'".format(secret_key), int(log_level), "'{}'".format(log_file), int(log_files_backup), int(log_file_size)))
+            cursor.execute('UPDATE config set beacon_port={0}, beacon_interval={1}, secret_key={2}, log_level={3}, log_file={4}, log_files_backup={5}, log_file_size={6} WHERE id="active"'.format(int(beacon_port), int(beacon_interval), "'{}'".format(secret_key), int(log_level), "'{}'".format(log_file), int(log_files_backup), int(log_file_size)))
         except Exception as e:
             logger.error(e.message)
         # Commit changes
