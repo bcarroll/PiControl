@@ -53,34 +53,74 @@
 -->
 <div class="form-group">
     <form method="post" action="/settings/update">
-        <label for="beacon_port">Beacon Port</label>
-        <input id="beacon_port" class="form-control" type="number" name="beacon_port" value="{{beacon_port}}"></input>
-        <label for="beacon_interval">Beacon Port</label>
-        <input id="beacon_interval" class="form-control" type="number" name="beacon_interval" value={{beacon_interval}}></input></td>
-
-        <label for="secret_key">Secret Key</label>
-        <input id="secret_key" class="form-control" type="text" name="secret_key" value="{{secret_key}}"></input>
-
-        <label for="log_level">Logging Level</label>
-        <select id="log_level" class="form-control form-control-sm" name="log_level">
-            <option value="50" {%if (log_level==50)%} selected {%endif%}>Critical</option>
-            <option value="40" {%if (log_level==40)%} selected {%endif%}>Error</option>
-            <option value="30" {%if (log_level==30)%} selected {%endif%}>Warning</option>
-            <option value="20" {%if (log_level==20)%} selected {%endif%}>Info</option>
-            <option value="10" {%if (log_level==10)%} selected {%endif%}>Debug</option>
-            <option value="0" {%if (log_level==0)%} selected {%endif%}>No Logging</option>
-        </select>
-
-        <label for="log_file">Log File</label>
-        <input id="log_file" class="form-control" type="text" name="log_file" value="{{log_file}}"></input>
-
-        <label for="log_file_backup">Log File Backups to Keep</label>
-        <input id="log_file_backup" class="form-control" type="text" name="log_files_backup" value="{{log_files_backup}}"></input>
-
-        <label for="log_file_size">Log File Size (bytes)</label>
-        <input id="log_file_size" class="form-control" type="text" name="log_file_size" value="{{log_file_size}}"></input>
-
-        <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
+        <div class="row">
+            <div class="form-group col">
+                <label for="beacon_port">Beacon Port</label>
+            </div>
+            <div class="form-group col">
+                <input id="beacon_port" class="form-control" type="number" name="beacon_port" value="{{beacon_port}}"></input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="beacon_interval">Beacon Port</label>
+            </div>
+            <div class="form-group col">
+                <input id="beacon_interval" class="form-control" type="number" name="beacon_interval" value={{beacon_interval}}></input></td>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="secret_key">Secret Key</label>
+            </div>
+            <div class="form-group col">
+                <input id="secret_key" class="form-control" type="text" name="secret_key" value="{{secret_key}}"></input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="log_level">Logging Level</label>
+            </div>
+            <div class="form-group col">
+                <select id="log_level" class="form-control form-control-sm" name="log_level">
+                    <option value="50" {%if (log_level==50)%} selected {%endif%}>Critical</option>
+                    <option value="40" {%if (log_level==40)%} selected {%endif%}>Error</option>
+                    <option value="30" {%if (log_level==30)%} selected {%endif%}>Warning</option>
+                    <option value="20" {%if (log_level==20)%} selected {%endif%}>Info</option>
+                    <option value="10" {%if (log_level==10)%} selected {%endif%}>Debug</option>
+                    <option value="0" {%if (log_level==0)%} selected {%endif%}>No Logging</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="log_file">Log File</label>
+            </div>
+            <div class="form-group col">
+                <input id="log_file" class="form-control" type="text" name="log_file" value="{{log_file}}"></input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="log_file_backup">Log File Backups to Keep</label>
+            </div>
+            <div class="form-group col">
+                <input id="log_file_backup" class="form-control" type="text" name="log_files_backup" value="{{log_files_backup}}"></input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="log_file_size">Log File Size (bytes)</label>
+            </div>
+            <div class="form-group col">
+                <input id="log_file_size" class="form-control" type="text" name="log_file_size" value="{{log_file_size}}"></input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
+            </div>
+        </div>
     </form>
 </div>
 <script>
