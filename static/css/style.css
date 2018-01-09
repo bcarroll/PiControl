@@ -62,10 +62,11 @@ td {
     min-width: 250px;
     max-width: 250px;
     height: 100vh;
+    position: fixed;
+    z-index: 999;
     background: #7386D5;
     color: #fff;
     transition: all 0.3s;
-    padding-top: 50px;
 }
 
 #sidebar.active {
