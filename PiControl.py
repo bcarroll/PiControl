@@ -22,16 +22,16 @@ from flask import jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 
-from lib._logging import logger, handler
+from lib.database_utils import create_database, update_config, get_nodes
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
 from lib.network_utilities import get_interfaces
 from lib.pi_utilities import cpu_count, cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, process_list, gpio_info, pi_serialnumber
 from lib.pi_model import pi_model
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
 from lib.pyDash import get_netstat, get_platform
-from lib.database_utils import create_database, update_config, get_nodes
 from lib.database_config import get_config
 from lib.chart_utils import PiControlChart
+from lib._logging import logger, handler
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -370,7 +370,5 @@ def get_pi_serialnumber():
     return(pi_serialnumber())
 
 if __name__ == '__main__':
-    # Create and initialize the PiControl database (if it hasn't already been done)
-    create_database()
     context = ('SSL/server.crt', 'SSL/server.key')
     app.run(ssl_context=context, threaded=True, debug=False, host='0.0.0.0', port=31415)
