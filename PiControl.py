@@ -247,10 +247,10 @@ def refresh_discovered_nodes():
 
 #####################################################################################
 
-@app.route('/charts')
+@app.route('/charts/cpu/temperature')
 @require_login
-def get_charts():
-    return jsonify({"charts": {"title": "CPU Temperature", "data": cpu_temperature_chart.list}})
+def get_cpu_temperature_chart():
+    return jsonify({"chart": {"title": "CPU Temperature", "data": cpu_temperature_chart.list}})
 
 
 @app.route('/cpu/count')
