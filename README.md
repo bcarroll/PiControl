@@ -14,13 +14,13 @@
     *    ``sudo pip install Flask Flask-SSLify flask_sqlalchemy ipaddress netifaces netaddr psutil simplepam wiringpi``
 4.    *Optional* - Start PiControl when your Raspberry Pi boots
     *    Copy the PiControl init script to /etc/rc3.d/
-    *    ``sudo cp /directory/where/you/cloned-or_unzipped/PiControl.sh /etc/rc3.d/``
+    *    ``sudo cp /directory/where/you/cloned-or_unzipped/S99PiControl /etc/rc3.d/``
     *    By deafult, PiControl runs as the pi user.  To change the user, edit the PiControl init script and change the value of the RUN_AS_USER variable.
 
     You can create a new account to run PiControl as with the [adduser](https://www.raspberrypi.org/documentation/linux/usage/users.md) command.
 
 5.    Start PiControl
-    *    ``/directory/where/you/cloned-or_unzipped/PiControl.sh start``
+    *    ``/directory/where/you/cloned-or_unzipped/S99PiControl start``
 
 ***
 
