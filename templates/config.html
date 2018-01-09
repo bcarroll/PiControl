@@ -7,10 +7,13 @@
     <form method="post" action="/settings">
         <label for="beacon_port">Beacon Port</label>
         <input id="beacon_port" class="form-control" type="number" name="beacon_port" value="{{beacon_port}}"></input>
+        <br/>
         <label for="beacon_interval">Beacon Port</label>
         <input id="beacon_interval" class="form-control" type="number" name="beacon_interval" value={{beacon_interval}}></input></td>
+        <br/>
         <label for="secret_key">Secret Key</label>
         <input id="secret_key" class="form-control" type="text" name="secret_key" value="{{secret_key}}"></input>
+        <br/>
         <label for="log_level">Logging Level</label>
         <select id="log_level" class="form-control form-control-sm" name="log_level">
             <option value="50" {%if (log_level==50)%} selected {%endif%}>Critical</option>
@@ -20,10 +23,13 @@
             <option value="10" {%if (log_level==10)%} selected {%endif%}>Debug</option>
             <option value="0" {%if (log_level==0)%} selected {%endif%}>No Logging</option>
         </select>
+        <br/>
         <label for="log_file">Log File</label>
         <input id="log_file" class="form-control" type="text" name="log_file" value="{{log_file}}"></input>
+        <br/>
         <label for="log_file_backup">Log File Backups to Keep</label>
         <input id="log_file_backup" class="form-control" type="text" name="log_files_backup" value="{{log_files_backup}}"></input>
+        <br/>
         <label for="log_file_size">Log File Size (bytes)</label>
         <input id="log_file_size" class="form-control" type="text" name="log_file_size" value="{{log_file_size}}"></input>
         <br/>
