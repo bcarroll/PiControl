@@ -221,6 +221,5 @@ ul.CTAs a {
 }
 
 .form-control {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    border-spacing: 15px;
 }
