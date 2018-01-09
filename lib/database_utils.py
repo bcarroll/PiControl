@@ -66,7 +66,7 @@ def update_config(_beacon_port, _beacon_interval, _secret_key, _log_level, _log_
         conn.commit()
         # Close the database connection
         conn.close()
-        logging.getLogger().setLevel(get_logging_level(log_level))
+        logging.getLogger('lib._logging').setLevel(get_logging_level(log_level))
         #logger.setLevel(get_logging_level(log_level))
     except Exception as e:
         logger.error(e.message)
