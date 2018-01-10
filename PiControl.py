@@ -245,6 +245,11 @@ def get_discovered_nodes():
 def refresh_discovered_nodes():
     return (get_nodes())
 
+@app.route('/dashboard')
+@require_login
+def get_dashboard():
+    return(render_template('dashboard.html'))
+
 #####################################################################################
 
 @app.route('/charts/cpu/temperature')
