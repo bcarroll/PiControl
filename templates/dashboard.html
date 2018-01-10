@@ -11,6 +11,7 @@
 <script src="/static/js/Chart.min.js"></script>
 <script src="/static/js/chartjs_utils.js"></script>
 <script>
+    update_cpu_temperature_chart();
     // Charts
     var cpu_temperature_chart_ctx = $("#cpu_temperature_chart");
     var cpu_temperature_chart = new Chart(cpu_temperature_chart_ctx, {
@@ -42,6 +43,6 @@
                 cpu_usage_chart.update();
             });
     }
-    setInterval(update_cpu_charts,1000)
+    setInterval(update_cpu_temperature_chart,1000)
 </script>
 {%endblock%}
