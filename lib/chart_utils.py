@@ -92,6 +92,8 @@ class PiControlChart():
                             logger.debug('Adding ' + label + ' to chart')
                             previous_label_offset = previous_label_offset + self.interval
                             print(previous_label_offset)
+                else:
+                    print('labels length is ' + str(len(self.labels)))
 
         if len(self.list) == self.max_elements:
             self.list.pop(0)
