@@ -79,17 +79,19 @@ class PiControlChart():
         # Fill beginning of the list
         logger.debug('addData(' + str(data) + ') called')
         if self.fill_empty and self.max_elements > len(self.list):
-            previous_label_offset = self.interval
             while self.max_elements-1 > len(self.list):
                 self.list.append(self.fill_data)
                 if self.labels:
-                    # fill the list with time labels
-                    label = strftime( self.datetime_format, localtime(int(time()) - previous_label_offset ))
-                    print (label)
-                    self.labels.append(label)
-                    logger.debug('Adding ' + label + ' to chart')
-                    previous_label_offset = previous_label_offset + self.interval
-                    print(previous_label_offset)
+                    if self.fill_empty and self.max_elements > len(self.labels):
+                        previous_label_offset = self.interval
+                        while self.max_elements-1 > len(self.labels):
+                            # fill the list with time labels
+                            label = strftime( self.datetime_format, localtime(int(time()) - previous_label_offset ))
+                            print (label)
+                            self.labels.append(label)
+                            logger.debug('Adding ' + label + ' to chart')
+                            previous_label_offset = previous_label_offset + self.interval
+                            print(previous_label_offset)
 
         if len(self.list) == self.max_elements:
             self.list.pop(0)
