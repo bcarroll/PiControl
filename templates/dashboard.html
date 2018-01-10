@@ -4,10 +4,24 @@
 {% endblock %}
 {%block body%}
 <h1 class="page-header" id="page-header"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
-<table class="table-bordered table-hover" style="width:100%;" width="100%">
+<table style="width:100%;" width="100%">
+    <tr>
+        <td>
+            <canvas id="cpu_usage_chart" class="chartjs-container" width="500" height="400"></canvas>
+        </td>
+        <td>
+            <canvas id="cpu_temperature_chart" class="chartjs-container" width="500" height="400"></canvas>
+        </td>
+    </tr>
+    <tr>
+        <td>
 
+        </td>
+        <td>
 
-<canvas id="cpu_temperature_chart" class="chartjs-container" width="500" height="400"></canvas>
+        </td>
+    </tr>
+</table>
 <script src="/static/js/Chart.min.js"></script>
 <script src="/static/js/chartjs_utils.js"></script>
 <script>
