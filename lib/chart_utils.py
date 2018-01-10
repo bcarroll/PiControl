@@ -81,7 +81,7 @@ class PiControlChart():
         if self.fill_empty and self.max_elements > len(self.list):
             while self.max_elements-1 > len(self.list):
                 self.list.append(self.fill_data)
-                if self.labels:
+                if isinstance(self.labels, list):
                     if self.fill_empty and self.max_elements > len(self.labels):
                         previous_label_offset = self.interval
                         while self.max_elements-1 > len(self.labels):
