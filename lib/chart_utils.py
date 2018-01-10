@@ -1,6 +1,6 @@
 # coding=utf-8
 import threading
-from time import sleep
+from time import sleep, time
 
 from datetime import datetime
 
