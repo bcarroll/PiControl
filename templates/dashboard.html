@@ -29,33 +29,27 @@
     update_cpu_temperature_chart();
 
     // Charts
-
     var cpu_usage_chart_ctx = $("#cpu_usage_chart");
     var cpu_usage_chart = new Chart(cpu_usage_chart_ctx, {
         type: 'bar',
         data: {
             labels: [],
             datasets: [{
-                label: 'CPU Usage',
+                label: 'Percent CPU Usage',
                 data: [],
             }]
-        }
-        });/*,
+        },
         options: {
-            animation: {
-                duration: 0
-            },
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:True,
+                        beginAtZero:true,
                         max:100
                     }
                 }]
             }
         }
     });
-    */
 
     var cpu_temperature_chart_ctx = $("#cpu_temperature_chart");
     var cpu_temperature_chart = new Chart(cpu_temperature_chart_ctx, {
