@@ -30,7 +30,7 @@ def create_tables(connection):
         print('Creating tables in PiControl database')
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL,'last_checkin' DATETIME NOT NULL)")
-        cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL, 'log_files_backup' INTEGER NOT NULL, 'log_file_size' INTEGER NOT NULL)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL, 'log_files_backup' INTEGER NOT NULL, 'log_file_size' INTEGER NOT NULL, 'beacon_listener_enabled' INTEGER NOT NULL,'beacon_sender_enabled' INTEGER NOT NULL, 'background_charts_enabled' INTEGER NOT NULL)")
         create_config(cursor)
     except Exception as e:
         print(e.message)
@@ -56,7 +56,7 @@ def create_config(cursor):
         # No results.  Add the default configuration data
         print('Adding default configuration to the PiControl database.')
         try:
-            cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file', 'log_files_backup', 'log_file_size') VALUES ('active', 31415, 60, 'PiControl', 10, 'logs/PiControl.log', 5, 4096000)")
+            cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file', 'log_files_backup', 'log_file_size', 'beacon_listener_enabled', 'beacon_sender_enabled', 'background_charts_enabled') VALUES ('active', 31415, 60, 'PiControl', 10, 'logs/PiControl.log', 5, 4096000, 1, 1, 1)")
         except Exception as e:
             print('Error adding default configuration to PiControl database. ' + e.message)
 

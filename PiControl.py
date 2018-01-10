@@ -38,6 +38,8 @@ from simplepam import authenticate
 
 logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
+configuration = get_config()
+
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'PiControl' #get_config()['secret_key']
@@ -58,21 +60,35 @@ sqlalchemy_logger.addHandler(handler)
 
 ################################################
 
-# Create a UDP Beacon sender and receiver
-pi_discovery = UDPBeacon()
-pi_discovery.start()
-pi_discoverer = UDPBeaconListener()
-pi_discoverer.start()
+if configuration['beacon_sender_enabled']
+    # Create a UDP Beacon sender
+    pi_discovery = UDPBeacon()
+    pi_discovery.start()
+
+if configuration['beacon_listener_enabled']:
+    # Create a UDP Beacon receiver
+    pi_discoverer = UDPBeaconListener()
+    pi_discoverer.start()
 
 # Create background chart data collectors
-cpu_temperature_chart = PiControlChart(cpu_temperature, args='fahrenheit')
-cpu_temperature_chart.start()
+if background_charts_enabled == 0:
+    cpu_temperature_chart = PiControlChart(cpu_temperature, args='fahrenheit')
+    cpu_temperature_chart.start()
+# END OF BACKGROUND CHART DATA COLLECTORS
 
 def close_running_threads(signum=None, frame=None):
     logger.debug('close_running_threads() called with signal %s', signum)
-    pi_discovery.stop()
-    pi_discoverer.stop()
-    cpu_temperature_chart.stop()
+    # Stop UDP Beacon sender thread
+    if pi_discovery.status == 'running':
+        pi_discovery.stop()
+    # Stop UDP Beacon Listener thread
+    if pi_discoverer.status == 'running':
+        pi_discoverer.stop()
+    # Stop all PiControlChart threads
+    for chart_thread in PiControlChart.instances:
+        #cpu_temperature_chart.stop()
+        if chart_thread.status == 'running':
+            chart_thread.stop()
     try:
         request.environ.get('werkzeug.server.shutdown')
         logger.debug('Shutting down werkzeug webserver')
