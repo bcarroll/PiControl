@@ -41,7 +41,6 @@
 
     function update_cpu_temperature_chart(){
         $.get('/charts/cpu/temperature', function(result){
-                console.log(result);
                 cpu_temperature_chart.data.datasets[0].data = result.chart.data;
                 cpu_temperature_chart.data.labels = result.chart.labels;
                 cpu_temperature_chart.update();
