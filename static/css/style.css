@@ -223,3 +223,10 @@ ul.CTAs a {
 .form-control {
     border-spacing: 15px;
 }
+
+.chart_container_header {
+    background: #8e8e8e;
+}
+.chart_container {
+    display: none;
+}
