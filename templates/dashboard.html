@@ -25,8 +25,37 @@
 <script src="/static/js/Chart.min.js"></script>
 <script src="/static/js/chartjs_utils.js"></script>
 <script>
+    update_cpu_usage_chart();
     update_cpu_temperature_chart();
+
     // Charts
+    var cpu_usage_chart_ctx = $("#cpu_usage_chart");
+    var cpu_usage_chart = new Chart(cpu_temperature_chart_ctx, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'CPU Usage',
+                data: [],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            animation: {
+                duration: 0
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:True,
+                        max:100
+                    }
+                }]
+            }
+        }
+    });
+
     var cpu_temperature_chart_ctx = $("#cpu_temperature_chart");
     var cpu_temperature_chart = new Chart(cpu_temperature_chart_ctx, {
         type: 'bar',
@@ -60,6 +89,12 @@
                 cpu_temperature_chart.update();
             });
     }
-    setInterval(update_cpu_temperature_chart,1000)
+
+    function update_cpu_usage_chart(){
+
+    }
+
+    setInterval(update_cpu_temperature_chart,5000)
+    setInterval(update_cpu_usage_chart,5000)
 </script>
 {%endblock%}
