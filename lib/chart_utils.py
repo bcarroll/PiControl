@@ -95,7 +95,7 @@ class PiControlChart():
                 self.labels.pop(0)
         # Add new data to the list
         self.list.append(data)
-        label = self.datetime_format, localtime(int(time()))
-        self.labels.append(strftime(label))
+        label = strftime(self.datetime_format, localtime(int(time())))
+        self.labels.append(label)
         logger.debug('Adding ' + label + ' to chart')
 
