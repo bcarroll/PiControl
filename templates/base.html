@@ -34,6 +34,9 @@
                 </div>
                 <ul class="list-unstyled components">
                     <li>
+                        <a id="dashboard" href="{{ url_for('get_dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    </li>
+                    <li>
                         <a id="nodes" href="{{ url_for('get_discovered_nodes') }}" title="Discovered Raspberry Pi devices (running PiControl)"><i class="fas fa-share-alt"></i> Nodes</a>
                     </li>
                     <li>
