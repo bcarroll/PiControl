@@ -1,0 +1,46 @@
+{%extends "base.html"%}
+{%block title%}Dashboard{% endblock %}
+{% block head %}
+{% endblock %}
+{%block body%}
+<h1 class="page-header" id="page-header"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+<table class="table-bordered table-hover" style="width:100%;" width="100%">
+
+
+<canvas id="cpu_temperature_chart" class="chartjs-container" width="340" height="340"></canvas>
+<script src="/static/js/Chart.min.js"></script>
+<script src="/static/js/chartjs_utils.js"></script>
+<script>
+    // Charts
+    var cpu_temperature_chart_ctx = $("#cpu_temperature_chart");
+    var cpu_temperature_chart = new Chart(cpu_temperature_chart_ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'CPU Temperature',
+                data: [],
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        min:70
+                    }
+                }]
+            }
+        }
+    });
+
+    function update_cpu_temperature_chart(){
+        $.get('/charts/cpu/temperature', function(result){
+                cpu_usage_chart.data.datasets[0].data = result.chart.data;
+                cpu_usage_chart.data.labels = result.chart.labels;
+                cpu_usage_chart.update();
+            });
+    }
+    setInterval(update_cpu_charts,1000)
+</script>
+{%endblock%}
