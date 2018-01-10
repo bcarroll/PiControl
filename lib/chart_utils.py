@@ -21,18 +21,18 @@ class PiControlChart():
             fill_data {data} -- Data to fill empty data points with (default: 0)
 
         '''
-        self.function     = data_function
-        self.function_args= args
-        self.labels       = labels
+        self.function         = data_function
+        self.function_args    = args
+        self.labels           = labels
         self.datetime_format  = datetime_format
-        self.interval     = interval
-        self.list         = []
+        self.interval         = int(interval)
+        self.list             = []
         if labels == 'datetime':
-            self.labels   = []
-        self.max_elements = max_elements
-        self.fill_empty   = fill_empty
-        self.fill_data    = fill_data
-        self.status       = "initialized"
+            self.labels       = []
+        self.max_elements     = int(max_elements)
+        self.fill_empty       = fill_empty
+        self.fill_data        = fill_data
+        self.status           = "initialized"
         # Add chart to the list of PiControlChart instances
         PiControlChart.instances.append(self)
 
@@ -84,7 +84,9 @@ class PiControlChart():
                 self.list.append(self.fill_data)
                 if self.labels:
                     # fill the list with time labels
-                    self.labels.append(strftime( self.datetime_format, localtime( int(time()) - previous_label_offset ) ))
+                    label = strftime( self.datetime_format, localtime(int(time()) - previous_label_offset ))
+                    self.labels.append(label)
+                    logger.debug('Adding ' + label + ' to chart')
                     previous_label_offset = previous_label_offset + self.interval
 
         if len(self.list) == self.max_elements:
@@ -93,5 +95,7 @@ class PiControlChart():
                 self.labels.pop(0)
         # Add new data to the list
         self.list.append(data)
-        self.labels.append( strftime( self.datetime_format, localtime( int( time() ) ) ) )
+        label = self.datetime_format, localtime(int(time()))
+        self.labels.append(strftime(label))
+        logger.debug('Adding ' + label + ' to chart')
 
