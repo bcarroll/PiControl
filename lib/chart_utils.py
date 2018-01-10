@@ -85,9 +85,11 @@ class PiControlChart():
                 if self.labels:
                     # fill the list with time labels
                     label = strftime( self.datetime_format, localtime(int(time()) - previous_label_offset ))
+                    print (label)
                     self.labels.append(label)
                     logger.debug('Adding ' + label + ' to chart')
                     previous_label_offset = previous_label_offset + self.interval
+                    print(previous_label_offset)
 
         if len(self.list) == self.max_elements:
             self.list.pop(0)
@@ -95,6 +97,8 @@ class PiControlChart():
                 self.labels.pop(0)
         # Add new data to the list
         self.list.append(data)
+
+        # Add new label to the list
         label = strftime(self.datetime_format, localtime(int(time())))
         self.labels.append(label)
         logger.debug('Adding ' + label + ' to chart')
