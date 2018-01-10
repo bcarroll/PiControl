@@ -39,8 +39,6 @@
         }
     });
 
-    cpu_temperature_chart.defaults.global.elements.point.radius = 1;
-
     function update_cpu_temperature_chart(){
         $.get('/charts/cpu/temperature', function(result){
                 console.log(result);
