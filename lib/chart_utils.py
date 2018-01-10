@@ -24,7 +24,7 @@ class PiControlChart():
         self.function     = data_function
         self.function_args= args
         self.labels       = labels
-        self.date_format  = datetime_format
+        self.datetime_format  = datetime_format
         self.interval     = interval
         self.list         = []
         if labels == 'datetime':
