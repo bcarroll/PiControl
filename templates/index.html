@@ -42,20 +42,6 @@
 					</table>
 				</td>
 			</tr>
-			<tr class="chart_container_header">
-				<td colspan="2">
-					<div class="chart_container_header" data-toggle="collapse" data-target="#cpu_usage_chart_container">
-						View CPU Usage Chart
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<div id="cpu_usage_chart_container" class="chart_container collapse">
-						<canvas id="cpu_usage_chart" class="chartjs-container" width="340" height="340"></canvas>
-					</div>
-				</td>
-			</tr>
 			<tr id="mem_usage">
 				<th class="heading">
 					<i class="fas fa-microchip"></i> Memory
@@ -105,32 +91,7 @@
 		</td>
 	</tr>
 </table>
-	<script src="/static/js/Chart.min.js"></script>
-	<script src="/static/js/chartjs_utils.js"></script>
 	<script>
-		// Charts
-		var cpu_usage_chart_ctx = $("#cpu_usage_chart");
-		var cpu_usage_chart = new Chart(cpu_usage_chart_ctx, {
-		    type: 'bar',
-		    data: {
-		        labels: [],
-		        datasets: [{
-		            label: 'Percent CPU Usage',
-		            data: [],
-		        }]
-		    },
-		    options: {
-		        scales: {
-		            yAxes: [{
-		                ticks: {
-		                    beginAtZero:true,
-		                    max:100
-		                }
-		            }]
-		        }
-		    }
-		});
-
 		get_platform();
 		get_cpu_frequency();
 		get_cpu_voltage();
@@ -139,7 +100,6 @@
 		get_disk_usage();
 		get_mem_usage_json();
 		get_swap_usage_json();
-		update_cpu_charts();
 
 	    $.get('/model', function(result){
 	        $('#model').text(result.model);
@@ -171,20 +131,13 @@
 		function get_cpu_usage(){
 			$.get('/cpu/usage', function(result){
 				var cpu_usage_data = "";
-				var labels = [];
-				var data   = [];
 				for ( cpu_num=0; cpu_num<result.cpu_usage.length; cpu_num++ ){
 					var cpu_percent = String(result.cpu_usage[cpu_num])
 					if (!cpu_percent.includes('.')){
 						cpu_percent = cpu_percent + '.0';
 					}
-					labels.push('CPU' + cpu_num);
-					data.push(cpu_percent);
 					cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + cpu_percent + '%<br/>';
 				}
-				cpu_usage_chart.data.datasets[0].data = data;
-				cpu_usage_chart.data.labels = labels;
-				cpu_usage_chart.update();
 				$('#cpu_usage').html(cpu_usage_data);
 			});
 		}
@@ -218,13 +171,6 @@
 			});
 		}
 
-		function update_cpu_charts(){
-			$.get('/cpu/usage', function(result){
-					cpu_usage_chart.update({"data": [{ y: (Math.round(100.0 - parseFloat(result)).toFixed(2)) }]});
-				});
-		}
-
-
 		setInterval(get_cpu_frequency,2500);
 		setInterval(get_cpu_voltage,2500);
 		setInterval(get_cpu_usage,2500);
@@ -232,7 +178,6 @@
 		setInterval(get_disk_usage,60000);
 		setInterval(get_mem_usage_json,5000);
 		setInterval(get_swap_usage_json,5000);
-		setInterval(update_cpu_charts,1000)
 
 </script>
 {%endblock%}
