@@ -224,8 +224,11 @@ ul.CTAs a {
     border-spacing: 15px;
 }
 
-.chart_container_header {
+tr.chart_container_header {
     background: #8e8e8e;
+}
+
+.chart_container_header
     text-align: center;
 }
 .chart_container {
