@@ -110,6 +110,7 @@ class UDPBeacon:
                                         hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber), (str(IPAddress(ip)), self.port))
                                     except Exception as e:
                                         logger.error(e.message)
+                                    sleep(0.1)
             sleep( int(get_config()['beacon_interval']) )
         self.thread.join(1)
 
