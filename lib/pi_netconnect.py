@@ -24,6 +24,7 @@ class UDPBeacon:
         self.message   = message
         self.status    = "initialized"
         self.last_scan = int(time())-self.interval-5
+        self.looping   = False
         logger.debug('Beacon initialized...')
 
     def stop(self):
@@ -41,6 +42,9 @@ class UDPBeacon:
         '''
         logger.info('Starting UDPBeacon sender thread')
         logger.debug('start() called...')
+        if get_config()['beacon_sender_enabled'] == False:
+            logger.warn('Beacon Sender is disabled')
+            self.stop()
         self.looping = True
         self.thread  = threading.Thread(name='udp_beacon_sender', target=self._loop)
         self.thread.daemon = True
@@ -58,6 +62,8 @@ class UDPBeacon:
         ip_list = []
         logger.info('Sending UDP Beacons to UDP port ' + str(self.port))
         while self.looping:
+            if get_config()['beacon_sender_enabled'] == False:
+                self.stop()
             revision = pi_revision()
             hostname = socket.gethostname()
             serialnumber = pi_serialnumber(type='text')
@@ -115,6 +121,7 @@ class UDPBeaconListener:
         self.status         = "initialized"
         self.port           = port
         self.message        = message
+        self.looping        = False
         logger.debug('UDPBeaconListener initialized...')
 
     def stop(self):
@@ -132,6 +139,10 @@ class UDPBeaconListener:
         '''
         logger.info('Starting UDPBeaconListener thread')
         logger.debug('start() called...')
+        if get_config()['beacon_listener_enabled'] == False:
+            logger.warn('Beacon Listener is disabled')
+            self.stop()
+
         self.looping = True
         self.thread = threading.Thread(name='udp_beacon_listener', target=self._loop)
         self.thread.daemon = True
@@ -148,6 +159,8 @@ class UDPBeaconListener:
         hbSocket.bind(('0.0.0.0', self.port))
         logger.warn('Listening for UDP Beacons on UDP port ' + str(self.port))
         while self.looping:
+            if get_config()['beacon_listener_enabled'] == False:
+                self.stop()
             try:
                 (rfd,wfd,efd) = select.select([hbSocket],[],[])
                 if hbSocket in rfd:
