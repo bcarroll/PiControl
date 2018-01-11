@@ -5,11 +5,16 @@
 <h1 class="page-header" id="page-header"><i class="fas fa-cog"></i> Configuration</h1>
 <div class="form-group">
     <form method="post" action="/settings">
-        <label for="beacon_port">Beacon Port</label>
-        <input id="beacon_port" class="form-control" type="number" name="beacon_port" value="{{beacon_port}}"></input>
-        <br/>
-        <label for="beacon_interval">Beacon Port</label>
-        <input id="beacon_interval" class="form-control" type="number" name="beacon_interval" value={{beacon_interval}}></input></td>
+        <fieldset>
+            <legend>Beacon <i class="fas fa-arrow-down" id="beacon_toggle"></i></legend>
+            <div id="beacon">
+                <label for="beacon_port">Beacon Port</label>
+                <input id="beacon_port" class="form-control" type="number" name="beacon_port" value="{{beacon_port}}"></input>
+                <br/>
+                <label for="beacon_interval">Beacon Port</label>
+                <input id="beacon_interval" class="form-control" type="number" name="beacon_interval" value={{beacon_interval}}></input></td>
+            </div>
+        </fieldset>
         <br/>
         <label for="secret_key">Secret Key</label>
         <input id="secret_key" class="form-control" type="text" name="secret_key" value="{{secret_key}}"></input>
@@ -36,4 +41,10 @@
         <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
     </form>
 </div>
+<script>
+    $('beacon_toggle').onclick(function(){
+        $('#beacon').toggle();
+        $('#beacon_toggle').toggleClass("fa-arrow-down fa-arrow-up");
+    });
+</script>
 {%endblock%}
