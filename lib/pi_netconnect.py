@@ -15,15 +15,14 @@ from lib.database_utils import update_node
 from lib.database_config import get_config
 
 class UDPBeacon:
-    def __init__(self,message="PiControl_beacon",port=31415,interval=60):
+    def __init__(self,message="PiControl_beacon",port=31415):
         '''
         Initialiation method
         '''
         self.port      = port
-        self.interval  = interval
         self.message   = message
         self.status    = "initialized"
-        self.last_scan = int(time())-self.interval-5
+        self.last_scan = int(time())-int(get_config()['beacon_interval'])-5
         self.looping   = False
         logger.debug('Beacon initialized...')
 
@@ -110,7 +109,7 @@ class UDPBeacon:
                                         hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber), (str(IPAddress(ip)), self.port))
                                     except Exception as e:
                                         logger.error(e.message)
-            sleep(self.interval)
+            sleep( int(get_config()['beacon_interval']) )
         self.thread.join(1)
 
 class UDPBeaconListener:
