@@ -27,6 +27,7 @@ def create_database(database_file='db/PiControl.db'):
         print("\n")
         if secret_key is None:
             quit()
+    print('SECRET KEY:'+secret_ket+':')
     try:
         conn = sqlite3.connect(database_file)
         # Create PiControl database tables
