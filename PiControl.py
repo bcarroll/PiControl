@@ -60,7 +60,7 @@ sqlalchemy_logger.addHandler(handler)
 
 ################################################
 
-if configuration['beacon_sender_enabled']
+if configuration['beacon_sender_enabled']:
     # Create a UDP Beacon sender
     pi_discovery = UDPBeacon()
     pi_discovery.start()
@@ -71,7 +71,7 @@ if configuration['beacon_listener_enabled']:
     pi_discoverer.start()
 
 # Create background chart data collectors
-if background_charts_enabled == 0:
+if configuration['background_charts_enabled'] == 0:
     cpu_temperature_chart = PiControlChart(cpu_temperature, args='fahrenheit')
     cpu_temperature_chart.start()
 # END OF BACKGROUND CHART DATA COLLECTORS
