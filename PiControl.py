@@ -8,16 +8,6 @@ import signal
 import logging
 from functools import wraps
 
-# Check for the PiControl database file and quit if it doesn't exist.
-# The PiControl database file is created by the PiControl.sh script.
-if os.path.isfile('db/PiControl.db'):
-    pass
-else:
-    logger.critical('PiControl Database file does not exist!')
-    print('FATAL ERROR: PiControl Database file does not exist!')
-    print('PiControl can only be started using the PiControl.sh start script.')
-    quit()
-
 from flask import Flask
 from flask import request
 from flask import session

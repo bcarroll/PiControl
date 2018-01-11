@@ -11,6 +11,15 @@ from time import time
 from lib._logging import logger, get_logging_level
 from lib.pi_model import pi_model
 
+# Check for the PiControl database file and quit if it doesn't exist.
+# The PiControl database file is created by the PiControl.sh script.
+if os.path.isfile('db/PiControl.db'):
+    pass
+else:
+    logger.critical('PiControl Database file does not exist!')
+    print('FATAL ERROR: PiControl Database file does not exist!')
+    sys.exit()
+
 def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, database_file='db/PiControl.db'):
     logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
     if ipaddress == '127.0.0.1':
