@@ -8,6 +8,13 @@ def sigint_handler(signum, frame):
 
 signal.signal(signal.SIGINT, sigint_handler)
 
+def check_db(database_file='db/PiControl.db'):
+    if os.path.isfile(database_file):
+        pass
+    else:
+        logger.critical('PiControl Database does not exist.')
+        sys.exit()
+
 def create_database(database_file='db/PiControl.db'):
     '''
     Create a blank SQLite3 database
@@ -51,6 +58,7 @@ def create_tables(connection, secret_key):
     Arguments:
         connection {sqlite3.Connection} -- A previously created sqlite3 database connection object
     '''
+    check_db()
     try:
         print('Creating tables in PiControl database')
         cursor = connection.cursor()

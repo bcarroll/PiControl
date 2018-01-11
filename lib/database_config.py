@@ -3,19 +3,18 @@ import os
 import sys
 import sqlite3
 
-# Check for the PiControl database file and quit if it doesn't exist.
-# The PiControl database file is created by the PiControl.sh script.
-if os.path.isfile('db/PiControl.db'):
-    pass
-else:
-    logger.critical('PiControl Database file does not exist!')
-    print('FATAL ERROR: PiControl Database file does not exist!')
-    sys.exit()
+def check_db(database_file='db/PiControl.db'):
+    if os.path.isfile(database_file):
+        pass
+    else:
+        logger.critical('PiControl Database does not exist.')
+        sys.exit()
 
 def get_config(database_file='db/PiControl.db'):
     '''
     Returns PiControl configuration (from the PiControl database) in JSON
     '''
+    check_db()
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()

@@ -11,16 +11,15 @@ from time import time
 from lib._logging import logger, get_logging_level
 from lib.pi_model import pi_model
 
-# Check for the PiControl database file and quit if it doesn't exist.
-# The PiControl database file is created by the PiControl.sh script.
-if os.path.isfile('db/PiControl.db'):
-    pass
-else:
-    logger.critical('PiControl Database file does not exist!')
-    print('FATAL ERROR: PiControl Database file does not exist!')
-    sys.exit()
+def check_db(database_file='db/PiControl.db'):
+    if os.path.isfile(database_file):
+        pass
+    else:
+        logger.critical('PiControl Database does not exist.')
+        sys.exit()
 
 def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, database_file='db/PiControl.db'):
+    check_db()
     logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
     if ipaddress == '127.0.0.1':
         return
@@ -56,6 +55,7 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
         return()
 
 def update_config(_beacon_port, _beacon_interval, _secret_key, _log_level, _log_file, _log_files_backup, _log_file_size, _beacon_listener_enabled, _beacon_sender_enabled, _background_charts_enabled, database_file='db/PiControl.db'):
+    check_db()
     beacon_port               = _beacon_port[0]
     beacon_interval           = _beacon_interval[0]
     secret_key                = _secret_key[0]
@@ -84,6 +84,7 @@ def update_config(_beacon_port, _beacon_interval, _secret_key, _log_level, _log_
         logger.error(e.message)
 
 def get_nodes(database_file='db/PiControl.db'):
+    check_db()
     logger.debug('get_nodes() called...')
     nodes = []
     try:
