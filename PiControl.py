@@ -40,7 +40,7 @@ logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)
 
 # Check for the PiControl database file and quit if it doesn't exist.
 # The PiControl database file is created by the PiControl.sh script.
-if os.path.isfile(database_file):
+if os.path.isfile('db/PiControl.db'):
     pass
 else:
     logger.critical('PiControl Database file does not exist!')
