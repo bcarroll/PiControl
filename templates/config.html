@@ -51,6 +51,24 @@
         <fieldset>
             <legend><span class="btn btn-primary" id="background_threads_toggle"><i id="background_threads_arrow" class="fas fa-arrow-down"></i></span> Background Thread Settings</legend>
             <div id="background_threads" class="config_category">
+                <label for="beacon_listener_enabled">UDP Beacon Receiver</label>
+                <select id="beacon_listener_enabled" class="form-control" name="beacon_listener_enabled">
+                    <option value="0" {%if (beacon_listener_enabled==0) %} selected {%endif%}>Disabled</option>
+                    <option value="1" {%if (beacon_listener_enabled==1) %} selected {%endif%}>Enabled</option>
+                </select>
+                <br/>
+                <label for="beacon_sender_enabled">UDP Beacon Sender</label>
+                <select id="beacon_sender_enabled" class="form-control" name="beacon_sender_enabled">
+                    <option value="0" {%if (beacon_listener_enabled==0) %} selected {%endif%}>Disabled</option>
+                    <option value="1" {%if (beacon_listener_enabled==1) %} selected {%endif%}>Enabled</option>
+                </select>
+                <br/>
+                <label for="background_charts_enabled"></label>
+                <select id="background_charts_enabled" class="form-control" name="background_charts_enabled">
+                    <option value="0" {%if (beacon_listener_enabled==0) %} selected {%endif%}>Disabled</option>
+                    <option value="1" {%if (beacon_listener_enabled==1) %} selected {%endif%}>Enabled</option>
+                </select>
+                <br/>
             </div>
         </fieldset>
         <br/>
@@ -73,10 +91,10 @@
         $('#logging').toggle();
         $('#logging_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
     });
-    $('#background_thread_toggle').click(function(){
-        $('#background_thread_toggle').toggleClass('active');
-        $('#background_thread').toggle();
-        $('#background_thread_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
+    $('#backgrounds_thread_toggle').click(function(){
+        $('#background_threads_toggle').toggleClass('active');
+        $('#background_threads').toggle();
+        $('#background_threads_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
     });
 </script>
 {%endblock%}
