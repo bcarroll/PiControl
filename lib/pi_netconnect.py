@@ -12,6 +12,7 @@ from netaddr import IPNetwork, IPAddress
 from lib._logging import logger
 from lib.pi_utilities import pi_revision, pi_serialnumber
 from lib.database_utils import update_node
+from lib.database_config import get_config
 
 class UDPBeacon:
     def __init__(self,message="PiControl_beacon",port=31415,interval=60):
