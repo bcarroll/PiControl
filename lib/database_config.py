@@ -7,7 +7,7 @@ def check_db(database_file='db/PiControl.db'):
     if os.path.isfile(database_file):
         pass
     else:
-        logger.critical('PiControl Database does not exist.')
+        print('ERROR: PiControl Database does not exist.')
         sys.exit()
 
 def get_config(database_file='db/PiControl.db'):
