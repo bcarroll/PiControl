@@ -4,6 +4,7 @@ import sqlite3
 import signal
 
 def sigint_handler(signum, frame):
+    print("\n")
     sys.exit()
 
 signal.signal(signal.SIGINT, sigint_handler)
