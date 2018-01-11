@@ -9,6 +9,8 @@ def create_database(database_file='db/PiControl.db'):
         database_file {str} -- Path to the database file to create (default: {'../db/PiControl.db'})
     '''
     if os.path.isfile(database_file):
+        pass
+    else:
         print('Creating PiControl database')
         print("\n")
         print('####################################################################')

@@ -38,6 +38,16 @@ from simplepam import authenticate
 
 logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
+# Check for the PiControl database file and quit if it doesn't exist.
+# The PiControl database file is created by the PiControl.sh script.
+if os.path.isfile(database_file):
+    pass
+else:
+    logger.critical('PiControl Database file does not exist!')
+    print('FATAL ERROR: PiControl Database file does not exist!')
+    print('PiControl can only be started using the PiControl.sh start script.')
+    quit()
+
 configuration = get_config()
 
 app = Flask(__name__)
