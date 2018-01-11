@@ -71,6 +71,6 @@ def pi_model(revision, type='JSON'):
     pi['a22082'] = {"model": "3 Model B v1.2","ram": "1GB"}
     pi['a32082'] = {"model": "3 Model B v1.2","ram": "1GB"}
     if type == 'JSON':
-        return jsonify(pi[revision.lowercase()])
+        return jsonify(pi[revision])
     else:
-        return(pi[revision.lowercase()])
+        return(pi[revision])
