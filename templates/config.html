@@ -6,7 +6,7 @@
 <div class="form-group">
     <form method="post" action="/settings">
         <fieldset>
-            <legend>Beacon <span class="btn btn-primary" id="beacon_toggle"><i id="beacon_toggle_arrow" class="fas fa-arrow-down"></i></span></legend>
+            <legend>Beacon Settings<span class="btn btn-primary" id="beacon_toggle"><i id="beacon_toggle_arrow" class="fas fa-arrow-down"></i></span></legend>
             <div id="beacon" class="config_category">
                 <label for="beacon_port">Beacon Port</label>
                 <input id="beacon_port" class="form-control" type="number" name="beacon_port" value="{{beacon_port}}"></input>
@@ -16,8 +16,13 @@
             </div>
         </fieldset>
         <br/>
-        <label for="secret_key">Secret Key</label>
-        <input id="secret_key" class="form-control" type="text" name="secret_key" value="{{secret_key}}"></input>
+        <fieldset>
+            <legend>Web Interface Settings<span class="btn btn-primary" id="web_interface_toggle"><i id="web_interface_arrow" class="fas fa-arrow-down"></i></span></legend>
+            <div id="web_interface" class="config_category">
+                <label for="secret_key">Secret Key</label>
+                <input id="secret_key" class="form-control" type="text" name="secret_key" value="{{secret_key}}"></input>
+            </div>
+        </fieldset>
         <br/>
         <label for="log_level">Logging Level</label>
         <select id="log_level" class="form-control form-control-sm" name="log_level">
@@ -46,5 +51,10 @@
         $('#beacon').toggle();
         $('#beacon_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
     });
+    $('#web_interface_toggle').click(function(){
+        $('#web_interface').toggle();
+        $('#web_interface_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
+    });
+
 </script>
 {%endblock%}
