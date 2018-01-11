@@ -66,11 +66,12 @@ class UDPBeacon:
             revision = pi_revision()
             hostname = socket.gethostname()
             serialnumber = pi_serialnumber(type='text')
-            if self.last_scan + self.interval >= int(time()):
+            interval = int(get_config()['beacon_interval'])
+            if self.last_scan + interval >= int(time()):
                 logger.debug("\n"
                             + 'Current time  : ' + str(int(time())) + "\n"
                             + 'Last scan time: ' + str(self.last_scan) + "\n"
-                            + 'Interval      : ' + str(self.interval) + "\n"
+                            + 'Interval      : ' + str(interval) + "\n"
                             + 'Elapsed time  : ' + str(int(time())-self.last_scan)
                     )
             else:
