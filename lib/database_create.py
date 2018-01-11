@@ -13,13 +13,13 @@ def create_database(database_file='db/PiControl.db'):
     else:
         print('Creating PiControl database')
         print("\n")
-        print('####################################################################')
+        print('################################################################################')
         print('If this is the first (or only) instance of PiControl on the network,')
         print(' enter a new passphrase to be used as the PiControl Secret Key.')
         print("\n")
         print('If you have already created a PiControl Secret Key passphrase on another ')
-        print('Raspberry Pi on your network, enter that passphrase.')
-        print('####################################################################')
+        print(' Raspberry Pi on your network, enter that passphrase.')
+        print('################################################################################')
         print("\n")
         secret_key = raw_input('Enter your PiControl Secret Key: ')
         while  secret_key == '':
