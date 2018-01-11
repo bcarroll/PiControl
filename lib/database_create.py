@@ -1,5 +1,11 @@
 import os
 import sqlite3
+import signal
+
+def sigint_handler(signum, frame):
+    sys.exit()
+
+signal.signal(signal.SIGINT, sigint_handler)
 
 def create_database(database_file='db/PiControl.db'):
     '''
@@ -25,9 +31,7 @@ def create_database(database_file='db/PiControl.db'):
         while  secret_key == '' or len(secret_key) < 8:
             secret_key = raw_input('A Secret Key is required. Enter your PiControl Secret Key: ')
         print("\n")
-        if secret_key is None:
-            quit()
-    print('SECRET KEY:'+secret_ket+':')
+
     try:
         conn = sqlite3.connect(database_file)
         # Create PiControl database tables
