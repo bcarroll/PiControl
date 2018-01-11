@@ -271,7 +271,10 @@ def get_dashboard():
 @app.route('/charts/cpu/temperature')
 @require_login
 def get_cpu_temperature_chart():
-    return jsonify({"chart": {"title": "CPU Temperature", "labels": cpu_temperature_chart.labels, "data": cpu_temperature_chart.list}})
+    if cpu_temperature_chart.status == 'running':
+        return jsonify({"chart": {"title": "CPU Temperature", "labels": cpu_temperature_chart.labels, "data": cpu_temperature_chart.list}})
+    else:
+        return jsonify({"chart": {"title": "CPU Temperature DISABLED","labels": 'DISABLED',"data": 'DISABLED'}})
 
 
 @app.route('/cpu/count')
