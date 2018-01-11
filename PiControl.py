@@ -231,9 +231,12 @@ def configuration():
         log_file=request.form['log_file'],
         log_files_backup=request.form['log_files_backup'],
         log_file_size=request.form['log_file_size'],
+        beacon_listener_enabled=request.form['beacon_listener_enabled'],
+        beacon_sender_enabled=request.form['beacon_sender_enabled'],
+        background_charts_enabled=request.form['background_charts_enabled']
         try:
             # Update database with new configuration
-            update_config(beacon_port, beacon_interval, secret_key, log_level, log_file,log_files_backup,log_file_size)
+            update_config(beacon_port, beacon_interval, secret_key, log_level, log_file,log_files_backup,log_file_size,beacon_listener_enabled,beacon_sender_enabled,background_charts_enabled)
             flash('Configuration updated')
         except:
             flash('Error updating configuration', 'error')
@@ -247,7 +250,10 @@ def configuration():
                 log_level=configuration['log_level'],
                 log_file=configuration['log_file'],
                 log_files_backup=configuration['log_files_backup'],
-                log_file_size=configuration['log_file_size']
+                log_file_size=configuration['log_file_size'],
+                beacon_listener_enabled=configuration['beacon_listener_enabled'],
+                beacon_sender_enabled=configuration['beacon_sender_enabled'],
+                background_charts_enabled=configuration['background_charts_enabled']
            )
     )
 
