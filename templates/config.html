@@ -24,24 +24,29 @@
             </div>
         </fieldset>
         <br/>
-        <label for="log_level">Logging Level</label>
-        <select id="log_level" class="form-control form-control-sm" name="log_level">
-            <option value="50" {%if (log_level==50)%} selected {%endif%}>Critical</option>
-            <option value="40" {%if (log_level==40)%} selected {%endif%}>Error</option>
-            <option value="30" {%if (log_level==30)%} selected {%endif%}>Warning</option>
-            <option value="20" {%if (log_level==20)%} selected {%endif%}>Info</option>
-            <option value="10" {%if (log_level==10)%} selected {%endif%}>Debug</option>
-            <option value="0" {%if (log_level==0)%} selected {%endif%}>No Logging</option>
-        </select>
-        <br/>
-        <label for="log_file">Log File</label>
-        <input id="log_file" class="form-control" type="text" name="log_file" value="{{log_file}}"></input>
-        <br/>
-        <label for="log_file_backup">Log File Backups to Keep</label>
-        <input id="log_file_backup" class="form-control" type="text" name="log_files_backup" value="{{log_files_backup}}"></input>
-        <br/>
-        <label for="log_file_size">Log File Size (bytes)</label>
-        <input id="log_file_size" class="form-control" type="text" name="log_file_size" value="{{log_file_size}}"></input>
+        <fieldset>
+            <legend><span class="btn btn-primary" id="logging_toggle"><i id="logging_arrow" class="fas fa-arrow-down"></i></span> Logging Settings</legend>
+            <div id="logging" class="config_category">
+                <label for="log_level">Logging Level</label>
+                <select id="log_level" class="form-control form-control-sm" name="log_level">
+                    <option value="50" {%if (log_level==50)%} selected {%endif%}>Critical</option>
+                    <option value="40" {%if (log_level==40)%} selected {%endif%}>Error</option>
+                    <option value="30" {%if (log_level==30)%} selected {%endif%}>Warning</option>
+                    <option value="20" {%if (log_level==20)%} selected {%endif%}>Info</option>
+                    <option value="10" {%if (log_level==10)%} selected {%endif%}>Debug</option>
+                    <option value="0" {%if (log_level==0)%} selected {%endif%}>No Logging</option>
+                </select>
+                <br/>
+                <label for="log_file">Log File</label>
+                <input id="log_file" class="form-control" type="text" name="log_file" value="{{log_file}}"></input>
+                <br/>
+                <label for="log_file_backup">Log File Backups to Keep</label>
+                <input id="log_file_backup" class="form-control" type="text" name="log_files_backup" value="{{log_files_backup}}"></input>
+                <br/>
+                <label for="log_file_size">Log File Size (bytes)</label>
+                <input id="log_file_size" class="form-control" type="text" name="log_file_size" value="{{log_file_size}}"></input>
+            </div>
+        </fieldset>
         <br/>
         <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
     </form>
