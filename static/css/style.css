@@ -237,3 +237,7 @@ div.chart_container_header {
 .chart_container {
     display: none;
 }
+
+.config_category {
+    display: none;
+}
