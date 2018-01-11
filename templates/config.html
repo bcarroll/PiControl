@@ -6,7 +6,7 @@
 <div class="form-group">
     <form method="post" action="/settings">
         <fieldset>
-            <legend>Beacon <span class="btn btn-primary" id="beacon_toggle"><i class="fas fa-arrow-down"></i></span></legend>
+            <legend>Beacon <span class="btn btn-primary" id="beacon_toggle"><i id="beacon_toggle_arrow" class="fas fa-arrow-down"></i></span></legend>
             <div id="beacon" class="config_category">
                 <label for="beacon_port">Beacon Port</label>
                 <input id="beacon_port" class="form-control" type="number" name="beacon_port" value="{{beacon_port}}"></input>
@@ -44,7 +44,7 @@
 <script>
     $('#beacon_toggle').click(function(){
         $('#beacon').toggle();
-        $('#beacon_toggle').toggleClass("fa-arrow-down fa-arrow-up");
+        $('#beacon_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
     });
 </script>
 {%endblock%}
