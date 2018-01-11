@@ -5,7 +5,6 @@
 <h1 class="page-header" id="page-header"><i class="fas fa-cog"></i> Configuration</h1>
 <div class="form-group">
     <form method="post" action="/settings">
-        <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
         <fieldset>
             <legend><span class="btn btn-primary" id="beacon_toggle"><i id="beacon_toggle_arrow" class="fas fa-arrow-down"></i></span> Beacon Settings</legend>
             <div id="beacon" class="config_category">
@@ -49,6 +48,12 @@
             </div>
         </fieldset>
         <br/>
+        <fieldset>
+            <legend><span class="btn btn-primary" id="background_threads_toggle"><i id="background_threads_arrow" class="fas fa-arrow-down"></i></span> Background Thread Settings</legend>
+            <div id="background_threads" class="config_category">
+            </div>
+        </fieldset>
+        <br/>
         <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
     </form>
 </div>
@@ -67,6 +72,11 @@
         $('#logging_toggle').toggleClass('active');
         $('#logging').toggle();
         $('#logging_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
+    });
+    $('#background_thread_toggle').click(function(){
+        $('#background_thread_toggle').toggleClass('active');
+        $('#background_thread').toggle();
+        $('#background_thread_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
     });
 </script>
 {%endblock%}
