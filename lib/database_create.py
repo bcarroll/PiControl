@@ -13,7 +13,7 @@ def check_db(database_file='db/PiControl.db'):
     if os.path.isfile(database_file):
         pass
     else:
-        print("\nERROR: PiControl Database does not exist.\n")
+        print("\nERROR: PiControl Database does not exist. PiControl will not be started\n")
         sys.exit()
 
 def create_database(database_file='db/PiControl.db'):
