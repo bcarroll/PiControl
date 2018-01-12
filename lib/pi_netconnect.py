@@ -106,6 +106,7 @@ class UDPBeacon:
                                 if (ip != ip_cidr.network) and (ip != ip_cidr.broadcast) and (str(IPAddress(ip)) != ip_info['addr']):
                                     logger.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
                                     try:
+                                        secret_key = get_config()['secret_key']
                                         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                                         hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber) + ';' + str(secret_key), (str(IPAddress(ip)), self.port))
                                     except Exception as e:

@@ -20,7 +20,7 @@ def check_db(database_file='db/PiControl.db'):
 
 def update_node(ipaddress, hostname, revision, serialnumber, secret_key, last_checkin, database_file='db/PiControl.db'):
     check_db()
-    logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
+    logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) + ", secret_key=" + str(secret_key) +", last_checkin=" + str(last_checkin))
     if ipaddress == '127.0.0.1':
         return
     try:
