@@ -51,7 +51,7 @@
 
     var cpu_temperature_chart_ctx = $("#cpu_temperature_chart");
     var cpu_temperature_chart = new Chart(cpu_temperature_chart_ctx, {
-        type: 'bar',
+        type: 'line',
         data: {labels: [],datasets: [{label:"",data: []}]},
         options: {
             legend: {display:false},
