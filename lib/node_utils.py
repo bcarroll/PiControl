@@ -18,8 +18,6 @@ def get_data_from_nodes(URI):
     # Add local node to list of nodes
     nodes.append({"ipaddress": '127.0.0.1', "hostname": socket.gethostname(), "last_checkin": ""})
     node_data = []
-    node_data.append(node_chart_data)
-    # Add data from discovered nodes
     for node in nodes:
         node_url = 'https://' + node['ipaddress'] + ':31415' + URI
         try:
