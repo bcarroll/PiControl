@@ -11,7 +11,7 @@
     *    ``sudo apt-get install gcc libffi-dev libssl-dev python-dev python-cryptography wiringpi``
 3. Install Python dependencies
     *    ``cd /directory/where/you/cloned-or_unzipped``
-    *    ``sudo pip install Flask Flask-SSLify flask_sqlalchemy ipaddress netifaces netaddr psutil simplepam wiringpi``
+    *    ``sudo pip install Flask Flask-SSLify flask_sqlalchemy ipaddress netifaces netaddr psutil simplepam wiringpi requests``
 4. Set executable flag on the PiControl start script
     *    chmod +x /directory/where/you/cloned-or_unzipped/PiControl.sh
 
