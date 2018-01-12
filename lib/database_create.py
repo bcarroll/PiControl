@@ -62,7 +62,6 @@ def create_tables(connection, secret_key):
     '''
     check_db()
     try:
-        print('Creating tables in PiControl database')
         cursor = connection.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL, 'secret_key' VARCHAR NOT NULL, 'last_checkin' DATETIME NOT NULL)")
         cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL, 'log_files_backup' INTEGER NOT NULL, 'log_file_size' INTEGER NOT NULL, 'beacon_listener_enabled' INTEGER NOT NULL,'beacon_sender_enabled' INTEGER NOT NULL, 'background_charts_enabled' INTEGER NOT NULL)")
@@ -86,7 +85,6 @@ def create_config(cursor, secret_key):
     try:
         # If the config table already has data, we don't need to do anything
         t = config_rows[0]
-        print('PiControl config table already exists.')
     except Exception as e:
         # No results.  Add the default configuration data
         print('Adding default configuration to the PiControl database.')
