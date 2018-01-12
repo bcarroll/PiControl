@@ -80,6 +80,7 @@
                 $("#cpu_temperature_chart").hide()
             } else {
                 cpu_temperature_chart.data.datasets[0].data = result.chart.data;
+                cpu_usage_chart.data.datasets[0].label = "{{HOSTNAME}}"
                 cpu_temperature_chart.data.labels = result.chart.labels;
                 cpu_temperature_chart.update();
             }
@@ -101,7 +102,7 @@
                 cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + cpu_percent + '%<br/>';
             }
             cpu_usage_chart.data.datasets[0].data  = data;
-            cpu_usage_chart.data.datasets[0].label = '127.0.0.1';
+            cpu_usage_chart.data.datasets[0].label = "{{HOSTNAME}}";
             cpu_usage_chart.data.labels = labels;
             cpu_usage_chart.update();
             $('#cpu_usage').html(cpu_usage_data);
