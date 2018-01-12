@@ -16,9 +16,9 @@ def node_cpu_usage():
             r = requests.get(node_url)
             if r.status_code != 200:
                 logger.warn(node_url + ' returned ' + r.status_code)
-            node_data = {
-                ipaddress: r.text
-            }
+                node_data = {
+                    ipaddress: r.text
+                }
             node_data.append(node_data)
     return jsonify({'cpu_usage': node_data})
 
