@@ -98,13 +98,12 @@
             cpu_usage_chart.update();
         });
     }
-
+    var nodes_cpu_usage_chart_data = []
     function update_nodes_cpu_usage_chart(){
         $.get('/dashboard/nodes_cpu_usage', function(result){
-            console.log(result);
             var labels = []
-            if  (nodes_cpu_usage_chart.data.datasets[0].data.length >= 60){
-                nodes_cpu_usage_chart.data.datasets[0].data = []
+            if  (nodes_cpu_usage_chart_data.length >= 60){
+                nodes_cpu_usage_chart_data = []
             }
             for ( node=0; node<result.cpu_usage.length; node++ ){
                 var cpu_percent = String(result.cpu_usage[node].data.cpu_usage)
@@ -112,9 +111,9 @@
                     cpu_percent = cpu_percent + '.0';
                 }
                 labels.push(result.cpu_usage[node].ipaddress + ' (' + result.cpu_usage[node].hostname + ')')
-                nodes_cpu_usage_chart.data.datasets[0].data.push(cpu_percent);
+                nodes_cpu_usage_chart_data.push(cpu_percent);
             }
-
+            nodes_cpu_usage_chart.data.datasets[0].data = nodes_cpu_usage_chart_data;
             nodes_cpu_usage_chart.data.labels = labels;
             nodes_cpu_usage_chart.update();
         });
