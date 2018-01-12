@@ -45,7 +45,7 @@
             scales: {yAxes: [{ticks: {beginAtZero:true,max:100}}]}
         }
     });
-
+/*
     var cpu_temperature_chart_ctx = $("#cpu_temperature_chart");
     var cpu_temperature_chart = new Chart(cpu_temperature_chart_ctx, {
         type: 'bar',
@@ -57,7 +57,7 @@
             scales: {yAxes: [{ticks: {beginAtZero:false}}]}
         }
     });
-
+*/
     var nodes_cpu_usage_chart_ctx = $("#nodes_cpu_usage_chart");
     var nodes_cpu_usage_chart = new Chart(nodes_cpu_usage_chart_ctx, {
         type: 'line',
@@ -76,13 +76,12 @@
                 $("#cpu_temperature_chart").hide()
             } else {
                 cpu_temperature_chart.data.datasets[0].data = result.chart.data;
-                cpu_temperature_chart.data.datasets[0].label = "{{HOSTNAME}} (127.0.0.1)"
                 cpu_temperature_chart.data.labels = result.chart.labels;
                 cpu_temperature_chart.update();
             }
         });
     }
-
+/*
     function update_cpu_usage_chart(){
         $.get('/cpu/usage', function(result){
             var labels = [];
@@ -96,12 +95,11 @@
                 data.push(cpu_percent);
             }
             cpu_usage_chart.data.datasets[0].data  = data;
-            cpu_usage_chart.data.datasets[0].label = "{{HOSTNAME}} (127.0.0.1)";
             cpu_usage_chart.data.labels = labels;
             cpu_usage_chart.update();
         });
     }
-
+/*
     function update_nodes_cpu_usage_chart(){
         $.get('/dashboard/nodes_cpu_usage', function(result){
             var labels = [];
