@@ -10,7 +10,6 @@ def sigint_handler(signum, frame):
 signal.signal(signal.SIGINT, sigint_handler)
 
 def check_db(database_file='db/PiControl.db'):
-    secret_key = ''
     if os.path.isfile(database_file):
         pass
     else:
@@ -24,6 +23,8 @@ def create_database(database_file='db/PiControl.db'):
     Keyword Arguments:
         database_file {str} -- Path to the database file to create (default: {'../db/PiControl.db'})
     '''
+    secret_key = None
+
     if os.path.isfile(database_file):
         pass
     else:
@@ -41,7 +42,6 @@ def create_database(database_file='db/PiControl.db'):
         while secret_key == '' or len(secret_key) < 8:
             secret_key = raw_input('A Secret Key is required. Enter your PiControl Secret Key: ')
         print("\n")
-
     try:
         conn = sqlite3.connect(database_file)
         # Create PiControl database tables
