@@ -409,12 +409,12 @@ def get_node_cpu_usage():
 @app.route('/dashboard/cpu_temperature')
 #@require_login
 def dashboard_cpu_temperature():
-    return(cpu_temperature())
+    return(cpu_temperature(type='text_fahrenheit'))
 
 @app.route('/dashboard/nodes_cpu_temperature')
 #@require_login
 def get_node_cpu_temperature():
-    return(node_cpu_temperature(type='text_fahrenheit'))
+    return(node_cpu_temperature())
 
 if __name__ == '__main__':
     context = ('SSL/server.crt', 'SSL/server.key')
