@@ -102,16 +102,16 @@
     function update_nodes_cpu_usage_chart(){
         $.get('/dashboard/nodes_cpu_usage', function(result){
             var labels = []
-            //var data   = []
+            if  (cpu_usage_chart.data.datasets[0].data.length >= 60){
+                cpu_usage_chart.data.datasets[0].data = []
+            }
             for ( node=0; node<result.cpu_usage.length; node++ ){
                 var cpu_percent = String(result.cpu_usage[node].data.cpu_usage)
                 if (!cpu_percent.includes('.')){
                     cpu_percent = cpu_percent + '.0';
                 }
                 labels.push(result.cpu_usage.ipaddress + ' (' + result.cpu_usage.hostname + ')')
-                cpu_usage_chart.data.datasets[node].data  = cpu_percent;
-                cpu_usage_chart.data.datasets[node].label = result.cpu_usage.ipaddress + ' (' + result.cpu_usage.hostname + ')';
-                //data.push(cpu_percent);
+                cpu_usage_chart.data.datasets[0].data.push(cpu_percent);
             }
 
             cpu_usage_chart.data.labels = labels;
