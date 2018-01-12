@@ -20,13 +20,13 @@ def cpu_count():
     '''
     return jsonify({'cpu_count': psutil.cpu_count()})
 
-def cpu_usage():
+def cpu_usage(per_cpu=True):
     '''
     Returns CPU usage in percent
     '''
     cpu_usage = 'ERROR'
     try:
-        cpu_usage_list = psutil.cpu_percent(interval=1, percpu=True)
+        cpu_usage_list = psutil.cpu_percent(interval=1, percpu=per_cpu)
     except:
         logger.error('Error getting cpu_usage')
     return jsonify({'cpu_usage': cpu_usage_list})

@@ -32,6 +32,7 @@ from lib.pyDash import get_netstat, get_platform
 from lib.database_config import get_config
 from lib.chart_utils import PiControlChart
 from lib._logging import logger, handler
+from lib.node_utils import node_cpu_usage
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -392,6 +393,13 @@ def get_gpio():
 @require_login
 def get_pi_serialnumber():
     return(pi_serialnumber())
+
+#################################
+# Dashboard chart data
+@app.route('/dashboard/nodes_cpu_usage')
+#@require_login
+def get_node_cpu_usage():
+    return(node_cpu_usage())
 
 if __name__ == '__main__':
     context = ('SSL/server.crt', 'SSL/server.key')
