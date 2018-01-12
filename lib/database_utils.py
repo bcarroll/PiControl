@@ -32,7 +32,7 @@ def update_node(ipaddress, hostname, revision, serialnumber, secret_key, last_ch
             if results:
                 try:
                     logger.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
-                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, serialnumber={3}, secret_key={4} last_checkin={5} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), "'{}'".format(secret_key), last_checkin))
+                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, serialnumber={3}, secret_key={4}, last_checkin={5} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), "'{}'".format(secret_key), last_checkin))
                 except Exception as e:
                     logger.error('Error updating node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table. ' + e.message)
                     return()
