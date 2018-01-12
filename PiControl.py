@@ -396,6 +396,11 @@ def get_pi_serialnumber():
 
 #################################
 # Dashboard chart data
+@app.route('/dashboard/cpu_usage')
+#@require_login
+def get_cpu_usage():
+    return(cpu_usage())
+
 @app.route('/dashboard/nodes_cpu_usage')
 #@require_login
 def get_node_cpu_usage():
