@@ -104,7 +104,7 @@
 
     function update_nodes_cpu_usage_chart(){
         $.get('/dashboard/nodes_cpu_usage', function(result){
-            var labels = []
+            var labels = [];
             var data   = [];
             for ( node=0; node<result.cpu_usage.length; node++ ){
                 var cpu_percent = String(result.cpu_usage[node].data.cpu_usage)
