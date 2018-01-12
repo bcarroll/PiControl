@@ -38,8 +38,8 @@ def get_data_from_nodes(URI):
             node_chart_data = {
                     "ipaddress": node['ipaddress'],
                     "hostname": node['hostname'],
-                    "last_checkin": "",
-                    "data": { "cpu_usage": "" }
+                    "last_checkin": ,
+                    "data": { "cpu_usage": }
                 }
             node_data.append(node_chart_data)
     return(node_data)
