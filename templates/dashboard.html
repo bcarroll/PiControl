@@ -114,7 +114,7 @@
                 } else if (!cpu_percent.includes('.')){
                     cpu_percent = cpu_percent + '.0';
                 }
-                labels.push(result.cpu_usage[node].ipaddress);
+                labels.push(result.cpu_usage[node].hostname + "\n" + result.cpu_usage[node].ipaddress);
                 data.push(cpu_percent);
             }
             nodes_cpu_usage_chart.data.datasets[0].data  = data;
