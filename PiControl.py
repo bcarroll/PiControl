@@ -31,7 +31,7 @@ from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, 
 from lib.pyDash import get_netstat, get_platform
 from lib.database_config import get_config
 from lib.chart_utils import PiControlChart
-from lib._logging import logger, handler
+from lib._logging import logger, handler, werkzeug_handler, sqlalchemy_handler
 from lib.node_utils import node_cpu_usage
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
@@ -53,11 +53,11 @@ app.logger.addHandler(handler)
 
 werkzeug_logger = logging.getLogger('werkzeug')
 werkzeug_logger.setLevel(logger.level)
-werkzeug_logger.addHandler(handler)
+werkzeug_logger.addHandler(werkzeug_handler)
 
 sqlalchemy_logger = logging.getLogger('sqlalchemy')
 sqlalchemy_logger.setLevel(logger.level)
-sqlalchemy_logger.addHandler(handler)
+sqlalchemy_logger.addHandler(sqlalchemy_handler)
 
 ################################################
 

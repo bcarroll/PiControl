@@ -24,7 +24,7 @@ logger    = logging.getLogger(__name__)
 logformat = logging.Formatter('[%(asctime)s][%(levelname)s][%(threadName)s][%(module)s][%(funcName)s][%(lineno)d] %(message)s')
 
 log_level        = 30
-log_file         = "logs/PiControl_logging.log"
+log_file         = "logs/PiControl.log"
 log_files_backup = 5
 log_file_size    = 4096000
 
@@ -42,6 +42,8 @@ loglevel = ( get_logging_level(log_level) )
 
 #hander = logging.StreamHandler()
 handler = RotatingFileHandler(log_file, mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
+werkzeug_handler = RotatingFileHandler('logs/werkzeug.log', mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
+sqlalchemy_handler = RotatingFileHandler('logs/sqlalchemy.log', mode='a', maxBytes=log_file_size, backupCount=log_files_backup)
 
 if log_level == 0:
     #Logging is disabled
