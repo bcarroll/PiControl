@@ -11,6 +11,10 @@ from flask import jsonify
 from lib.database_utils import get_nodes
 from lib._logging import logger
 
+def node_cpu_temperature():
+    node_data = get_data_from_nodes('/dashboard/cpu_temperature')
+    return jsonify({'cpu_temperature': node_data})
+
 def node_cpu_usage():
     node_data = get_data_from_nodes('/dashboard/cpu_usage')
     return jsonify({'cpu_usage': node_data})

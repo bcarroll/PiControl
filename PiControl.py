@@ -32,7 +32,7 @@ from lib.pyDash import get_netstat, get_platform
 from lib.database_config import get_config
 from lib.chart_utils import PiControlChart
 from lib._logging import logger, handler, werkzeug_handler, sqlalchemy_handler
-from lib.node_utils import node_cpu_usage
+from lib.node_utils import node_cpu_usage, node_cpu_temperature
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -405,6 +405,16 @@ def dashboard_cpu_usage():
 #@require_login
 def get_node_cpu_usage():
     return(node_cpu_usage())
+
+@app.route('/dashboard/cpu_temperature')
+#@require_login
+def dashboard_cpu_temperature():
+    return(cpu_temperature(type='fahrenheit'))
+
+@app.route('/dashboard/nodes_cpu_temperature')
+#@require_login
+def get_node_cpu_temperature():
+    return(node_cpu_temperature())
 
 if __name__ == '__main__':
     context = ('SSL/server.crt', 'SSL/server.key')
