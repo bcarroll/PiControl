@@ -20,7 +20,7 @@ def hash_key(key):
     return(key)
 
 def validate_hash(string, hash):
-    if hash_key(string) == hash:
+    if hash_key(string)[0:-48] == hash[0:-48]:
         return(True)
     else:
         return(False)
