@@ -35,11 +35,14 @@
         data: {
             labels: [],
             datasets: [{
-                label: 'Percent CPU Usage',
                 data: [],
             }]
         },
         options: {
+            title: {
+                text: 'CPU Usage %',
+                display: true
+            },
             scales: {
                 yAxes: [{
                     ticks: {
@@ -56,21 +59,15 @@
         type: 'bar',
         data: {
             labels: [],
-            datasets: [{
-                label: 'CPU Temperature',
-                data: [],
-            }]
-        },
+            datasets: [{data: [],}]},
         options: {
-            animation: {
-                duration: 0
+            animation: {duration: 0},
+            title: {
+                text: 'CPU Temperature',
+                display: true
             },
             scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:false
-                    }
-                }]
+                yAxes: [{ticks: {beginAtZero:false}}]
             }
         }
     });
