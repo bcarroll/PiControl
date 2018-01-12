@@ -83,7 +83,7 @@ def update_config(_beacon_port, _beacon_interval, _secret_key, _log_level, _log_
     except Exception as e:
         logger.error(e.message)
 
-def get_nodes(database_file='db/PiControl.db'):
+def get_nodes(database_file='db/PiControl.db', type='JSON'):
     check_db()
     logger.debug('get_nodes() called...')
     nodes = []
@@ -108,4 +108,7 @@ def get_nodes(database_file='db/PiControl.db'):
                 logger.error('nodes.append failed')
     except Exception as (e):
         logger.error(e)
-    return jsonify({'nodes': nodes})
+    if type == 'JSON':
+        return jsonify({'nodes': nodes})
+    else:
+        return(nodes)
