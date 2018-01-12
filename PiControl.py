@@ -73,7 +73,7 @@ if configuration['beacon_listener_enabled'] == 1:
 
 # Create background chart data collectors
 if configuration['background_charts_enabled'] == 1:
-    cpu_temperature_chart = PiControlChart(cpu_temperature, args='fahrenheit')
+    cpu_temperature_chart = PiControlChart(data_function=cpu_temperature, max_elements=5, args='fahrenheit')
     cpu_temperature_chart.start()
 # END OF BACKGROUND CHART DATA COLLECTORS
 
