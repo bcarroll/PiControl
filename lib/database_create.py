@@ -63,7 +63,7 @@ def create_tables(connection, secret_key):
     try:
         print('Creating tables in PiControl database')
         cursor = connection.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL,'last_checkin' DATETIME NOT NULL)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS 'nodes' ('ipaddress' VARCHAR NOT NULL, 'hostname' VARCHAR NOT NULL, 'revision' VARCHAR NOT NULL, 'serialnumber' VARCHAR NOT NULL, 'secret_key' VARCHAR NOT NULL, 'last_checkin' DATETIME NOT NULL)")
         cursor.execute("CREATE TABLE IF NOT EXISTS 'config' ('id' TEXT NOT NULL, 'beacon_port' INTEGER NOT NULL, 'beacon_interval' INTEGER NOT NULL, 'secret_key' TEXT NOT NULL, 'log_level' INTEGER NOT NULL, 'log_file' TEXT NOT NULL, 'log_files_backup' INTEGER NOT NULL, 'log_file_size' INTEGER NOT NULL, 'beacon_listener_enabled' INTEGER NOT NULL,'beacon_sender_enabled' INTEGER NOT NULL, 'background_charts_enabled' INTEGER NOT NULL)")
         create_config(cursor, secret_key)
     except Exception as e:

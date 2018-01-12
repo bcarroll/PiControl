@@ -107,7 +107,7 @@ class UDPBeacon:
                                     logger.debug('Sending UDPBeacon to ' + str(IPAddress(ip)))
                                     try:
                                         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                                        hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber), (str(IPAddress(ip)), self.port))
+                                        hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber) + ';' + str(secret_key), (str(IPAddress(ip)), self.port))
                                     except Exception as e:
                                         logger.error(e.message)
                                     sleep(0.1)
@@ -169,15 +169,16 @@ class UDPBeaconListener:
                     #skip loopback connections
                     if address == '127.0.0.1':
                         continue
-                    message, hostname, revision, serialnumber = string.split(';')
+                    message, hostname, revision, serialnumber, secret_key = string.split(';')
                     if message == self.message:
                         ipaddress    = str(address[0])
                         hostname     = str(hostname)
                         revision     = str(revision)
                         serialnumber = str(serialnumber)
+                        secret_key   = str(secret_key)
                         last_checkin = str( int( time() ) )
                         logger.debug('Beacon received from ' + str(address[0]) + ' (' + serialnumber + ')')
-                        update_node(ipaddress, hostname, revision, serialnumber, last_checkin)
+                        update_node(ipaddress, hostname, revision, serialnumber, secret_key, last_checkin)
             except Exception as e:
                 logger.error(e.message)
             sleep(0.1)

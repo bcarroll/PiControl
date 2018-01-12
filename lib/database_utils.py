@@ -18,7 +18,7 @@ def check_db(database_file='db/PiControl.db'):
         logger.critical('PiControl Database does not exist.')
         sys.exit()
 
-def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, database_file='db/PiControl.db'):
+def update_node(ipaddress, hostname, revision, serialnumber, secret_key, last_checkin, database_file='db/PiControl.db'):
     check_db()
     logger.debug("Updating node: ipaddress=" + str(ipaddress) + ", hostname=" + str(hostname) + ", revision=" + str(revision) + ", serialnumber=" + str(serialnumber) +", last_checkin=" + str(last_checkin))
     if ipaddress == '127.0.0.1':
@@ -32,14 +32,14 @@ def update_node(ipaddress, hostname, revision, serialnumber, last_checkin, datab
             if results:
                 try:
                     logger.debug('Updating node (' + hostname + ':' + ipaddress + ') in nodes table.')
-                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, serialnumber={3}, last_checkin={4} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
+                    cursor.execute('UPDATE nodes set ipaddress={0}, hostname={1}, revision={2}, serialnumber={3}, secret_key={4} last_checkin={5} WHERE ipaddress={0}'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), "'{}'".format(secret_key), last_checkin))
                 except Exception as e:
                     logger.error('Error updating node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table. ' + e.message)
                     return()
             else:
                 try:
                     logger.info('Node (' + hostname + ':' + ipaddress + ') does not exist in nodes table.  Inserting...')
-                    cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, serialnumber, last_checkin) VALUES ({0},{1},{2},{3},{4})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), last_checkin))
+                    cursor.execute('INSERT INTO nodes (ipaddress, hostname, revision, serialnumber, secret_key, last_checkin) VALUES ({0},{1},{2},{3},{4},{5})'.format("'{}'".format(ipaddress), "'{}'".format(hostname), "'{}'".format(revision), "'{}'".format(serialnumber), "'{}'".format(secret_key), last_checkin))
                 except Exception as e:
                     logger.error('Error inserting node (' + str(hostname) + ':' + str(ipaddress) + ') in nodes table. ' + e.message)
                     return()
@@ -90,7 +90,7 @@ def get_nodes(database_file='db/PiControl.db'):
     try:
         conn = sqlite3.connect(database_file)
         cursor = conn.cursor()
-        cursor.execute("SELECT ipaddress, hostname, revision, serialnumber, last_checkin FROM nodes")
+        cursor.execute("SELECT ipaddress, hostname, revision, serialnumber, secret_key, last_checkin FROM nodes")
         rows = cursor.fetchall()
         for row in rows:
             model = pi_model(row[2], type="dict")
@@ -101,7 +101,8 @@ def get_nodes(database_file='db/PiControl.db'):
                         "revision": row[2],
                         "model": model['model'],
                         "serialnumber": row[3],
-                        "last_checkin": datetime.datetime.fromtimestamp(row[4]).strftime('%c')
+                        "secret_key": row[4],
+                        "last_checkin": datetime.datetime.fromtimestamp(row[5]).strftime('%c')
                     })
             except:
                 logger.error('nodes.append failed')
