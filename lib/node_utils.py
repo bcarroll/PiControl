@@ -2,6 +2,8 @@
 import socket
 import requests
 import json
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from flask import jsonify
 
 from lib.database_utils import get_nodes
