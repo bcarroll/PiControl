@@ -140,6 +140,7 @@
             console.log(result);
             var labels = [];
             var data   = [];
+            console.log(result.cpu_temperature);
             for ( node=0; node<result.cpu_temperature.length; node++ ){
                 labels.push(result.cpu_temperature[node].ipaddress);
                 data.push(result.cpu_temperature[node].temp);
