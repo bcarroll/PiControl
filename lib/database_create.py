@@ -87,7 +87,7 @@ def create_config(cursor, secret_key):
         # No results.  Add the default configuration data
         print('Adding default configuration to the PiControl database.')
         try:
-            cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file', 'log_files_backup', 'log_file_size', 'beacon_listener_enabled', 'beacon_sender_enabled', 'background_charts_enabled') VALUES ('active', 31415, 300, " + "'{}'".format(secret_key) + ", 10, 'logs/PiControl.log', 5, 4096000, 1, 1, 1)")
+            cursor.execute("INSERT INTO 'config' ('id', 'beacon_port', 'beacon_interval', 'secret_key', 'log_level', 'log_file', 'log_files_backup', 'log_file_size', 'beacon_listener_enabled', 'beacon_sender_enabled', 'background_charts_enabled') VALUES ('active', 31415, 300, " + "'{}'".format(secret_key) + ", 30, 'logs/PiControl.log', 5, 4096000, 1, 1, 1)")
         except Exception as e:
             print('Error adding default configuration to PiControl database. ' + e.message)
 
