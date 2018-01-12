@@ -100,7 +100,8 @@
                 data.push(cpu_percent);
                 cpu_usage_data = cpu_usage_data + '<strong>CPU ' + cpu_num + ': </strong>' + cpu_percent + '%<br/>';
             }
-            cpu_usage_chart.data.datasets[0].data = data;
+            cpu_usage_chart.data.datasets[0].data  = data;
+            cpu_usage_chart.data.datasets[0].label = '127.0.0.1';
             cpu_usage_chart.data.labels = labels;
             cpu_usage_chart.update();
             $('#cpu_usage').html(cpu_usage_data);
