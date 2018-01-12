@@ -190,8 +190,8 @@ class UDPBeaconListener:
                         secret_key   = str(secret_key)
                         last_checkin = str( int( time() ) )
                         logger.debug('Beacon received from ' + str(address[0]) + ' (' + serialnumber + ')')
-                        print('Received: ' + secret_key)
-                        print('Expected: ' + hash_key(get_config()['secret_key']))
+                        print('Received: ' + secret_key[0:-48])
+                        print('Expected: ' + hash_key(get_config()['secret_key'])[0:-48])
                         if validate_hash(secret_key, hash_key(get_config()['secret_key'])):
                             update_node(ipaddress, hostname, revision, serialnumber, secret_key, last_checkin)
                         else:
