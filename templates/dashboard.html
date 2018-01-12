@@ -137,7 +137,7 @@
 
      function update_nodes_cpu_temperature_chart(){
         $.get('/dashboard/nodes_cpu_temperature', function(result){
-            colsole.log(result);
+            console.log(result);
             var labels = [];
             var data   = [];
             for ( node=0; node<result.cpu_temperature.length; node++ ){
