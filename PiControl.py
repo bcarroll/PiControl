@@ -399,7 +399,7 @@ def get_pi_serialnumber():
 @app.route('/dashboard/cpu_usage')
 #@require_login
 def dashboard_cpu_usage():
-    return(cpu_usage())
+    return(cpu_usage(per_cpu=False))
 
 @app.route('/dashboard/nodes_cpu_usage')
 #@require_login
