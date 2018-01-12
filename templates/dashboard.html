@@ -14,9 +14,7 @@
     </tr>
     <tr>
         <td>
-        <!--
             <canvas id="cpu_usage_chart" class="chartjs-container" width="500" height="400"></canvas>
-        -->
         </td>
         <td>
             <canvas id="cpu_temperature_chart" class="chartjs-container" width="500" height="400"></canvas>
@@ -34,12 +32,12 @@
 <script src="/static/js/Chart.min.js"></script>
 <script src="/static/js/chartjs_utils.js"></script>
 <script>
-    //update_cpu_usage_chart();
-    //update_cpu_temperature_chart();
+    update_cpu_usage_chart();
+    update_cpu_temperature_chart();
     update_nodes_cpu_usage_chart();
 
     // Charts
-    /*
+
     var cpu_usage_chart_ctx = $("#cpu_usage_chart");
     var cpu_usage_chart = new Chart(cpu_usage_chart_ctx, {
         type: 'bar',
@@ -62,7 +60,7 @@
             scales: {yAxes: [{ticks: {beginAtZero:false}}]}
         }
     });
-    */
+
     var nodes_cpu_usage_chart_ctx = $("#nodes_cpu_usage_chart");
     var nodes_cpu_usage_chart = new Chart(nodes_cpu_usage_chart_ctx, {
         type: 'line',
@@ -73,7 +71,7 @@
             scales: {yAxes: [{ticks: {beginAtZero:true,max:100}}]}
         }
     });
-/*
+
     function update_cpu_temperature_chart(){
         $.get('/charts/cpu/temperature', function(result){
             if (result.chart.data == 'DISABLED'){
@@ -104,7 +102,7 @@
             cpu_usage_chart.update();
         });
     }
-*/
+
     function update_nodes_cpu_usage_chart(){
         $.get('/dashboard/nodes_cpu_usage', function(result){
             var labels = [];
@@ -116,7 +114,7 @@
                 } else if (!cpu_percent.includes('.')){
                     cpu_percent = cpu_percent + '.0';
                 }
-                labels.push(result.cpu_usage[node].hostname);
+                labels.push(result.cpu_usage[node].ipaddress);
                 data.push(cpu_percent);
             }
             nodes_cpu_usage_chart.data.datasets[0].data  = data;
@@ -124,8 +122,8 @@
             nodes_cpu_usage_chart.update();
         });
     }
-    //setInterval(update_cpu_temperature_chart,5000);
-    //setInterval(update_cpu_usage_chart,1000);
+    setInterval(update_cpu_temperature_chart,5000);
+    setInterval(update_cpu_usage_chart,1000);
     setInterval(update_nodes_cpu_usage_chart,1000);
 </script>
 {%endblock%}
