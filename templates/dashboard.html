@@ -126,6 +126,9 @@
             cpu_usage_chart.data.datasets[0].label = nodes_cpu_usage_dataset_labels;
             nodes_cpu_usage_chart.data.labels = nodes_cpu_usage_data_labels;
             nodes_cpu_usage_chart.update();
+            console.log(cpu_usage_chart.data.datasets[0].label);
+            console.log(nodes_cpu_usage_chart.data.datasets[0].data);
+            console.log(nodes_cpu_usage_chart.data.labels);
         });
     }
     setInterval(update_cpu_temperature_chart,5000);
