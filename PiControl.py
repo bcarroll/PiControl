@@ -409,7 +409,7 @@ def get_node_cpu_usage():
 @app.route('/dashboard/cpu_temperature')
 #@require_login
 def dashboard_cpu_temperature():
-    return(cpu_temperature(type='fahrenheit'))
+    return(cpu_temperature())
 
 @app.route('/dashboard/nodes_cpu_temperature')
 #@require_login
