@@ -12,6 +12,7 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 def check_db(database_file='db/PiControl.db'):
     if os.path.isfile(database_file):
+        secret_key = get_config()['secret_key']
         pass
     else:
         print("\nERROR: PiControl Database does not exist. PiControl will not be started\n")
