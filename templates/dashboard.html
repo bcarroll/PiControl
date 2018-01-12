@@ -120,15 +120,16 @@
                     nodes_cpu_usage_data_labels.push(result.cpu_usage[node].ipaddress + ' (' + result.cpu_usage[node].hostname + ')')
                 }
                 nodes_cpu_usage_chart_dataset_data.push(cpu_percent);
-                nodes_cpu_usage_dataset_labels.push(0);
+                var date = new Date(); label = date.getSeconds();
+                nodes_cpu_usage_dataset_labels.push(label);
             }
             nodes_cpu_usage_chart.data.datasets[0].data = nodes_cpu_usage_chart_dataset_data;
             cpu_usage_chart.data.datasets[0].label = nodes_cpu_usage_dataset_labels;
             nodes_cpu_usage_chart.data.labels = nodes_cpu_usage_data_labels;
             nodes_cpu_usage_chart.update();
-            console.log(cpu_usage_chart.data.datasets[0].label);
-            console.log(nodes_cpu_usage_chart.data.datasets[0].data);
-            console.log(nodes_cpu_usage_chart.data.labels);
+            console.log('Label:' + cpu_usage_chart.data.datasets[0].label);
+            console.log('Data:' + nodes_cpu_usage_chart.data.datasets[0].data);
+            console.log('Labels:' + nodes_cpu_usage_chart.data.labels);
         });
     }
     setInterval(update_cpu_temperature_chart,5000);
