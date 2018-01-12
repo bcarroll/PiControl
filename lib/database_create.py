@@ -2,6 +2,7 @@ import os
 import sys
 import sqlite3
 import signal
+from lib.database_create import get_config
 
 def sigint_handler(signum, frame):
     print("\n")
@@ -37,7 +38,7 @@ def create_database(database_file='db/PiControl.db'):
         print('######################################################################################')
         print("\n")
         secret_key = raw_input('Enter your PiControl Secret Key: ')
-        while  secret_key == '' or len(secret_key) < 8:
+        while secret_key == '' or len(secret_key) < 8:
             secret_key = raw_input('A Secret Key is required. Enter your PiControl Secret Key: ')
         print("\n")
 
