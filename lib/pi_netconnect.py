@@ -4,7 +4,6 @@ import netifaces
 import threading
 import select
 import sqlite3
-import hashlib
 
 from pprint import pprint
 from time import sleep, time
@@ -14,16 +13,6 @@ from lib._logging import logger
 from lib.pi_utilities import pi_revision, pi_serialnumber
 from lib.database_utils import update_node
 from lib.database_config import get_config
-
-def hash_key(key):
-    key = hashlib.sha256(key.encode('utf-8')).hexdigest()
-    return(key)
-
-def validate_hash(string, hash):
-    if hash_key(string)[0:-48] == hash[0:-48]:
-        return(True)
-    else:
-        return(False)
 
 class UDPBeacon:
     def __init__(self,message="PiControl_beacon",port=31415):
@@ -119,7 +108,7 @@ class UDPBeacon:
                                     try:
                                         secret_key = get_config()['secret_key']
                                         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                                        hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber) + ';' + hash_key(secret_key), (str(IPAddress(ip)), self.port))
+                                        hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber) + ';' + str(secret_key), (str(IPAddress(ip)), self.port))
                                     except Exception as e:
                                         logger.error(e.message)
                                     sleep(0.1)
@@ -190,12 +179,7 @@ class UDPBeaconListener:
                         secret_key   = str(secret_key)
                         last_checkin = str( int( time() ) )
                         logger.debug('Beacon received from ' + str(address[0]) + ' (' + serialnumber + ')')
-                        print('Received: ' + secret_key[0:-48])
-                        print('Expected: ' + hash_key(get_config()['secret_key'])[0:-48])
-                        if validate_hash(secret_key, hash_key(get_config()['secret_key'])):
-                            update_node(ipaddress, hostname, revision, serialnumber, secret_key, last_checkin)
-                        else:
-                            logger.info(str(address[0]) + ' is not an authorized PiControl node')
+                        update_node(ipaddress, hostname, revision, serialnumber, secret_key, last_checkin)
             except Exception as e:
                 logger.error(e.message)
             sleep(0.1)
