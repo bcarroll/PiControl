@@ -2,7 +2,7 @@ import os
 import sys
 import sqlite3
 import signal
-from lib.database_create import get_config
+from lib.database_config import get_config
 
 def sigint_handler(signum, frame):
     print("\n")
