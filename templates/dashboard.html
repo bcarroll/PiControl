@@ -32,6 +32,7 @@
 <script>
     update_cpu_usage_chart();
     update_cpu_temperature_chart();
+    update_nodes_cpu_usage_chart();
 
     // Charts
     var cpu_usage_chart_ctx = $("#cpu_usage_chart");
@@ -119,5 +120,6 @@
     }
     setInterval(update_cpu_temperature_chart,5000);
     setInterval(update_cpu_usage_chart,1000);
+    setInterval(update_nodes_cpu_usage_chart,1000);
 </script>
 {%endblock%}
