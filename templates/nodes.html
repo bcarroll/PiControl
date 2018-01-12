@@ -35,10 +35,11 @@
     }
 
     function status_icon(date){
+        // Change the node status icon if node hasn't checked in recently
         var last_checkin = (Date.now()-Date.parse(date)) / 1000;
         if ( last_checkin > 300){
             return("fas fa-times text-danger");
-        } else if (last_checkin > 65){
+        } else if (last_checkin > 120){
             return("fas fa-exclamation-triangle text-warning");
         } else {
             return("fas fa-check text-success");
