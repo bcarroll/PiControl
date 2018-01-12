@@ -111,7 +111,7 @@
                 if (!cpu_percent.includes('.')){
                     cpu_percent = cpu_percent + '.0';
                 }
-                labels.push(result.cpu_usage.ipaddress + ' (' + result.cpu_usage.hostname + ')')
+                labels.push(result.cpu_usage[node].ipaddress + ' (' + result.cpu_usage[node].hostname + ')')
                 nodes_cpu_usage_chart.data.datasets[0].data.push(cpu_percent);
             }
 
