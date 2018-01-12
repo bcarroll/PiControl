@@ -157,14 +157,14 @@ ul.CTAs a {
 ----------------------------------------------------- */
 #content {
     width: calc(100% - 250px);
-    padding-left: 10px;
+    padding-left: 260px;
     min-height: 100vh;
     transition: all 0.3s;
 }
 
 #content.active {
     width: 100%;
-    padding:135px;
+    padding-left:10px;
     transition: all 0.3s;
 }
 
@@ -177,6 +177,19 @@ ul.CTAs a {
     MEDIAQUERIES
 ----------------------------------------------------- */
 @media (max-width: 768px) {
+    #content {
+        width: calc(100% - 250px);
+        padding-left: 10px;
+        min-height: 100vh;
+        transition: all 0.3s;
+    }
+
+    #content.active {
+        width: 100%;
+        padding-left: 260px;
+        transition: all 0.3s;
+    }
+
     #sidebar {
         margin-left: -250px;
     }
@@ -224,20 +237,18 @@ ul.CTAs a {
     border-spacing: 15px;
 }
 
-div.chart_container_header {
-    background: #8e8e8e;
-    text-align: center;
-    font-weight: bold;
-}
-
-.chart_container_header {
-    background: #8e8e8e;
-}
-
-.chart_container {
-    display: none;
-}
-
 .config_category {
     display: none;
+}
+
+.chart_container{
+    position: relative;
+    height: 40vh;
+    width: 50vw;
+}
+
+.chartjs-canvas {
+    position: relative;
+    height:600px;
+    width:500px;
 }
