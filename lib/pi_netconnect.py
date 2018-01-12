@@ -6,7 +6,6 @@ import select
 import sqlite3
 import hashlib
 
-from base64 import b64encode, b64decode
 from pprint import pprint
 from time import sleep, time
 from netaddr import IPNetwork, IPAddress
@@ -17,7 +16,7 @@ from lib.database_utils import update_node
 from lib.database_config import get_config
 
 def hash_key(key):
-    key = hashlib.sha256(b64encode(key).encode('utf-8')).hexdigest()
+    key = hashlib.sha256(key.encode('utf-8')).hexdigest()
     return(key)
 
 def validate_hash(string, hash):
