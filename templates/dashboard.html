@@ -102,8 +102,8 @@
     function update_nodes_cpu_usage_chart(){
         $.get('/dashboard/nodes_cpu_usage', function(result){
             var labels = []
-            if  (cpu_usage_chart.data.datasets[0].data.length >= 60){
-                cpu_usage_chart.data.datasets[0].data = []
+            if  (nodes_cpu_usage_chart.data.datasets[0].data.length >= 60){
+                nodes_cpu_usage_chart.data.datasets[0].data = []
             }
             for ( node=0; node<result.cpu_usage.length; node++ ){
                 var cpu_percent = String(result.cpu_usage[node].data.cpu_usage)
@@ -111,11 +111,11 @@
                     cpu_percent = cpu_percent + '.0';
                 }
                 labels.push(result.cpu_usage.ipaddress + ' (' + result.cpu_usage.hostname + ')')
-                cpu_usage_chart.data.datasets[0].data.push(cpu_percent);
+                nodes_cpu_usage_chart.data.datasets[0].data.push(cpu_percent);
             }
 
-            cpu_usage_chart.data.labels = labels;
-            cpu_usage_chart.update();
+            nodes_cpu_usage_chart.data.labels = labels;
+            nodes_cpu_usage_chart.update();
         });
     }
     setInterval(update_cpu_temperature_chart,5000);
