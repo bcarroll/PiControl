@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import requests
-
+import json
 from flask import jsonify
 
 from lib.database_utils import get_nodes
@@ -15,14 +15,13 @@ def node_cpu_usage():
         node_url = 'https://' + node['ipaddress'] + ':31415/dashboard/cpu_usage'
         try:
             r = requests.get(node_url, verify=False)
-            print(r.status_code, r.text, r.json)
             if r.status_code != 200:
                 logger.warn(node_url + ' returned ' + r.status_code)
             node_cpu_usage_data = {
                     "ipaddress": node['ipaddress'],
                     "hostname": node['hostname'],
                     "last_checkin": node['last_checkin'],
-                    "data": r.json
+                    "data": r.json()
                 }
             node_data.append(node_cpu_usage_data)
         except:
