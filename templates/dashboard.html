@@ -116,9 +116,9 @@
                 labels.push(result.cpu_usage[node].hostname);
                 data.push(cpu_percent);
             }
-            cpu_usage_chart.data.datasets[0].data  = data;
-            cpu_usage_chart.data.labels = labels;
-            cpu_usage_chart.update();
+            nodes_cpu_usage_chart.data.datasets[0].data  = data;
+            nodes_cpu_usage_chart.data.labels = labels;
+            nodes_cpu_usage_chart.update();
         });
     }
     setInterval(update_cpu_temperature_chart,5000);
