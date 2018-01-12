@@ -15,6 +15,7 @@ def node_cpu_usage():
         node_url = 'https://' + node['ipaddress'] + ':31415/dashboard/cpu_usage'
         try:
             r = requests.get(node_url)
+            print(r.status_code, r.text, r.json)
             if r.status_code != 200:
                 logger.warn(node_url + ' returned ' + r.status_code)
             node_cpu_usage_data = {
