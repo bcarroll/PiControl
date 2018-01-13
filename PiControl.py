@@ -394,21 +394,6 @@ def get_gpio():
 def get_pi_serialnumber():
     return(pi_serialnumber())
 
-@app.route('/update/PiControl')
-@require_login
-def update_PiControl():
-    os.popen('git pull')
-    return jsonify(status=1)
-
-@app.route('/update/PiControl/status')
-@require_login
-def update_PiControl_status():
-    status = os.popen('git status|grep "Your branch is up-to-date with \'origin/master\'"').read()
-    if status:
-        return jsonify(status=0)
-    else:
-        return jsonify(status=1)
-
 #################################
 # Dashboard chart data
 @app.route('/dashboard/cpu_usage')
