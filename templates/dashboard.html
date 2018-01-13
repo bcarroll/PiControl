@@ -76,7 +76,15 @@
     var nodes_cpu_temperature_chart_ctx = $("#nodes_cpu_temperature_chart");
     var nodes_cpu_temperature_chart = new Chart(nodes_cpu_temperature_chart, {
         type: 'bar',
-        data: {labels: [],datasets: [{label: "",data: []}]},
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    label: "",
+                    data: [0]
+                }
+            ]
+        },
         options: {
             legend: {display:false},
             title: {text: 'CPU Temperature',display: true},
