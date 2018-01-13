@@ -397,7 +397,7 @@ def get_pi_serialnumber():
 @app.route('/update/PiControl')
 @require_login
 def update_PiControl():
-    os.popen('./update.sh')
+    os.system('./update.sh')
     return jsonify(result=true)
 
 #################################
