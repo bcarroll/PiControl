@@ -18,7 +18,6 @@
             <canvas id="cpu_usage_chart" class="chartjs-container" width="400" height="300"></canvas>
         </td>
         <td>
-            <canvas id="cpu_temperature_chart" class="chartjs-container" width="400" height="300"></canvas>
         </td>
     </tr>
     <tr>
@@ -34,7 +33,6 @@
 <script src="/static/js/chartjs_utils.js"></script>
 <script>
     update_cpu_usage_chart();
-    update_cpu_temperature_chart();
     update_nodes_cpu_usage_chart();
     update_nodes_cpu_temperature_chart();
     // Charts
@@ -50,18 +48,6 @@
         }
     });
 
-    var cpu_temperature_chart_ctx = $("#cpu_temperature_chart");
-    var cpu_temperature_chart = new Chart(cpu_temperature_chart_ctx, {
-        type: 'horizontalBar',
-        data: {labels: [],datasets: [{label:"",data: []}]},
-        options: {
-            legend: {display:false},
-            animation: {duration: 0},
-            title: {text: 'CPU Temperature',display: true},
-            scales: {yAxes: [{ticks: {beginAtZero: false}}]}
-        }
-    });
-
     var nodes_cpu_usage_chart_ctx = $("#nodes_cpu_usage_chart");
     var nodes_cpu_usage_chart = new Chart(nodes_cpu_usage_chart_ctx, {
         type: 'horizontalBar',
@@ -72,30 +58,6 @@
             scales: {yAxes: [{ticks: {beginAtZero: true, autoSkip: false, max: 100}}]}
         }
     });
-
-    var nodes_cpu_temperature_chart_ctx = $("#nodes_cpu_temperature_chart");
-    var nodes_cpu_temperature_chart = new Chart(nodes_cpu_temperature_chart_ctx, {
-        type: 'horizontalBar',
-        data: {labels: [],datasets: [{label: "",data: []}]},
-        options: {
-            legend: {display:false},
-            title: {text: 'CPU Temperature',display: true},
-            scales: {yAxes: [{ticks: {beginAtZero: false, autoSkip: false}}]}
-        }
-    });
-
-    function update_cpu_temperature_chart(){
-        $.get('/charts/cpu/temperature', function(result){
-            if (result.chart.data == 'DISABLED'){
-                // Hide chart if background data collector thread is disabled
-                $("#cpu_temperature_chart").hide()
-            } else {
-                cpu_temperature_chart.data.datasets[0].data = result.chart.data;
-                cpu_temperature_chart.data.labels = result.chart.labels;
-                cpu_temperature_chart.update();
-            }
-        });
-    }
 
     function update_cpu_usage_chart(){
         $.get('/cpu/usage', function(result){
@@ -150,8 +112,7 @@
     }
 
     setInterval(update_cpu_temperature_chart,5000);
-    setInterval(update_cpu_usage_chart,1000);
-    setInterval(update_nodes_cpu_usage_chart,1000);
-    setInterval(update_nodes_cpu_temperature_chart,5000);
+    setInterval(update_nodes_cpu_usage_chart,100);
+    setInterval(update_nodes_cpu_temperature_chart,500);
 </script>
 {%endblock%}
