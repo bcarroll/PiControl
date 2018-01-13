@@ -103,7 +103,7 @@
 
     $.get('/update/PiControl/status', function(result){
         console.log(result);
-        if (result.status == 1){
+        if (result.status == 0){
             $('#updatePiControl').toggleClass('btn-secondary btn-primary');
             $('#updatePiControl').toggleClass('disabled');
         }

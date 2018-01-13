@@ -404,8 +404,10 @@ def update_PiControl():
 @require_login
 def update_PiControl_status():
     status = os.popen('git status|grep "Your branch is up-to-date with \'origin/master\'"').read()
-    print(status)
-    return jsonify(status=1)
+    if status:
+        return jsonify(status=0)
+    else:
+        return jsonify(status=1)
 
 #################################
 # Dashboard chart data
