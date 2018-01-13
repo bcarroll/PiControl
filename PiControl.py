@@ -6,7 +6,7 @@ import socket
 import atexit
 import signal
 import logging
-import subprocess
+from functools import wraps
 
 from flask import Flask
 from flask import request
@@ -21,8 +21,6 @@ from flask import escape
 from flask import jsonify
 
 from flask_sqlalchemy import SQLAlchemy
-from functools import wraps
-from multiprocessing import Process, Queue
 
 from lib.database_utils import update_config, get_nodes
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
@@ -38,8 +36,6 @@ from lib.node_utils import node_cpu_usage, node_cpu_temperature
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
-
-app_queue = None
 
 logging.Formatter('[%(asctime)s][%(levelname)s][%(thread)s][%(name)s] %(message)s')
 
@@ -401,14 +397,8 @@ def get_pi_serialnumber():
 @app.route('/update/PiControl')
 @require_login
 def update_PiControl():
-    try:
-        app_queue.put("restart")
-        print "Restart requested"
-        logger.info("Restart requested")
-        return True
-    except:
-        print "Restart failed"
-        return False
+    os.popen('git pull')
+    return jsonify(result=true)
 
 #################################
 # Dashboard chart data
@@ -432,22 +422,6 @@ def dashboard_cpu_temperature():
 def get_node_cpu_temperature():
     return(node_cpu_temperature())
 
-def start_PiControl(queue):
-    global app_queue
-    app_queue = queue
+if __name__ == '__main__':
     context = ('SSL/server.crt', 'SSL/server.key')
     app.run(ssl_context=context, threaded=True, debug=False, host='0.0.0.0', port=31415)
-
-if __name__ == '__main__':
-    # https://gist.github.com/naushadzaman/b65534d912f1551c7d8366b326b7a151
-    q = Queue()
-    p = Process(target=start_PiControl, args=[q,])
-    p.start()
-    while True: #watching queue, if there is no call than sleep, otherwise break
-        if q.empty():
-            time.sleep(1)
-        else:
-            break
-    p.terminate() #terminate flaskapp and then restart the app with subprocess
-    args = [sys.executable] + [sys.argv[0]]
-    subprocess.call(args)
