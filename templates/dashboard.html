@@ -142,7 +142,6 @@
             for ( node=0; node<result.cpu_temperature.length; node++ ){
                 labels.push(result.cpu_temperature[node].ipaddress);
                 data.push(result.cpu_temperature[node].data.temp);
-                console.log(result.cpu_temperature[node].data.temp);
             }
             nodes_cpu_temperature_chart.data.datasets[0].data  = data;
             nodes_cpu_temperature_chart.data.labels = labels;
