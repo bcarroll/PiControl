@@ -119,7 +119,6 @@
         $.get('/dashboard/nodes_cpu_usage', function(result){
             var labels = [];
             var data   = [];
-            console.log(result.cpu_usage.length)
             for ( node=0; node<result.cpu_usage.length; node++ ){
                 var cpu_percent = String(result.cpu_usage[node].data.cpu_usage)
                 if (cpu_percent == null){
