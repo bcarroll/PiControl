@@ -403,7 +403,7 @@ def update_PiControl():
 @app.route('/update/PiControl/status')
 @require_login
 def update_PiControl_status():
-    status = os.popen('git status|grep "Your branch is up-to-date with \'origin/master\'"').read().splitlines()
+    status = os.popen('git status|grep "Your branch is up-to-date with \'origin/master\'"').read()
     print(status)
     return jsonify(status=1)
 
