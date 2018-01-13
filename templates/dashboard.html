@@ -46,7 +46,7 @@
         options: {
             legend: {display:false},
             title: {text: 'CPU Usage %',display: true},
-            scales: {yAxes: [{ticks: {beginAtZero:true,max:100}}]}
+            scales: {yAxes: [{ticks: {beginAtZero:true,autoSkip: false,max:100}}]}
         }
     });
 
@@ -58,7 +58,7 @@
             legend: {display:false},
             animation: {duration: 0},
             title: {text: 'CPU Temperature',display: true},
-            scales: {yAxes: [{ticks: {beginAtZero:false}}]}
+            scales: {yAxes: [{ticks: {beginAtZero:false,autoSkip: false}}]}
         }
     });
 
@@ -69,7 +69,7 @@
         options: {
             legend: {display:false},
             title: {text: 'CPU Usage %',display: true},
-            scales: {yAxes: [{ticks: {beginAtZero:true,max:100}}]}
+            scales: {yAxes: [{ticks: {beginAtZero:true,autoSkip: false,max:100}}]}
         }
     });
 
@@ -80,7 +80,7 @@
         options: {
             legend: {display:false},
             title: {text: 'CPU Temperature',display: true},
-            scales: {yAxes: [{ticks: {beginAtZero:false}}]}
+            scales: {yAxes: [{ticks: {beginAtZero:false,autoSkip: false}}]}
         }
     });
 
