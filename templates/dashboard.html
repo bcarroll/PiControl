@@ -85,7 +85,7 @@
     });
 
     function update_cpu_temperature_chart(){
-        $.get('/charts/cpu/temperature', function(result){
+        /*$.get('/charts/cpu/temperature', function(result){
             if (result.chart.data == 'DISABLED'){
                 // Hide chart if background data collector thread is disabled
                 $("#cpu_temperature_chart").hide()
@@ -94,7 +94,7 @@
                 cpu_temperature_chart.data.labels = result.chart.labels;
                 cpu_temperature_chart.update();
             }
-        });
+        });*/
     }
 
     function update_cpu_usage_chart(){
