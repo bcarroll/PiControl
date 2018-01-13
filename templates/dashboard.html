@@ -98,7 +98,7 @@
     }
 
     function update_cpu_usage_chart(){
-        $.get('/cpu/usage', function(result){
+        /*$.get('/cpu/usage', function(result){
             var labels = [];
             var data   = [];
             for ( cpu_num=0; cpu_num<result.cpu_usage.length; cpu_num++ ){
@@ -112,7 +112,7 @@
             cpu_usage_chart.data.datasets[0].data  = data;
             cpu_usage_chart.data.labels = labels;
             cpu_usage_chart.update();
-        });
+        });*/
     }
 
     function update_nodes_cpu_usage_chart(){
