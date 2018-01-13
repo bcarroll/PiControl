@@ -62,10 +62,18 @@
         }
     });
 
-/*    var nodes_cpu_usage_chart_ctx = $("#nodes_cpu_usage_chart");
+    var nodes_cpu_usage_chart_ctx = $("#nodes_cpu_usage_chart");
     var nodes_cpu_usage_chart = new Chart(nodes_cpu_usage_chart_ctx, {
         type: 'line',
-        data: {labels: [],datasets: [{label: "",data: []}]},
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    label: "",
+                    data: []
+                }
+            ]
+        },
         options: {
             legend: {display:false},
             title: {text: 'CPU Usage %',display: true},
@@ -74,14 +82,14 @@
     });
 
     var nodes_cpu_temperature_chart_ctx = $("#nodes_cpu_temperature_chart");
-    var nodes_cpu_temperature_chart = new Chart(nodes_cpu_temperature_chart, {
+    var nodes_cpu_temperature_chart = new Chart(nodes_cpu_temperature_chart_ctx, {
         type: 'bar',
         data: {
             labels: [],
             datasets: [
                 {
                     label: "",
-                    data: [0]
+                    data: []
                 }
             ]
         },
@@ -90,10 +98,10 @@
             title: {text: 'CPU Temperature',display: true},
             scales: {yAxes: [{ticks: {beginAtZero:true,max:100}}]}
         }
-    });*/
+    });
 
     function update_cpu_temperature_chart(){
-        /*$.get('/charts/cpu/temperature', function(result){
+        $.get('/charts/cpu/temperature', function(result){
             if (result.chart.data == 'DISABLED'){
                 // Hide chart if background data collector thread is disabled
                 $("#cpu_temperature_chart").hide()
@@ -102,11 +110,11 @@
                 cpu_temperature_chart.data.labels = result.chart.labels;
                 cpu_temperature_chart.update();
             }
-        });*/
+        });
     }
 
     function update_cpu_usage_chart(){
-        /*$.get('/cpu/usage', function(result){
+        $.get('/cpu/usage', function(result){
             var labels = [];
             var data   = [];
             for ( cpu_num=0; cpu_num<result.cpu_usage.length; cpu_num++ ){
@@ -120,11 +128,11 @@
             cpu_usage_chart.data.datasets[0].data  = data;
             cpu_usage_chart.data.labels = labels;
             cpu_usage_chart.update();
-        });*/
+        });
     }
 
     function update_nodes_cpu_usage_chart(){
-        /*$.get('/dashboard/nodes_cpu_usage', function(result){
+        $.get('/dashboard/nodes_cpu_usage', function(result){
             var labels = [];
             var data   = [];
             console.log(result.cpu_usage.length)
@@ -141,27 +149,27 @@
             nodes_cpu_usage_chart.data.datasets[0].data  = data;
             nodes_cpu_usage_chart.data.labels = labels;
             nodes_cpu_usage_chart.update();
-        });*/
+        });
     }
 
      function update_nodes_cpu_temperature_chart(){
-        // $.get('/dashboard/nodes_cpu_temperature', function(result){
-        //     var labels = [];
-        //     var data   = [];
-        //     for ( node=0; node<result.cpu_temperature.length; node++ ){
-        //         labels.push(result.cpu_temperature[node].ipaddress);
-        //         data.push(result.cpu_temperature[node].data.temp);
-        //         console.log(result.cpu_temperature[node].data.temp);
-        //     }
-        //     nodes_cpu_temperature_chart.data.datasets[0].data  = data;
-        //     nodes_cpu_temperature_chart.data.labels = labels;
-        //     nodes_cpu_temperature_chart.update();
-        // });
+        $.get('/dashboard/nodes_cpu_temperature', function(result){
+            var labels = [];
+            var data   = [];
+            for ( node=0; node<result.cpu_temperature.length; node++ ){
+                labels.push(result.cpu_temperature[node].ipaddress);
+                data.push(result.cpu_temperature[node].data.temp);
+                console.log(result.cpu_temperature[node].data.temp);
+            }
+            nodes_cpu_temperature_chart.data.datasets[0].data  = data;
+            nodes_cpu_temperature_chart.data.labels = labels;
+            nodes_cpu_temperature_chart.update();
+        });
     }
 
     setInterval(update_cpu_temperature_chart,5000);
     setInterval(update_cpu_usage_chart,1000);
-    //setInterval(update_nodes_cpu_usage_chart,1000);
-    //setInterval(update_nodes_cpu_temperature_chart,5000);
+    setInterval(update_nodes_cpu_usage_chart,1000);
+    setInterval(update_nodes_cpu_temperature_chart,5000);
 </script>
 {%endblock%}
