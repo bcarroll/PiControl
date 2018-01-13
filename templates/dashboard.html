@@ -4,29 +4,33 @@
 {% endblock %}
 {%block body%}
 <h1 class="page-header" id="page-header"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
-<table style="width:100%;" width="100%" class="chart-table">
-    <tr>
-        <td>
-            <canvas id="nodes_cpu_usage_chart" class="chartjs-container" width="400" height="300"></canvas>
-        </td>
-        <td>
-            <canvas id="nodes_cpu_temperature_chart" class="chartjs-container" width="400" height="300"></canvas>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <canvas id="cpu_usage_chart" class="chartjs-container" width="400" height="300"></canvas>
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <td>
-        </td>
-        <td>
-        </td>
-    </tr>
-</table>
+<div class="row">
+    <div class="chart-table">
+        <table style="width:100%;" width="100%" class="col-md-12">
+            <tr>
+                <td>
+                    <canvas id="nodes_cpu_usage_chart" class="chartjs-container" width="400" height="300"></canvas>
+                </td>
+                <td>
+                    <canvas id="nodes_cpu_temperature_chart" class="chartjs-container" width="400" height="300"></canvas>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="cpu_usage_chart" class="chartjs-container" width="400" height="300"></canvas>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 <script src="/static/js/Chart.min.js"></script>
 <script src="/static/js/chartjs_utils.js"></script>
 <script>
