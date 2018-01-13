@@ -398,14 +398,14 @@ def get_pi_serialnumber():
 @require_login
 def update_PiControl():
     os.popen('git pull')
-    return jsonify(result=true)
+    return jsonify(status=1)
 
 @app.route('/update/PiControl/status')
 @require_login
 def update_PiControl_status():
     status = os.popen('git status|grep "Your branch is up-to-date with \'origin/master\'"').read().splitlines()
     print(status)
-    return jsonify(result=true)
+    return jsonify(status=1)
 
 #################################
 # Dashboard chart data

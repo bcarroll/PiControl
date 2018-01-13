@@ -73,7 +73,7 @@
         </fieldset>
         <br/>
         <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
-        <input class="btn btn-primary" type="submit" value="Update PiControl" id="updatePiControl" title="Pull the latest PiControl version from Github"></input>
+        <input class="btn btn-secondary disabled" type="submit" value="Update PiControl" id="updatePiControl" title="Pull the latest PiControl version from Github"></input>
     </form>
 </div>
 <script>
@@ -99,6 +99,13 @@
     });
     $('#updatePiControl').click(function(){
         $.get('/update/PiControl');
+    });
+
+    $.get('/update/PiControl/status', function(result){
+        if (result.status == 1){
+            $('#updatePiControl').toggleClass('btn-secondary btn-primary');
+            $('#updatePiControl').toggleClass('disabled');
+        }
     });
 </script>
 {%endblock%}
