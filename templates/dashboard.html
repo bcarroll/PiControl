@@ -62,7 +62,7 @@
         }
     });
 
-    var nodes_cpu_usage_chart_ctx = $("#nodes_cpu_usage_chart");
+/*    var nodes_cpu_usage_chart_ctx = $("#nodes_cpu_usage_chart");
     var nodes_cpu_usage_chart = new Chart(nodes_cpu_usage_chart_ctx, {
         type: 'line',
         data: {labels: [],datasets: [{label: "",data: []}]},
@@ -90,7 +90,7 @@
             title: {text: 'CPU Temperature',display: true},
             scales: {yAxes: [{ticks: {beginAtZero:true,max:100}}]}
         }
-    });
+    });*/
 
     function update_cpu_temperature_chart(){
         /*$.get('/charts/cpu/temperature', function(result){
@@ -161,7 +161,7 @@
 
     setInterval(update_cpu_temperature_chart,5000);
     setInterval(update_cpu_usage_chart,1000);
-    setInterval(update_nodes_cpu_usage_chart,1000);
-    setInterval(update_nodes_cpu_temperature_chart,5000);
+    //setInterval(update_nodes_cpu_usage_chart,1000);
+    //setInterval(update_nodes_cpu_temperature_chart,5000);
 </script>
 {%endblock%}
