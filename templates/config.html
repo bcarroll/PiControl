@@ -73,6 +73,7 @@
         </fieldset>
         <br/>
         <input class="btn btn-primary" type="submit" value="Submit Changes"></input>
+        <input class="btn btn-primary" type="submit" value="Update PiControl" id="updatePiControl" title="Pull the latest PiControl version from Github and restart"></input>
     </form>
 </div>
 <script>
@@ -95,6 +96,9 @@
         $('#background_threads_toggle').toggleClass('active');
         $('#background_threads').toggle();
         $('#background_threads_toggle_arrow').toggleClass('fa-arrow-down fa-arrow-up');
+    });
+    $('#updatePiControl').click(function(){
+        $.get('/updatePiControl');
     });
 </script>
 {%endblock%}

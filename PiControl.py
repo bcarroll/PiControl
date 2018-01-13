@@ -394,6 +394,12 @@ def get_gpio():
 def get_pi_serialnumber():
     return(pi_serialnumber())
 
+@app.route('/update/PiControl')
+@require_login
+def update_PiControl():
+    os.popen('./update.sh')
+    return jsonify(result=true)
+
 #################################
 # Dashboard chart data
 @app.route('/dashboard/cpu_usage')
