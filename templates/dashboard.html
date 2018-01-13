@@ -116,7 +116,7 @@
     }
 
     function update_nodes_cpu_usage_chart(){
-        $.get('/dashboard/nodes_cpu_usage', function(result){
+        /*$.get('/dashboard/nodes_cpu_usage', function(result){
             var labels = [];
             var data   = [];
             console.log(result.cpu_usage.length)
@@ -133,7 +133,7 @@
             nodes_cpu_usage_chart.data.datasets[0].data  = data;
             nodes_cpu_usage_chart.data.labels = labels;
             nodes_cpu_usage_chart.update();
-        });
+        });*/
     }
 
      function update_nodes_cpu_temperature_chart(){
