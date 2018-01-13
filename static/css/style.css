@@ -116,6 +116,7 @@ a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
     font-family: 'Glyphicons Halflings';
     font-size: 0.6em;
 }
+
 a[aria-expanded="true"]::before {
     content: '\e260';
 }
@@ -202,6 +203,52 @@ ul.CTAs a {
     #sidebar-wrapper {
       width: 50px;
     }
+
+    /* Force table to not be like tables anymore */
+    #chart-table table,
+    #chart-table thead,
+    #chart-table tbody,
+    #chart-table th,
+    #chart-table td,
+    #chart-table tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    #chart-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #chart-table tr { border: 1px solid #ccc; }
+
+    #chart-table td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: normal;
+        text-align:left;
+    }
+
+    #chart-table td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align:left;
+        font-weight: bold;
+    }
+
+    /* Label the data */
+    #chart-table td:before { content: attr(data-title); }
+
 }
 
 /*
