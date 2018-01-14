@@ -53,67 +53,6 @@ def get_keyboard_config():
             keyboard_config[name] = value
     return (keyboard_config)
 
-def _get_keyboard_config_data():
-    tree = ET.parse('/usr/share/X11/xkb/rules/base.xml')
-    root = tree.getroot()
-
-    keyboard_config = {
-            'models': [],
-            'layouts': [],
-            'options': []
-        }
-
-    models = {}
-    layouts = {}
-    options = {}
-
-    for c in root:
-        if c.tag == 'modelList':
-            for m in c.findall('model'):
-                for i in range(0,len(m[0])):
-                    name = None
-                    vendor = None
-                    description = None
-                    if m[0][i].tag == 'name':
-                        name = m[0][i].text
-                    if m[0][i].tag == 'description':
-                        description = m[0][i].text
-                    if m[0][i].tag == 'vendor':
-                        vendor = m[0][i].text
-                model = dict({'name': name, 'description': description})
-                try:
-                    if models[vendor]:
-                        models[vendor].append(model)
-                except:
-                    models[vendor] = []
-                    models[vendor].append(model)
-        elif c.tag == 'layoutList':
-            for ci in c.findall('layout'):
-                if ci[0].tag == 'variantList':
-                    continue
-                try:
-                    name = ci[0][0].text
-                except:
-                    name = None
-                try:
-                    description = ci[0][2].text
-                except:
-                    description = None
-                layout = dict({'name': name, 'description': description})
-                try:
-                    if layouts[name]:
-                        layouts[name].append(layout)
-                except:
-                    layouts[name] = []
-                    layouts[name].append(layout)
-        elif c.tag == 'optionList':
-            continue
-
-    keyboard_config['models'].append(models)
-    keyboard_config['layouts'].append(layouts)
-
-    return jsonify(keyboard_config)
-
 def get_keyboard_config_data():
     return jsonify( xml2dict('/usr/share/X11/xkb/rules/base.xml') )
 
