@@ -71,19 +71,15 @@ def get_keyboard_config_data():
         if c.tag == 'modelList':
             for m in c.findall('model'):
                 for i in range(0,len(m[0])):
-                    name = None
-                    vendor = None
-                    description = None
-                    data = m[0][i].tag + ',' + m[0][i].text
-                    print data
-                    tag,text = ""
-                    #tag,text = data.split(',')
-                    if tag == 'name':
-                        name = text
-                    if tag == 'description':
-                        description = text
-                    if tag == 'vendor':
-                        vendor = text
+                    name        = m[0][0].text
+                    vendor      = m[0][1].text
+                    description = m[0][2].text
+                    if m[0][i].tag is 'name':
+                        name = m[0][i].text
+                    if m[0][i].tag == 'description':
+                        description = m[0][i].text
+                    if m[0][i].tag == 'vendor':
+                        vendor = m[0][i].text
                 model = dict({'name': name, 'description': description})
                 try:
                     if models[vendor]:
