@@ -1,6 +1,8 @@
 {%extends "base.html"%}
 {%block title%}Locale{% endblock %}
-
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/css/loader.css" />
+{% endblock %}
 {%block body%}
 <h1 class="page-header" id="page-header"><i class="fas fa-globe"></i> Localization</h1>
 <div class="form-group">
@@ -21,12 +23,15 @@
         <input id="BACKSPACE" class="form-control" name="BACKSPACE" value={{BACKSPACE}}></input></td>
     </form>
 </div>
+<div id="spinner"></div>
 <script>
     get_keyboard_config_data();
     function get_keyboard_config_data(){
+        $('#spinner').toggle();
         $.get('/locale/keyboard/configdata', function(result){
             console.log(result);
         });
+        $('#spinner').toggle();
     }
 </script>
 {%endblock%}
