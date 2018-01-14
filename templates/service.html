@@ -5,6 +5,21 @@
 {% endblock %}
 {%block body%}
 <h1 class="page-header" id="page-header"><i class="fas fa-cogs"></i> Services</h1>
+<div id="spinner" class="modal" tabindex="-1" role="dialog" data-keyboard="false"
+         data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: center">
+                <h3>Loading Service Status</h3>
+            </div>
+            <div class="modal-body" >
+                <div style="height:200px">
+                  <span id="spinner_div" style="position: absolute;display: block;top: 50%;left: 50%;"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <table class="table">
     <tr><th>Service Name</th><th>Status</th></tr>
 </table>
