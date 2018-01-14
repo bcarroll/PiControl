@@ -58,9 +58,9 @@ def get_keyboard_config_data():
     root = tree.getroot()
 
     keyboard_config = {
-            'models': {},
-            'layouts': {},
-            'options': {}
+            'models': [],
+            'layouts': [],
+            'options': []
         }
 
     models = {}
@@ -83,8 +83,13 @@ def get_keyboard_config_data():
                     vendor      = m[0][2].text
                 except:
                     vendor = None
-                models[name]['vendor'] = vendor
-                models[name]['description'] = description
+                model = dict({'vendor': vendor, 'description': description})
+                try:
+                    if models[name]:
+                        models[name].append(model)
+                except:
+                    models[name] = []
+                    models[name].append(model)
         elif c.tag == 'layoutList':
             for ci in c.findall('layout'):
                 if ci[0].tag == 'variantList':
@@ -97,11 +102,17 @@ def get_keyboard_config_data():
                     description = ci[0][2].text
                 except:
                     description = None
-                layouts[name]['description'] = description
+                layout = dict({'name': name, 'description': description})
+                try:
+                    if layouts[name]:
+                        layouts[name].append(layout)
+                except:
+                    layouts[name] = []
+                    layouts[name].append(layout)
         elif c.tag == 'optionList':
             continue
 
-    keyboard_config['models']  = models
-    keyboard_config['layouts'] = layouts
+    keyboard_config['models'].append(models)
+    keyboard_config['layouts'].append(layouts)
 
     return jsonify(keyboard_config)
