@@ -72,7 +72,7 @@ def get_keyboard_config_data():
             for m in c.findall('model'):
                 for model in m.iter('configItem'):
                     print model.attrib
-                    models.append(dict(model.attrib))
+                    keyboard_config['models'].append(dict(model.attrib))
                 #for i in range(0,len(m[0])):
                 #    name        = None
                 #    vendor      = None
