@@ -33,7 +33,7 @@ from lib.database_config import get_config
 from lib.chart_utils import PiControlChart
 from lib._logging import logger, handler, werkzeug_handler, sqlalchemy_handler
 from lib.node_utils import node_cpu_usage, node_cpu_temperature
-from lib.rpi-config import get_keyboard_config, get_keyboard_config_data, update_keyboard_config
+from lib.rpi_config import get_keyboard_config, get_keyboard_config_data, update_keyboard_config
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
