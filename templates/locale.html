@@ -31,33 +31,30 @@
 </div>
 <script>
     $('#spinner').modal('show');
-    get_keyboard_config_data();
-    function get_keyboard_config_data(){
-        $.get('/locale/keyboard/configdata', function(result){
-            // parse list of available models
-            for (i=0; i < result.xkbConfigRegistry.modelList.model.length; i++){
-                name        = result.xkbConfigRegistry.modelList.model[i].configItem.name;
-                description = result.xkbConfigRegistry.modelList.model[i].configItem.description;
-                if ( name == "{{XKBMODEL}}"){
-                    $('#XKBMODEL').append('<option value="' + name + '" selected="selected" title="' + description + '">' + name + '</option>');
-                } else {
-                    $('#XKBMODEL').append('<option value="' + name + '" title="' + description + '">' + name + '</option>');
-                }
+    $.get('/locale/keyboard/configdata', function(result){
+        // parse list of available models
+        for (i=0; i < result.xkbConfigRegistry.modelList.model.length; i++){
+            name        = result.xkbConfigRegistry.modelList.model[i].configItem.name;
+            description = result.xkbConfigRegistry.modelList.model[i].configItem.description;
+            if ( name == "{{XKBMODEL}}"){
+                $('#XKBMODEL').append('<option value="' + name + '" selected="selected" title="' + description + '">' + name + '</option>');
+            } else {
+                $('#XKBMODEL').append('<option value="' + name + '" title="' + description + '">' + name + '</option>');
             }
+        }
 
-            // parse list of available layouts
-            for (i=0; i < result.xkbConfigRegistry.layoutList.layout.length; i++){
-                name        = result.xkbConfigRegistry.layoutList.layout[i].configItem.name;
-                description = result.xkbConfigRegistry.layoutList.layout[i].configItem.description;
-                if ( name == "{{XKBLAYOUT}}"){
-                    $('#XKBLAYOUT').append('<option value="' + name + '" selected="selected" title="' + description + '">' + name + '</option>');
-                } else {
-                    $('#XKBLAYOUT').append('<option value="' + name + '" title="' + description + '">' + name + '</option>');
-                }
+        // parse list of available layouts
+        for (i=0; i < result.xkbConfigRegistry.layoutList.layout.length; i++){
+            name        = result.xkbConfigRegistry.layoutList.layout[i].configItem.name;
+            description = result.xkbConfigRegistry.layoutList.layout[i].configItem.description;
+            if ( name == "{{XKBLAYOUT}}"){
+                $('#XKBLAYOUT').append('<option value="' + name + '" selected="selected" title="' + description + '">' + name + '</option>');
+            } else {
+                $('#XKBLAYOUT').append('<option value="' + name + '" title="' + description + '">' + name + '</option>');
             }
-            $('#spinner').modal('hide');
-        });
-    }
+        }
+        $('#spinner').modal('hide');
+    });
 
     var spinner_options = {
       lines: 13, // The number of lines to draw
