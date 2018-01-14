@@ -29,6 +29,9 @@
         $('#spinner').toggle();
         $.get('/locale/keyboard/configdata', function(result){
             console.log(result);
+            for (i=0; i < result.xkbConfigRegistry.modelList.model.length; i++){
+                console.log(result.xkbConfigRegistry.modelList.model[i].configItem.name);
+            }
             //$('#XKBMODEL').append(new Option(name, value, true, true));
         });
         $('#spinner').toggle();
