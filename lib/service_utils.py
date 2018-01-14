@@ -8,8 +8,8 @@ def get_service_status():
     '''
     services = {}
     # get all services, convert to a list
-    services = os.popen("service --status-all").read().splitlines()
-    for service in services:
+    service_list = os.popen("service --status-all").read().splitlines()
+    for service in service_list:
         # remove left brackets
         service.replace('[','')
         status,name = service.split(']')
