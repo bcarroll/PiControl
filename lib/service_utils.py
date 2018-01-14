@@ -15,8 +15,8 @@ def get_service_status():
         status      = status.strip()
         name        = name.strip()
         if status == '[ -':
-            status = 'off'
+            status = 'Stopped'
         elif status == '[ +':
-            status = 'on'
+            status = 'Running'
         services[name] = status
     return(services)

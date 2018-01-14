@@ -27,6 +27,9 @@
     $('#spinner').modal('show');
     $.get('/services/status', function(result){
         console.log(result);
+        for (service_name in result){
+            $('#service_table tr:last').after('<tr><td>' + service_name + '</td><td>' + result[service_name] + '</td></tr>');
+        }
         $('#spinner').modal('hide');
     });
 
