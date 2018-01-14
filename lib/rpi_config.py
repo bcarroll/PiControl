@@ -67,12 +67,17 @@ def get_keyboard_config_data():
     layouts = {}
     options = {}
 
-    for c in root:
+    for c in root.iter('model'):
+        #        for model in m.iter('configItem'):
+        print model.attrib
+        keyboard_config['models'].append(dict(model.attrib))
+
         if c.tag == 'modelList':
-            for m in c.findall('model'):
-                for model in m.iter('configItem'):
-                    print model.attrib
-                    keyboard_config['models'].append(dict(model.attrib))
+            pass
+        #    for m in c.findall('model'):
+        #        for model in m.iter('configItem'):
+        #            print model.attrib
+        #            keyboard_config['models'].append(dict(model.attrib))
                 #for i in range(0,len(m[0])):
                 #    name        = None
                 #    vendor      = None
