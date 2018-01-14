@@ -28,8 +28,11 @@
     function get_keyboard_config_data(){
         $('#spinner').toggle();
         $.get('/locale/keyboard/configdata', function(result){
-
             console.log(result);
+            for (model=0; model<result.models[0].length; model++){
+                console.log(model);
+                //$('#XKBMODEL').append(new Option(name, value, true, true));
+            }
         });
         $('#spinner').toggle();
     }
