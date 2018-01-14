@@ -70,24 +70,23 @@ def get_keyboard_config_data():
     for c in root:
         if c.tag == 'modelList':
             for m in c.findall('model'):
-                print(m[0].attrib)
-                #for i in range(0,len(m[0])):
-                #    name        = None
-                #    vendor      = None
-                #    description = None
-                #    if m[0][i].tag is 'name':
-                #        name = m[0][i].text
-                #    if m[0][i].tag == 'description':
-                #        description = m[0][i].text
-                #    if m[0][i].tag == 'vendor':
-                #        vendor = m[0][i].text
-                #model = dict({'name': name, 'description': description})
-                #try:
-                #    if models[vendor]:
-                #        models[vendor].append(model)
-                #except:
-                #    models[vendor] = []
-                #    models[vendor].append(model)
+                for i in range(0,len(m[0])):
+                    name = None
+                    vendor = None
+                    description = None
+                    if m[0][i].tag == 'name':
+                        name = m[0][i].text
+                    if m[0][i].tag == 'description':
+                        description = m[0][i].text
+                    if m[0][i].tag == 'vendor':
+                        vendor = m[0][i].text
+                model = dict({'name': name, 'description': description})
+                try:
+                    if models[vendor]:
+                        models[vendor].append(model)
+                except:
+                    models[vendor] = []
+                    models[vendor].append(model)
         elif c.tag == 'layoutList':
             for ci in c.findall('layout'):
                 if ci[0].tag == 'variantList':
