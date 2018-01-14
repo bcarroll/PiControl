@@ -245,7 +245,3 @@ def gpio_info():
 
 def process_list():
     return jsonify([p.info for p in psutil.process_iter(attrs=['pid', 'ppid', 'name', 'username'])])
-
-def service_status():
-    #services = os.popen("for svc in `service --status-all|awk '{print $4}'`;do service $svc status|grep -v \"Warning: Unit\";done").read().splitlines()
-    pass
