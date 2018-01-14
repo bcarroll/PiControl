@@ -22,13 +22,7 @@
     </form>
 </div>
 <script>
-    get_keyboard_config();
     get_keyboard_config_data();
-    function get_keyboard_config(){
-        $.get('/locale/keyboard', function(result){
-            console.log(result);
-        });
-    }
     function get_keyboard_config_date(){
         $.get('/locale/keyboard/configdata', function(result){
             console.log(result);
