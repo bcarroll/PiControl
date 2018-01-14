@@ -83,13 +83,13 @@ def get_keyboard_config_data():
                     vendor      = m[0][2].text
                 except:
                     vendor = None
-                model = dict({'vendor': vendor, 'description': description})
+                model = dict({'name': name, 'description': description})
                 try:
-                    if models[name]:
-                        models[name].append(model)
+                    if models[vendor]:
+                        models[vendor].append(model)
                 except:
-                    models[name] = []
-                    models[name].append(model)
+                    models[vendor] = []
+                    models[vendor].append(model)
         elif c.tag == 'layoutList':
             for ci in c.findall('layout'):
                 if ci[0].tag == 'variantList':
