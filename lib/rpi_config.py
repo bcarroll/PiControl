@@ -2,8 +2,8 @@
 import os
 import re
 import subprocess
-import xml.etree.ElementTree as ET
 from flask import jsonify
+import xmltodict
 
 def update_keyboard_config(XKBMODEL='pc105', XKBLAYOUT='us', XKBVARIANT='nodeadkeys', XKBOPTIONS='', BACKSPACE='guess'):
     '''
@@ -53,7 +53,7 @@ def get_keyboard_config():
             keyboard_config[name] = value
     return (keyboard_config)
 
-def get_keyboard_config_data():
+def _get_keyboard_config_data():
     tree = ET.parse('/usr/share/X11/xkb/rules/base.xml')
     root = tree.getroot()
 
@@ -113,3 +113,12 @@ def get_keyboard_config_data():
     keyboard_config['layouts'].append(layouts)
 
     return jsonify(keyboard_config)
+
+def get_keyboard_config_data():
+    xml2dict('/usr/share/X11/xkb/rules/base.xml')
+    return jsonify(keyboard_config)
+
+def xml2dict(xml_file, xml_attribs=True):
+    with open(xml_file, "rb") as f:
+        d = xmltodict.parse(f, xml_attribs=xml_attribs)
+        return d
