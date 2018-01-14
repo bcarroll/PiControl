@@ -115,8 +115,7 @@ def _get_keyboard_config_data():
     return jsonify(keyboard_config)
 
 def get_keyboard_config_data():
-    xml2dict('/usr/share/X11/xkb/rules/base.xml')
-    return jsonify(keyboard_config)
+    return jsonify( xml2dict('/usr/share/X11/xkb/rules/base.xml') )
 
 def xml2dict(xml_file, xml_attribs=True):
     with open(xml_file, "rb") as f:
