@@ -13,8 +13,8 @@ def get_service_status():
         # remove left brackets
         service.replace('[','')
         status,name = service.split(']')
-        status = status.trim()
-        name = name.trim()
+        status      = status.strip()
+        name        = name.strip()
         if status == '-':
             status = 'off'
         elif status == '+':
