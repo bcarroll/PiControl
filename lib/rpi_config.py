@@ -75,9 +75,8 @@ def get_keyboard_config_data():
                     vendor = None
                     description = None
                     print(m[0][i].tag + ' : ' + m[0][i].text)
-                    name = m[0][i].get('name').text
-                    #if m[0][i].tag == 'name':
-                    #    name = m[0][i].text
+                    if m[0][i].tag is 'name':
+                        name = m[0][i].text
                     if m[0][i].tag == 'description':
                         description = m[0][i].text
                     if m[0][i].tag == 'vendor':
