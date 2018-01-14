@@ -70,7 +70,7 @@ def get_keyboard_config_data():
     for c in root:
         if c.tag == 'modelList':
             for m in c.findall('model'):
-                print(m.attrib)
+                print(m[0].attrib)
                 #for i in range(0,len(m[0])):
                 #    name        = None
                 #    vendor      = None
