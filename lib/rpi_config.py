@@ -51,7 +51,7 @@ def get_keyboard_config():
             name,value = option.split('=')
             value = value.replace('"','')
             keyboard_config[name] = value
-    return jsonify(keyboard_config)
+    return (keyboard_config)
 
 def get_keyboard_config_data():
     tree = ET.parse('/usr/share/X11/xkb/rules/base.xml')

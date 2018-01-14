@@ -190,7 +190,8 @@ def video_info():
 @app.route('/locale')
 @require_login
 def locale_info():
-    return( render_template('locale.html', user=escape(session['username'])) )
+    keyboard_config = get_keyboard_config()
+    return( render_template('locale.html', XKBMODEL=keyboard_config['XKBMODEL'], XKBLAYOUT=keyboard_config['XKBLAYOUT'], XKBVARIANT=keyboard_config['XKBVARIANT'], XKBOPTIONS=keyboard_config['XKBOPTIONS'], BACKSPACE=keyboard_config['BACKSPACE']) )
 
 @app.route('/users')
 @require_login
@@ -419,11 +420,6 @@ def get_node_cpu_temperature():
 
 #################################
 # Localisation
-@app.route('/locale/keyboard')
-@require_login
-def _get_keyboard_config():
-    return(get_keyboard_config())
-
 @app.route('/locale/keyboard/configdata')
 @require_login
 def _get_keyboard_config_data():
