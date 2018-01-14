@@ -74,13 +74,13 @@ def get_keyboard_config_data():
                     name = None
                     vendor = None
                     description = None
-                    print(m[0][i].tag + ' : ' + m[0][i].text)
-                    if m[0][i].tag is 'name':
-                        name = m[0][i].text
-                    if m[0][i].tag == 'description':
-                        description = m[0][i].text
-                    if m[0][i].tag == 'vendor':
-                        vendor = m[0][i].text
+                    tag,text = split(',', m[0][i].tag + ',' + m[0][i].text)
+                    if tag == 'name':
+                        name = text
+                    if tag == 'description':
+                        description = text
+                    if tag == 'vendor':
+                        vendor = text
                 model = dict({'name': name, 'description': description})
                 try:
                     if models[vendor]:
