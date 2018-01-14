@@ -32,7 +32,7 @@
             for (i=0; i < result.xkbConfigRegistry.modelList.model.length; i++){
                 name        = result.xkbConfigRegistry.modelList.model[i].configItem.name;
                 description = result.xkbConfigRegistry.modelList.model[i].configItem.description;
-                if ( {{XKBMODEL}} == name){
+                if ( name == {{XKBMODEL}}){
                     $('#XKBMODEL').append('<option value="' + name + '" selected="selected">' + name + '</option>');
                 } else {
                     $('#XKBMODEL').append('<option value="' + name + '">' + name + '</option>');
