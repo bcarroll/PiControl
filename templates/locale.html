@@ -33,9 +33,9 @@
                 name        = result.xkbConfigRegistry.modelList.model[i].configItem.name;
                 description = result.xkbConfigRegistry.modelList.model[i].configItem.description;
                 if ( name == "{{XKBMODEL}}"){
-                    $('#XKBMODEL').append('<option value="' + name + '" selected="selected">' + name + '</option>');
+                    $('#XKBMODEL').append('<option value="' + name + '" selected="selected" title="' + description + '">' + name + '</option>');
                 } else {
-                    $('#XKBMODEL').append('<option value="' + name + '">' + name + '</option>');
+                    $('#XKBMODEL').append('<option value="' + name + '" title="' + description + '">' + name + '</option>');
                 }
             }
         });
