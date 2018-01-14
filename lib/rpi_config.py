@@ -76,9 +76,9 @@ def get_keyboard_config_data():
                     description = None
                     if m[0][i].tag == 'name':
                         name = m[0][i].text
-                    elif m[0][i].tag == 'description':
+                    if m[0][i].tag == 'description':
                         description = m[0][i].text
-                    elif m[0][i].tag == 'vendor':
+                    if m[0][i].tag == 'vendor':
                         vendor = m[0][i].text
                 model = dict({'name': name, 'description': description})
                 try:
