@@ -44,7 +44,7 @@
                         <ul class="collapse list-unstyled" id="osSubmenu">
                             <li><a href="{{ url_for('process_info') }}"><i class="fas fa-cogs"></i> Processes</a></li>
                             <li><a href="{{ url_for('disk_info') }}"><i class="fas fa-hdd"></i> Disk</a></li>
-                            <li><a href="{{ url_for('locale_info') }}"><i class="fas fa-globe"></i> Localization</a></li>
+                            <li><a href="{{ url_for('locale_info') }}" title="Set up language and regional settings to match your location"><i class="fas fa-globe"></i> Localisation</a></li>
                             <li><a href="{{ url_for('memory_info') }}"><i class="fas fa-microchip"></i> Memory</a></li>
                             <li><a href="{{ url_for('network_info') }}"><i class="fas fa-share-alt"></i> Network</a></li>
                             <li><a href="{{ url_for('service_info') }}"><i class="fas fa-cogs"></i> Services</a></li>
@@ -60,7 +60,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ url_for('configuration') }}"><i class="fas fa-info-circle"></i> Settings</a></li>
+                        <a href="{{ url_for('configuration') }}"><i class="fas fa-info-circle"></i> PiControl Settings</a></li>
                     </li>
                 </ul>
             </nav>
