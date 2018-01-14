@@ -1,14 +1,14 @@
 {%extends "base.html"%}
 {%block title%}Locale{% endblock %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/static/css/loader.css" />
 {% endblock %}
 {%block body%}
 <h1 class="page-header" id="page-header"><i class="fas fa-globe"></i> Localization</h1>
 <div class="form-group">
     <form method="post" action="/locale/keyboard/update">
         <label for="XKBMODEL">Keyboard Model <i class="fas fa-question-circle" id="XKBMODEL_info"></i></label>
-        <input id="XKBMODEL" class="form-control" name="XKBMODEL" value="{{XKBMODEL}}"></input>
+        <select id="XKBMODEL" class="form-control" name="XKBMODEL">
+        </select>
         <br/>
         <label for="XKBLAYOUT">Keyboard Layout <i class="fas fa-question-circle" id="XKBLAYOUT_info"></i></label>
         <input id="XKBLAYOUT" class="form-control" name="XKBLAYOUT" value={{XKBLAYOUT}}></input></td>
@@ -23,12 +23,12 @@
         <input id="BACKSPACE" class="form-control" name="BACKSPACE" value={{BACKSPACE}}></input></td>
     </form>
 </div>
-<div id="spinner" class="modal"></div>
 <script>
     get_keyboard_config_data();
     function get_keyboard_config_data(){
         $('#spinner').toggle();
         $.get('/locale/keyboard/configdata', function(result){
+
             console.log(result);
         });
         $('#spinner').toggle();

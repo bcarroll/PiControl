@@ -86,7 +86,7 @@ def get_keyboard_config_data():
                 model = dict({'vendor': vendor, 'description': description})
                 try:
                     if models[name]:
-                        pass
+                        models[name].append(model)
                 except:
                     models[name] = []
                     models[name].append(model)
