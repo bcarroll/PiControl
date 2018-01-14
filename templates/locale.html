@@ -29,8 +29,10 @@
         $('#spinner').toggle();
         $.get('/locale/keyboard/configdata', function(result){
             for (var vendor in result.models[0]){
-                if (result.models[0][vendor].name){
-                    console.log(result.models[0][vendor]);
+                for (index=0; index<result.models[0][vendor].length; index++){
+                    if (result.models[0][vendor][index].name){
+                        console.log(result.models[0][vendor][index]);
+                    }
                 }
                 //$('#XKBMODEL').append(new Option(name, value, true, true));
             }
