@@ -28,7 +28,6 @@
     function get_keyboard_config_data(){
         $('#spinner').toggle();
         $.get('/locale/keyboard/configdata', function(result){
-            console.log(result);
             for (i=0; i < result.xkbConfigRegistry.modelList.model.length; i++){
                 name        = result.xkbConfigRegistry.modelList.model[i].configItem.name;
                 description = result.xkbConfigRegistry.modelList.model[i].configItem.description;
