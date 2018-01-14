@@ -49,6 +49,7 @@ def get_keyboard_config():
     for option in config:
         if option:
             name,value = option.split('=')
+            value = value.relplace('"','')
             keyboard_config[name] = value
     return jsonify(keyboard_config)
 
