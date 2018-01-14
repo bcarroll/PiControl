@@ -74,7 +74,8 @@ def get_keyboard_config_data():
                     name = None
                     vendor = None
                     description = None
-                    tag,text = split(',', m[0][i].tag + ',' + m[0][i].text)
+                    data = m[0][i].tag + ',' + m[0][i].text
+                    tag,text = data.split(',')
                     if tag == 'name':
                         name = text
                     if tag == 'description':
