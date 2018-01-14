@@ -3,6 +3,7 @@ import os
 import re
 import subprocess
 import xml.etree.ElementTree as ET
+from flask import jsonify
 
 def update_keyboard_config(XKBMODEL='pc105', XKBLAYOUT='us', XKBVARIANT='nodeadkeys', XKBOPTIONS='', BACKSPACE='guess'):
     '''
