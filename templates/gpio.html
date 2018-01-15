@@ -44,7 +44,11 @@
 				status = 'disabled';
 				title  = 'NOT MODIFIABLE';
 			}
-			
+
+			if (result[key].name == '0v'){
+				result[key].name = 'GND';
+			}
+
 			$('#GPIO tr:last').after(
 				'<tr>'
 				+ '<td>' + key + '</td>'
