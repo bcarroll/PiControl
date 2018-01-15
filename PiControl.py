@@ -466,12 +466,12 @@ def _update_keyboard_config():
 # Users and Groups
 @app.route('/users/get_all')
 @require_login
-def _get_users:
+def _get_users():
     return(get_users())
 
 @app.route('/groups/get_all')
 @require_login
-def _get_groups:
+def _get_groups():
     return(get_groups())
 
 #################################
