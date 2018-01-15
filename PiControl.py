@@ -25,7 +25,7 @@ from flask_sqlalchemy import SQLAlchemy
 from lib.database_utils import update_config, get_nodes
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
 from lib.network_utilities import get_interfaces
-from lib.pi_utilities import cpu_count, cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, process_list, gpio_info, pi_serialnumber
+from lib.pi_utilities import cpu_count, cpu_usage, cpu_temperature, cpu_frequency, cpu_voltage, av_codecs, disk_usage, disk_usage_summary, pi_revision, process_list, pi_serialnumber
 from lib.pi_model import pi_model
 from lib.mem_utils import memory_usage, memory_usage_json, memory_voltage_json, swap_usage, swap_usage_json, memory_split
 from lib.pyDash import get_netstat, get_platform
@@ -35,7 +35,7 @@ from lib._logging import logger, handler, werkzeug_handler, sqlalchemy_handler
 from lib.node_utils import node_cpu_usage, node_cpu_temperature
 from lib.rpi_config import get_keyboard_config, get_keyboard_config_data, update_keyboard_config
 from lib.service_utils import get_service_status
-
+from lib.gpio_utils import gpio_info
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
