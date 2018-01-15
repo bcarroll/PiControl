@@ -168,7 +168,7 @@ class UDPBeaconListener:
             try:
                 (rfd,wfd,efd) = select.select([hbSocket],[],[])
                 if hbSocket in rfd:
-                    (string, address) = hbSocket.recvfrom(100)
+                    (string, address) = hbSocket.recvfrom(1024)
                     #skip loopback connections
                     if address == '127.0.0.1':
                         continue
