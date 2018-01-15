@@ -26,14 +26,13 @@
 <script>
     $('#spinner').modal('show');
     $.get('/services/status', function(result){
-        console.log(result);
         for (service_name in result){
             if (result[service_name] == 'Running'){
-                _class = 'text-success';
+                _class = 'bg-success';
             } else {
                 _class = 'text-muted';
             }
-            $('#service_table tr:last').after('<tr><td>' + service_name + '</td><td class="' + _class + '">' + result[service_name] + '</td></tr>');
+            $('#service_table tr:last').after('<tr><th class="' + _class + '">' + service_name + '</th><td class="' + _class + '">' + result[service_name] + '</td></tr>');
         }
         $('#spinner').modal('hide');
     });
