@@ -84,8 +84,9 @@
 	});
 	function update_mode(id,pin){
 		console.log('update_mode(' + id + ', ' + pin + ', ' + $('#' + id).val() + ')');
-		//$.post('/gpio/set_mode', function(result){
-		//});
+		$.post('/gpio/set_mode', { pin: pin, mode: $('#' + id).val() }, function(result){
+			console.log(result);
+		});
 	}
 </script>
 {%endblock%}
