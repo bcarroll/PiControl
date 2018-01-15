@@ -404,7 +404,7 @@ def get_gpio():
 def _set_gpio_mode():
     pprint(request)
     #return(set_gpio_mode(result['pin'],result['mode']))
-    return(True)
+    return("")
 
 @app.route('/serialnumber')
 @require_login
