@@ -10,8 +10,9 @@
 </table>
 <script>
     $.get('/users/get_all', function(result){
-        console.log(result);
         for (user in result){
+            console.log(result[user]);
+            console.log(result.user);
             $('#users tr:last').after(
                                       '<tr>'
                                       + '<td>' + result[user] + '</td>'
