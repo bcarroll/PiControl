@@ -50,8 +50,14 @@
 				result[key].name = 'GND';
 			}
 
-			for (var mode in ['IN','OUT']){}
-			var mode_select = result[key].mode.toLowerCase()
+			var mode_select;
+			var selected;
+			for (var mode in ['IN','OUT']){
+				if ( result[key].mode.toUpperCase() == mode ){
+					selected = 'selected';
+				}
+				mode_select = mode_select + '<option value="IN" ' + selected + '>' + result[key].mode.toUpperCase() + '</option>';
+			}
 
 			$('#GPIO tr:last').after(
 				'<tr>'
@@ -60,10 +66,13 @@
 				+ '<td>' + result[key].name + '</td>'
 				+ '<td>' + result[key].bcm_pin + '</td>'
 				+ '<td>' + result[key].wPi_pin + '</td>'
-				+ '<td><select id="mode">' + mode_select + '</td>'
+				+ '<td><select id="mode" onchange="update_mode('+ result[key].wPi_pin +');">' + mode_select + '</td>'
 				+ '<td>' + result[key].v + '</td></tr>'
 			);
 		}
 	});
+	function update_mode(pin){
+		console.log('update_mode(' + pin + ')');
+	}
 </script>
 {%endblock%}
