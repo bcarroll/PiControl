@@ -52,11 +52,20 @@
 
 			var mode_select;
 			var selected;
-			for (var mode in ['IN','OUT']){
-				if ( result[key].mode.toUpperCase() == mode ){
-					selected = 'selected';
+			if (result[key].wPi_pin){
+				if ( result[key].mode.toUpperCase() == 'IN' ){
+					mode_select = '<select id="mode" onchange="update_mode('+ result[key].wPi_pin +');">'
+								+ '<option value="IN" selected>IN</option>'
+								+ '<option value="OUT">OUT</option>'
+								+ '</select>';
+				} else if ( result[key].mode.toUpperCase() == 'OUT' ){
+					mode_select = '<select id="mode" onchange="update_mode('+ result[key].wPi_pin +');">'
+								+ '<option value="IN" >IN</option>'
+								+ '<option value="OUT" selected>OUT</option>'
+								+ '</select>';
+				} else {
+					mode_select = "";
 				}
-				mode_select = mode_select + '<option value="'+ mode + '" ' + selected + '>' + mode + '</option>';
 			}
 
 			$('#GPIO tr:last').after(
@@ -66,7 +75,7 @@
 				+ '<td>' + result[key].name + '</td>'
 				+ '<td>' + result[key].bcm_pin + '</td>'
 				+ '<td>' + result[key].wPi_pin + '</td>'
-				+ '<td><select id="mode" onchange="update_mode('+ result[key].wPi_pin +');">' + mode_select + '</td>'
+				+ '<td>' + mode_select'</td>'
 				+ '<td>' + result[key].v + '</td></tr>'
 			);
 		}
