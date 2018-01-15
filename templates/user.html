@@ -12,10 +12,9 @@
     $.get('/users/get_all', function(result){
         for (user in result){
             console.log(result[user]);
-            console.log(result.user);
             $('#users tr:last').after(
                                       '<tr>'
-                                      + '<td>' + result[user] + '</td>'
+                                      + '<td>' + result[0] + '</td>'
                                       + '<td></td>'
                                       + '<td></td>'
                                       + '<td></td>'
