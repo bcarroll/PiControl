@@ -403,7 +403,6 @@ def get_gpio():
 @require_login
 def _set_gpio_mode():
     return(set_gpio_mode(request.form['pin'], request.form['mode']))
-    return("")
 
 @app.route('/serialnumber')
 @require_login
