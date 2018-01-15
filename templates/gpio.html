@@ -50,8 +50,8 @@
 				result[key].name = 'GND';
 			}
 
-			for (var mode in ['IN','OUT'])
-			result[key].mode.toLowerCase()
+			for (var mode in ['IN','OUT']){}
+			var mode_select = result[key].mode.toLowerCase()
 
 			$('#GPIO tr:last').after(
 				'<tr>'
