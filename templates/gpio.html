@@ -11,7 +11,9 @@
 		<th>BCM Pin</th>
 		<th>WiringPi Pin</th>
 		<th>Mode</th>
+		<!--
 		<th>Voltage</th>
+		-->
 	</tr>
 </table>
 <script>
@@ -75,7 +77,8 @@
 				+ '<td>' + result[key].bcm_pin + '</td>'
 				+ '<td>' + result[key].wPi_pin + '</td>'
 				+ '<td>' + mode_select + '</td>'
-				+ '<td>' + result[key].v + '</td></tr>'
+				//+ '<td>' + result[key].v + '</td>'
+				+ '</tr>'
 			);
 		}
 	});
