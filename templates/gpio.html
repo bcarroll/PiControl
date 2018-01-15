@@ -53,7 +53,7 @@
 			var mode_select = "";
 			if (Number.isInteger(Number(result[key].wPi_pin))){
 				if ( result[key].mode.toUpperCase() == 'IN' ){
-					mode_select = '<select id="mode_' + result[key].wPi_pin + '" onchange="update_mode('+ result[key].wPi_pin +');">'
+					mode_select = '<select id="mode_' + result[key].wPi_pin + '" onchange="update_mode(\'_' + result[key].wPi_pin + '\',' + result[key].wPi_pin +');">'
 								+ '<option value="IN" selected>IN</option>'
 								+ '<option value="OUT">OUT</option>'
 								+ '</select>';
