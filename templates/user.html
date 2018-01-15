@@ -11,15 +11,17 @@
 <script>
     $.get('/users/get_all', function(result){
         console.log(result);
-        $('#users tr:last').after(
-                                  '<tr>'
-                                  + '<td></td>'
-                                  + '<td></td>'
-                                  + '<td></td>'
-                                  + '<td></td>'
-                                  + '<td></td>'
-                                  + '</tr>'
-                                  );
+        for (user in result){
+            $('#users tr:last').after(
+                                      '<tr>'
+                                      + '<td>' + user + '</td>'
+                                      + '<td></td>'
+                                      + '<td></td>'
+                                      + '<td></td>'
+                                      + '<td></td>'
+                                      + '</tr>'
+                                      );
+            }
     });
 </script>
 {%endblock%}
