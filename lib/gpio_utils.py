@@ -33,6 +33,9 @@ def gpio_info():
         }
     return jsonify(pins)
 
-def set_gpio_mode(pin,mode='out'):
-    os.popen('gpio mode ' + pin + " " + mode)
+def set_gpio_mode(pin,mode):
+    logger.debug('set_gpio_mode(' + pin + ',' + mode + ') called...')
+    result = os.popen('gpio mode ' + pin + " " + mode).read()
+    logger.debug(result)
+    return( jsonify(result) )
 

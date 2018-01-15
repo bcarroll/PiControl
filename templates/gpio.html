@@ -83,6 +83,7 @@
 		}
 	});
 	function update_mode(id,pin){
+		$.post('/gpio/set_mode', function(result){
 		console.log('update_mode(' + id + ', ' + pin + ')');
 	}
 </script>

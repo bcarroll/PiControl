@@ -6,7 +6,6 @@ import socket
 import atexit
 import signal
 import logging
-from functools import wraps
 
 from flask import Flask
 from flask import request
@@ -21,6 +20,8 @@ from flask import escape
 from flask import jsonify
 
 from flask_sqlalchemy import SQLAlchemy
+from functools import wraps
+from pprint import pprint
 
 from lib.database_utils import update_config, get_nodes
 from lib.pi_netconnect import UDPBeacon, UDPBeaconListener
@@ -35,7 +36,7 @@ from lib._logging import logger, handler, werkzeug_handler, sqlalchemy_handler
 from lib.node_utils import node_cpu_usage, node_cpu_temperature
 from lib.rpi_config import get_keyboard_config, get_keyboard_config_data, update_keyboard_config
 from lib.service_utils import get_service_status
-from lib.gpio_utils import gpio_info
+from lib.gpio_utils import gpio_info, set_gpio_mode
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -397,6 +398,12 @@ def platform():
 @require_login
 def get_gpio():
     return(gpio_info())
+
+@app.route('/gpio/set_mode', methods=['POST'])
+@require_login
+def _set_gpio_mode(pin,mode):
+    pprint (request)
+    return(set_gpio_mode(pin,mode))
 
 @app.route('/serialnumber')
 @require_login
