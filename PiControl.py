@@ -37,6 +37,7 @@ from lib.node_utils import node_cpu_usage, node_cpu_temperature
 from lib.rpi_config import get_keyboard_config, get_keyboard_config_data, update_keyboard_config
 from lib.service_utils import get_service_status
 from lib.gpio_utils import gpio_info, set_gpio_mode, set_gpio_pin
+from lib.user_utils import get_users, get_groups
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -283,8 +284,8 @@ def refresh_discovered_nodes():
 def get_dashboard():
     return(render_template('dashboard.html'))
 
-#####################################################################################
-
+#################################
+# CPU
 @app.route('/charts/cpu/temperature')
 @require_login
 def get_cpu_temperature_chart():
@@ -292,7 +293,6 @@ def get_cpu_temperature_chart():
         return jsonify({"chart": {"title": "CPU Temperature", "labels": cpu_temperature_chart.labels, "data": cpu_temperature_chart.list}})
     else:
         return jsonify({"chart": {"title": "CPU Temperature DISABLED","labels": 'DISABLED',"data": 'DISABLED'}})
-
 
 @app.route('/cpu/count')
 @require_login
@@ -319,11 +319,15 @@ def get_cpu_voltage():
 def get_cpu_frequency():
     return(cpu_frequency())
 
+#################################
+# Video
 @app.route('/video/codecs')
 @require_login
 def get_av_codecs():
     return(av_codecs())
 
+#################################
+# Memory
 @app.route('/mem/split')
 @require_login
 def get_memory_split():
@@ -354,6 +358,8 @@ def get_swap_usage():
 def get_swap_usage_json():
     return(swap_usage_json())
 
+#################################
+# Disk
 @app.route('/disk/usage')
 @require_login
 def get_disk_usage():
@@ -364,6 +370,8 @@ def get_disk_usage():
 def get_disk_usage_summary():
     return(disk_usage_summary())
 
+#################################
+# Hardware/OS
 @app.route('/model')
 @require_login
 def get_pi_model():
@@ -374,21 +382,6 @@ def get_pi_model():
 def get_pi_revision():
     return(pi_revision())
 
-@app.route('/processes/list')
-@require_login
-def get_process_list():
-    return(process_list())
-
-@app.route('/network/interfaces')
-@require_login
-def get_network_interfaces():
-    return(get_interfaces())
-
-@app.route('/network/netstat')
-@require_login
-def get_netstat_details():
-    return(get_netstat())
-
 @app.route('/platform')
 @require_login
 def platform():
@@ -398,6 +391,23 @@ def platform():
 @require_login
 def get_pi_serialnumber():
     return(pi_serialnumber())
+
+@app.route('/processes/list')
+@require_login
+def get_process_list():
+    return(process_list())
+
+#################################
+# Network
+@app.route('/network/interfaces')
+@require_login
+def get_network_interfaces():
+    return(get_interfaces())
+
+@app.route('/network/netstat')
+@require_login
+def get_netstat_details():
+    return(get_netstat())
 
 #################################
 # GPIO
@@ -451,6 +461,18 @@ def _get_keyboard_config_data():
 def _update_keyboard_config():
     #return(update_keyboard_config())
     pass
+
+#################################
+# Users and Groups
+@app.route('/users/get_all')
+@require_login
+def _get_users:
+    return(get_users())
+
+@app.route('/groups/get_all')
+@require_login
+def _get_groups:
+    return(get_groups())
 
 #################################
 
