@@ -23,13 +23,12 @@
 	    if ($('#' + id).hasClass("toggle-off")){
 	        $('#' + id).addClass('toggle-on');
 	        $('#' + id).removeClass('toggle-off');
-	        $.post('/gpio/set/' + id, {status: 1});
+	        $.post('/gpio/set/' + pin, {status: 1});
 	    } else {
 	        $('#' + id).addClass('toggle-off');
 	        $('#' + id).removeClass('toggle-on');
 	        $.post('/gpio/set/' + id, {status: 0});
 	    }
-	    console.log("toggle("+id+")");
 	}
 
 	$.get('/gpio/info', function(result){
