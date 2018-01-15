@@ -56,7 +56,7 @@
 				if ( result[key].mode.toUpperCase() == mode ){
 					selected = 'selected';
 				}
-				mode_select = mode_select + '<option value="IN" ' + selected + '>' + result[key].mode.toUpperCase() + '</option>';
+				mode_select = mode_select + '<option value="'+ mode + '" ' + selected + '>' + mode + '</option>';
 			}
 
 			$('#GPIO tr:last').after(
