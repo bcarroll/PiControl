@@ -38,6 +38,7 @@
 				status = 'toggle-off';
 				title  = 'Off/LOW';
 			} else if (result[key].v == '0'){
+				result[key].v = '0v';
 				status = 'toggle-off';
 				title  = 'Off/LOW';
 			} else {
@@ -49,6 +50,9 @@
 				result[key].name = 'GND';
 			}
 
+			for (var mode in ['IN','OUT'])
+			result[key].mode.toLowerCase()
+
 			$('#GPIO tr:last').after(
 				'<tr>'
 				+ '<td>' + key + '</td>'
@@ -56,7 +60,7 @@
 				+ '<td>' + result[key].name + '</td>'
 				+ '<td>' + result[key].bcm_pin + '</td>'
 				+ '<td>' + result[key].wPi_pin + '</td>'
-				+ '<td>' + result[key].mode + '</td>'
+				+ '<td><select id="mode">' + mode_select + '</td>'
 				+ '<td>' + result[key].v + '</td></tr>'
 			);
 		}
