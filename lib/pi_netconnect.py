@@ -42,7 +42,7 @@ class UDPBeacon:
         logger.info('Starting UDPBeacon sender thread')
         logger.debug('start() called...')
         if get_config()['beacon_sender_enabled'] == False:
-            logger.warn('Beacon Sender is disabled')
+            logger.info('Beacon Sender is disabled')
             self.stop()
         self.looping = True
         self.thread  = threading.Thread(name='udp_beacon_sender', target=self._loop)
@@ -62,6 +62,7 @@ class UDPBeacon:
         logger.info('Sending UDP Beacons to UDP port ' + str(self.port))
         while self.looping:
             if get_config()['beacon_sender_enabled'] == False:
+                logger.info('Beacon sender stop requested')
                 self.stop()
             revision = pi_revision()
             hostname = socket.gethostname()
@@ -142,7 +143,7 @@ class UDPBeaconListener:
         logger.info('Starting UDPBeaconListener thread')
         logger.debug('start() called...')
         if get_config()['beacon_listener_enabled'] == False:
-            logger.warn('Beacon Listener is disabled')
+            logger.info('Beacon Listener is disabled')
             self.stop()
 
         self.looping = True
@@ -159,9 +160,10 @@ class UDPBeaconListener:
         logger.info( 'Listening for UDPBeacons from external clients...' )
         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
         hbSocket.bind(('0.0.0.0', self.port))
-        logger.warn('Listening for UDP Beacons on UDP port ' + str(self.port))
+        logger.info('Listening for UDP Beacons on UDP port ' + str(self.port))
         while self.looping:
             if get_config()['beacon_listener_enabled'] == False:
+                logger.info('Beacon listener stop requested')
                 self.stop()
             try:
                 (rfd,wfd,efd) = select.select([hbSocket],[],[])
