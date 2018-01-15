@@ -27,7 +27,7 @@
 	    } else {
 	        $('#' + id).addClass('toggle-off');
 	        $('#' + id).removeClass('toggle-on');
-	        $.post('/gpio/set/' + id, {status: 0});
+	        $.post('/gpio/set/' + pin, {status: 0});
 	    }
 	}
 
