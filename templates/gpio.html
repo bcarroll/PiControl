@@ -53,12 +53,12 @@
 			var mode_select = "";
 			if (Number.isInteger(Number(result[key].wPi_pin))){
 				if ( result[key].mode.toUpperCase() == 'IN' ){
-					mode_select = '<select id="mode" onchange="update_mode('+ result[key].wPi_pin +');">'
+					mode_select = '<select id="mode_' + result[key].wPi_pin + '" onchange="update_mode('+ result[key].wPi_pin +');">'
 								+ '<option value="IN" selected>IN</option>'
 								+ '<option value="OUT">OUT</option>'
 								+ '</select>';
 				} else if ( result[key].mode.toUpperCase() == 'OUT' ){
-					mode_select = '<select id="mode" onchange="update_mode('+ result[key].wPi_pin +');">'
+					mode_select = '<select id="mode_' + result[key].wPi_pin + '" onchange="update_mode(\'_' + result[key].wPi_pin + '\',' + result[key].wPi_pin +');">'
 								+ '<option value="IN" >IN</option>'
 								+ '<option value="OUT" selected>OUT</option>'
 								+ '</select>';
@@ -79,8 +79,9 @@
 			);
 		}
 	});
-	function update_mode(pin){
-		console.log('update_mode(' + pin + ', ' + $(this).text() + ')');
+	function update_mode(param){
+		param.split(',', id_pin);
+		console.log('update_mode(' + param[0] + ', ' + param[1] + ')');
 	}
 </script>
 {%endblock%}
