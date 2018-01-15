@@ -18,7 +18,7 @@
 </table>
 <script>
 	// toggle switches
-	function toggle(id){
+	function toggle(id,pin){
 	    // id     = element to toggle
 	    if ($('#' + id).hasClass("toggle-off")){
 	        $('#' + id).addClass('toggle-on');
@@ -74,7 +74,7 @@
 			$('#GPIO tr:last').after(
 				'<tr>'
 				+ '<td>' + key + '</td>'
-				+ '<td><i id="gpio_' + result[key].wPi_pin + '" class="fas fa-toggle-on fa-2x ' + status + '" onclick="toggle(\'gpio_' + result[key].wPi_pin + '\')" title="' + title + '"></i></td>'
+				+ '<td><i id="gpio_' + result[key].wPi_pin + '" class="fas fa-toggle-on fa-2x ' + status + '" onclick="toggle(\'gpio_' + result[key].wPi_pin + '\',' + result[key].wPi_pin + ')" title="' + title + '"></i></td>'
 				+ '<td>' + result[key].name + '</td>'
 				+ '<td>' + result[key].bcm_pin + '</td>'
 				+ '<td>' + result[key].wPi_pin + '</td>'
