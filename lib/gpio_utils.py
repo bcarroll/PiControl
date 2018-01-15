@@ -2,6 +2,7 @@
 
 import os
 from flask import jsonify
+from lib._logging import logger
 
 def gpio_info():
     gpio_info = ['ERROR']
