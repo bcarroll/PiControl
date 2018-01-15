@@ -402,7 +402,8 @@ def get_gpio():
 @app.route('/gpio/set_mode', methods=['POST'])
 @require_login
 def _set_gpio_mode():
-    pprint(request)
+    pprint(request.data)
+    pprint(request.form)
     #return(set_gpio_mode(result['pin'],result['mode']))
     return("")
 
