@@ -87,5 +87,13 @@
 			// result will be true/false
 		});
 	}
+
+	function update_gpio_status(){
+		for(pin=1; pin<=40; pin++){
+		    if ( $('#gpio_' + pin).length ){
+		        console.log('/gpio/get/' + pin);
+		    }
+		}
+	}
 </script>
 {%endblock%}
