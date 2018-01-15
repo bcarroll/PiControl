@@ -50,9 +50,8 @@
 				result[key].name = 'GND';
 			}
 
-			var mode_select;
-			var selected;
-			if (result[key].wPi_pin){
+			var mode_select = "";
+			if (int(result[key].wPi_pin){
 				if ( result[key].mode.toUpperCase() == 'IN' ){
 					mode_select = '<select id="mode" onchange="update_mode('+ result[key].wPi_pin +');">'
 								+ '<option value="IN" selected>IN</option>'
