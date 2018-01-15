@@ -28,7 +28,12 @@
     $.get('/services/status', function(result){
         console.log(result);
         for (service_name in result){
-            $('#service_table tr:last').after('<tr><td>' + service_name + '</td><td>' + result[service_name] + '</td></tr>');
+            if (result[service_name] == 'Running'){
+                _class = 'text-success';
+            } else {
+                _class = 'text-muted';
+            }
+            $('#service_table tr:last').after('<tr><td>' + service_name + '</td><td class="' + _class + '">' + result[service_name] + '</td></tr>');
         }
         $('#spinner').modal('hide');
     });
