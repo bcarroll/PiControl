@@ -36,7 +36,7 @@ from lib._logging import logger, handler, werkzeug_handler, sqlalchemy_handler
 from lib.node_utils import node_cpu_usage, node_cpu_temperature
 from lib.rpi_config import get_keyboard_config, get_keyboard_config_data, update_keyboard_config
 from lib.service_utils import get_service_status
-from lib.gpio_utils import gpio_info, set_gpio_mode
+from lib.gpio_utils import gpio_info, set_gpio_mode, set_gpio_pin
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -394,6 +394,13 @@ def get_netstat_details():
 def platform():
     return(get_platform())
 
+@app.route('/serialnumber')
+@require_login
+def get_pi_serialnumber():
+    return(pi_serialnumber())
+
+#################################
+# GPIO
 @app.route('/gpio/info')
 @require_login
 def get_gpio():
@@ -404,10 +411,10 @@ def get_gpio():
 def _set_gpio_mode():
     return(set_gpio_mode(request.form['pin'], request.form['mode']))
 
-@app.route('/serialnumber')
+@app.route('/gpio/set/<int:pin>', methods=['POST'])
 @require_login
-def get_pi_serialnumber():
-    return(pi_serialnumber())
+def _set_gpio_pin(pin):
+    return(set_gpio_pin(pin, request.form['status']))
 
 #################################
 # Dashboard chart data

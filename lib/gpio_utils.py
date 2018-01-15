@@ -44,3 +44,12 @@ def set_gpio_mode(pin,mode):
     logger.debug('set_gpio_mode(' + str(pin) + ',' + str(mode) + ') returned ' + str(result))
     return( jsonify(result) )
 
+def set_gpio_pin(pin, status):
+    result = False
+    try:
+        os.popen('gpio write ' + pin + ' ' + status)
+        result = True
+    except:
+        result = False
+    logger.debug('set_gpio_pin(' + str(pin) + ',' + str(status) + ') returned ' + str(result))
+    return( jsonify(result) )

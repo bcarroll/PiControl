@@ -23,9 +23,11 @@
 	    if ($('#' + id).hasClass("toggle-off")){
 	        $('#' + id).addClass('toggle-on');
 	        $('#' + id).removeClass('toggle-off');
+	        $.post('/gpio/set/' + id, {status: 'HIGH'});
 	    } else {
 	        $('#' + id).addClass('toggle-off');
 	        $('#' + id).removeClass('toggle-on');
+	        $.post('/gpio/set/' + id, {status: 'LOW'});
 	    }
 	    console.log("toggle("+id+")");
 	}
