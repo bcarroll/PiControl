@@ -41,6 +41,6 @@ def set_gpio_mode(pin,mode):
         result = True
     except:
         result = False
-    logger.debug('set_gpio_mode(' + pin + ',' + mode + ') returned ' + result)
+    logger.debug('set_gpio_mode(' + str(pin) + ',' + str(mode) + ') returned ' + str(result))
     return( jsonify(result) )
 
