@@ -47,7 +47,7 @@ def set_gpio_mode(pin,mode):
 def set_gpio_pin(pin, status):
     result = False
     try:
-        os.popen('gpio write ' + pin + ' ' + status)
+        os.popen('gpio write ' + int(pin) + ' ' + int(status))
         result = True
     except:
         result = False
