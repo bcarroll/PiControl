@@ -1,5 +1,5 @@
 .menubar {
     position: relative;
-    top: 20px;
-    width: calc(100vw - 10px);
+    top: 40px;
+    width: calc(100vw - 20px);
 }
