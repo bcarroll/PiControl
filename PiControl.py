@@ -290,6 +290,12 @@ def ace_editor():
     return(render_template('editor.html'))
 
 #################################
+# Licenses
+@app.route('/license/ace')
+def get_ace_license():
+    return(render_template('license/ace.html'))
+
+#################################
 # CPU
 @app.route('/charts/cpu/temperature')
 @require_login
