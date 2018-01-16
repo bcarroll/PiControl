@@ -1,6 +1,6 @@
 .menubar {
     position: absolute;
-    top: 65px;
+    margin-top: 65px;
     width: calc(100vw - 20px);
 }
 
