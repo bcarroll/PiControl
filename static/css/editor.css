@@ -1,6 +1,6 @@
 .menubar {
     position: absolute;
-    margin-top: 65px;
+    margin-top: 90px;
     width: calc(100vw - 20px);
 }
 
@@ -15,7 +15,6 @@
     bottom: 0;
     left: 0;
     height: 100%;
-    width: 100%;
 }
 
 .nav-item {
