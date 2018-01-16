@@ -2,3 +2,9 @@
     margin-top: 65px;
     width: calc(100vw - 20px);
 }
+
+#ace-logo {
+    width: 32px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
