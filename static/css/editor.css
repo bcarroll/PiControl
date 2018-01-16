@@ -30,6 +30,7 @@ li.nav-item {
 }
 
 .license {
+    right: 10px;
     text-decoration: none;
     font-size: small;
 }
