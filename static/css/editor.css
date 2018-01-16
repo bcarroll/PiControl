@@ -5,6 +5,7 @@
 
 .menubar {
     position: relative;
+    left: 10px;
     width: calc(100vw - 35px);
 }
 
