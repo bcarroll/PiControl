@@ -6,7 +6,8 @@
     <h1 class="page-header" id="page-header"><i class="fas fa-user"></i> Users</h1>
     <div class="row">
         <button class="btn btn-primary" id="btn_show_users" onclick="toggle_users();">Show all users</button>
-        <br/>
+    </div>
+    <div class="row">
         <table class="table-responsive table-bordered table-hover" id="users">
             <tr>
                 <th class="heading">Username</th><th class="heading">UID</th><th class="heading">Group</th><th class="heading">Home Directory</th><th class="heading">Shell</th>
@@ -15,7 +16,11 @@
     </div>
     <h1 class="page-header"><i class="fas fa-users"></i> Groups</h1>
     <div class="row">
-
+        <table class="table-responsive table-bordered table-hover" id="groups">
+            <tr>
+                <th class="heading">Group</th><th class="heading">GID</th><th class="heading">Members</th>
+            </tr>
+        </table>
     </div>
 </div>
 <script>
@@ -30,9 +35,20 @@
                                       '<tr class="' + tr_class + '">'
                                       + '<td>' + user + '</td>'
                                       + '<td>' + result[user].uid + '</td>'
-                                      + '<td>' + result[user].group_name + '</td>'
+                                      + '<td>' + result[user].group_name + '(' + result[user].gid + ')</td>'
                                       + '<td>' + result[user].home_dir + '</td>'
                                       + '<td>' + result[user].shell + '</td>'
+                                      + '</tr>'
+                                      );
+            }
+    });
+    $.get('/groupds/get_all', function(result){
+        for (group in result){
+            $('#groups tr:last').after(
+                                      '<tr>'
+                                      + '<td>' + group + '</td>'
+                                      + '<td>' + result[user].gid + '</td>'
+                                      + '<td>' + result[user].members + '</td>'
                                       + '</tr>'
                                       );
             }
