@@ -23,5 +23,5 @@ def get_service_status():
 
 def service_control(service_name, action):
     os.popen('sudo service ' + service_name + ' ' + action)
-    status = os.popen('sudo service ' + service_name + ' status').read()
+    status = os.popen('sudo service ' + service_name + ' status|grep Active').read()
     return (jsonify(status))

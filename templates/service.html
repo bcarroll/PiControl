@@ -69,8 +69,12 @@
         });
         if ( $('#btn_' + service_name).text() == 'Stop Service' ){
             $('#btn_' + service_name).text('Start Service');
+            $('#btn_' + service_name).addClass('btn-danger');
+            $('#btn_' + service_name).removeClass('btn-success');
         } else {
             $('#btn_' + service_name).text('Stop Service');
+            $('#btn_' + service_name).addClass('btn-success');
+            $('#btn_' + service_name).removeClass('btn-danger');
         }
     }
 </script>
