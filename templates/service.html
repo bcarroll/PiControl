@@ -31,10 +31,12 @@
         for (service_name in result){
             if (result[service_name] == 'Running'){
                 _class = 'bg-success';
+                service_button = '<button id="btn_' + service_name + '" class="btn btn-success" onclick="toggle_service(' + service_name + ');">Stop Service</button>'
             } else {
                 _class = 'text-muted';
+                service_button = '<button id="btn_' + service_name + '" class="btn btn-danger" onclick="toggle_service(' + service_name + ');">Start Service</button>'
             }
-            $('#service_table tr:last').after('<tr><th class="' + _class + '">' + service_name + '</th><td class="' + _class + '">' + result[service_name] + '</td></tr>');
+            $('#service_table tr:last').after('<tr><th class="' + _class + '">' + service_name + '</th><td class="' + _class + '">' + result[service_name] + '</td><td>' +  service_button + '</td></tr>');
         }
         $('#spinner').modal('hide');
     });
@@ -60,5 +62,14 @@
 
     var target = document.getElementById('spinner_div');
     var spinner = new Spinner(spinner_options).spin(target);
+
+    function toggle_service(service_name, action){
+        result = os.popen('sudo service ' + service_name + ' ' + action).read();
+        if ( $('#btn_' + service_name).text() == 'Stop Service' ){
+            $('#btn_' + service_name).text('Start Service');
+        } else {
+            $('#btn_' + service_name).text('Stop Service');
+        }
+    }
 </script>
 {%endblock%}
