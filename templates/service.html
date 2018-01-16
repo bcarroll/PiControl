@@ -29,12 +29,13 @@
     $('#spinner').modal('show');
     $.get('/services/status', function(result){
         for (service_name in result){
+            var service_button = ""; // disable service_button until it works...
             if (result[service_name] == 'Running'){
                 _class = 'bg-success';
-                service_button = '<button id="btn_' + service_name + '" class="btn btn-success" onclick="toggle_service(\'' + service_name + '\', \'stop\');">Stop Service</button>'
+                //service_button = '<button id="btn_' + service_name + '" class="btn btn-success" onclick="toggle_service(\'' + service_name + '\', \'stop\');">Stop Service</button>'
             } else {
                 _class = 'text-muted';
-                service_button = '<button id="btn_' + service_name + '" class="btn btn-danger" onclick="toggle_service(\'' + service_name + '\',\'start\');">Start Service</button>'
+                //service_button = '<button id="btn_' + service_name + '" class="btn btn-danger" onclick="toggle_service(\'' + service_name + '\',\'start\');">Start Service</button>'
             }
             $('#service_table tr:last').after('<tr><th class="' + _class + '">' + service_name + '</th><td class="' + _class + '">' + result[service_name] + '</td><td>' +  service_button + '</td></tr>');
         }
