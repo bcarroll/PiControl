@@ -64,8 +64,8 @@
     var spinner = new Spinner(spinner_options).spin(target);
 
     function toggle_service(service_name, action){
-        $.post('/service/', { service_name: service_name, action: action }, function(result){
-
+        $.post('/service/control', { service_name: service_name, action: action }, function(result){
+            console.log(result);
         });
         if ( $('#btn_' + service_name).text() == 'Stop Service' ){
             $('#btn_' + service_name).text('Start Service');
