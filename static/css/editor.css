@@ -5,11 +5,12 @@
 
 .menubar {
     position: relative;
-    left: 10px;
     width: calc(100vw - 35px);
 }
 
 #ace-logo {
+    position: relative;
+    left: 10px;
     width: 32px;
 }
 
