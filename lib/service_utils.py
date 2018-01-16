@@ -20,3 +20,10 @@ def get_service_status():
             status = 'Running'
         services[name] = status
     return(services)
+
+def service_control(service_name, action):
+    try:
+        os.popen('sudo service ' + service_name + ' ' + action)
+        return(True)
+    except:
+        return(False)

@@ -35,7 +35,7 @@ from lib.chart_utils import PiControlChart
 from lib._logging import logger, handler, werkzeug_handler, sqlalchemy_handler
 from lib.node_utils import node_cpu_usage, node_cpu_temperature
 from lib.rpi_config import get_keyboard_config, get_keyboard_config_data, update_keyboard_config
-from lib.service_utils import get_service_status
+from lib.service_utils import get_service_status, service_control
 from lib.gpio_utils import gpio_info, set_gpio_mode, set_gpio_pin
 from lib.user_utils import get_users, get_groups
 
@@ -473,6 +473,13 @@ def _get_users():
 @require_login
 def _get_groups():
     return(get_groups())
+
+#################################
+# Services
+@app.route('/service/control', methods=['POST'])
+@require_login
+def _service_control():
+    return(service_control(request[form].service_name, request[form].action))
 
 #################################
 
