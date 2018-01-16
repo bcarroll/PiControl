@@ -284,6 +284,11 @@ def refresh_discovered_nodes():
 def get_dashboard():
     return(render_template('dashboard.html'))
 
+@app.route('/editor')
+@require_login
+def ace_editor():
+    return(render_template('editor.html'))
+
 #################################
 # CPU
 @app.route('/charts/cpu/temperature')

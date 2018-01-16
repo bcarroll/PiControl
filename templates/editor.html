@@ -1,0 +1,137 @@
+{%extends "base.html"%}
+{%block title%}Configuration{% endblock %}
+
+{%block body%}
+        <div class="container-fluid">
+            <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="https://ace.c9.io">
+                    <img id="ace-logo" src="/static/img/ace-logo.png" width="32px">
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            Font Size
+                            <input type="number" id="font_size" value="12" max="24" min="8"></input>
+                        </li>
+                        <li class="nav-item">
+                            Tab Size
+                            <input type="number" id="ace_tabsize" value="4" max="16" min="2"> </input>
+                        </li>
+                        <li class="nav-item">
+                            Syntax
+                            <select id="ace_mode">
+                                <option value="apache_conf">Apache Conf</option>
+                                <option value="css">Css</option>
+                                <option value="c_cpp">C Cpp</option>
+                                <option value="django">Django</option>
+                                <option value="dockerfile">Dockerfile</option>
+                                <option value="gcode">Gcode</option>
+                                <option value="gitignore">Gitignore</option>
+                                <option value="golang">Golang</option>
+                                <option value="html">Html</option>
+                                <option value="ini">Ini</option>
+                                <option value="java">Java</option>
+                                <option value="javascript">Javascript</option>
+                                <option value="json">Json</option>
+                                <option value="lua">Lua</option>
+                                <option value="makefile">Makefile</option>
+                                <option value="markdown">Markdown</option>
+                                <option value="perl">Perl</option>
+                                <option value="php">Php</option>
+                                <option value="plain_text">Plain Text</option>
+                                <option value="properties">Properties</option>
+                                <option value="python">Python</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="sh">Sh</option>
+                                <option value="tcl">Tcl</option>
+                                <option value="text" selected>Text</option>
+                                <option value="xml">Xml</option>
+                                <option value="yaml">Yaml</option>
+                            </select>
+                        </li>
+                        <li class="nav-item">
+                            Theme
+                            <select id="ace_theme">
+                                <option value="ambiance">Ambiance</option>
+                                <option value="chaos">Chaos</option>
+                                <option value="chrome">Chrome</option>
+                                <option value="clouds">Clouds</option>
+                                <option value="clouds_midnight">Clouds Midnight</option>
+                                <option value="cobalt">Cobalt</option>
+                                <option value="crimson_editor">Crimson Editor</option>
+                                <option value="dawn">Dawn</option>
+                                <option value="dracula">Dracula</option>
+                                <option value="dreamweaver">Dreamweaver</option>
+                                <option value="eclipse">Eclipse</option>
+                                <option value="github">Github</option>
+                                <option value="gob">Gob</option>
+                                <option value="gruvbox">Gruvbox</option>
+                                <option value="idle_fingers">Idle Fingers</option>
+                                <option value="iplastic">Iplastic</option>
+                                <option value="katzenmilch">Katzenmilch</option>
+                                <option value="kr_theme">Kr Theme</option>
+                                <option value="kuroir">Kuroir</option>
+                                <option value="merbivore">Merbivore</option>
+                                <option value="merbivore_soft">Merbivore Soft</option>
+                                <option value="monokai" selected>Monokai</option>
+                                <option value="mono_industrial">Mono Industrial</option>
+                                <option value="pastel_on_dark">Pastel On Dark</option>
+                                <option value="solarized_dark">Solarized Dark</option>
+                                <option value="solarized_light">Solarized Light</option>
+                                <option value="sqlserver">Sqlserver</option>
+                                <option value="terminal">Terminal</option>
+                                <option value="textmate">Textmate</option>
+                                <option value="tomorrow">Tomorrow</option>
+                                <option value="tomorrow_night">Tomorrow Night</option>
+                                <option value="tomorrow_night_blue">Tomorrow Night Blue</option>
+                                <option value="tomorrow_night_bright">Tomorrow Night Bright</option>
+                                <option value="tomorrow_night_eighties">Tomorrow Night Eighties</option>
+                                <option value="twilight">Twilight</option>
+                                <option value="vibrant_ink">Vibrant Ink</option>
+                                <option value="xcode">Xcode</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="editor" class="col" style="width:calc(100vw - 10); height:90vh;"></div>
+        </div>
+        <style type="text/css" media="screen">
+            #editor {
+                position: relative;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+            .nav-item {
+                padding-left: 5px;
+                vertical-align: middle;
+            }
+        </style>
+        <script src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/text");
+            editor.setShowPrintMargin(false);
+
+            $('#font_size').change(function(e){
+                document.getElementById('editor').style.fontSize = $('#font_size').val() + 'px';
+            });
+
+            $('#ace_theme').change(function(e){
+                editor.setTheme('ace/theme/' + $('#ace_theme').val());
+            });
+
+            $('#ace_mode').change(function(e){
+                editor.getSession().setMode('ace/mode/' + $('#ace_mode').val());
+            });
+            $('#ace_tabsize').change(function(e){
+                editor.getSession().setTabSize($('#ace_tabsize').val());
+            });
+        </script>
+{%endblock%}
