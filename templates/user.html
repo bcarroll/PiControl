@@ -30,12 +30,12 @@
             }
     });
     function toggle_users(){
-        $('.inactive_user').toggle();
-        if ( $('btn_show_users').text() == 'Show all users' ){
-            $('btn_show_users').text('Show users with a login shell');
+        if ( $('#btn_show_users').text() == 'Show all users' ){
+            $('#btn_show_users').text('Show users with a login shell');
         } else {
-            $('btn_show_users').text('Show all users');
+            $('#btn_show_users').text('Show all users');
         }
+        $('.inactive_user').toggle();
     }
 </script>
 {%endblock%}
