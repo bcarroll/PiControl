@@ -28,3 +28,8 @@ li.nav-item {
     vertical-align: middle;
     list-style-type: none;
 }
+
+.license {
+    text-decoration: none;
+    font-size: small;
+}
