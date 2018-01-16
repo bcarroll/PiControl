@@ -29,8 +29,7 @@ li.nav-item {
     list-style-type: none;
 }
 
-a.license {
+#license {
     right: 10px;
-    text-decoration: none;
     font-size: small;
 }
