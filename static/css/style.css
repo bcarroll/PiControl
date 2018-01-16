@@ -259,6 +259,11 @@ ul.CTAs a {
     display: none;
 }
 
-.active_user {
+.active_user {}
 
+.inactive_group {
+    background: #e3e3e3;
+    display: none;
 }
+
+.active_group {}
