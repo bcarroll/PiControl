@@ -2,20 +2,22 @@
 {%block title%}Users{% endblock %}
 
 {%block body%}
-<h1 class="page-header" id="page-header"><i class="fas fa-user"></i> Users</h1>
-<div class="row">
-    <button class="btn btn-primary" id="btn_show_users" onclick="toggle_users();">Show all users</button>
-    <br/>
-    <table class="table-responsive table-bordered table-hover" id="users">
-        <tr>
-            <th class="heading">Username</th><th class="heading">UID</th><th class="heading">Group</th><th class="heading">Home Directory</th><th class="heading">Shell</th>
-        </tr>
-    </table>
-</div>
-<div class="row">
+<div class="container-fluid">
+    <h1 class="page-header" id="page-header"><i class="fas fa-user"></i> Users</h1>
+    <div class="row">
+        <button class="btn btn-primary" id="btn_show_users" onclick="toggle_users();">Show all users</button>
+        <br/>
+        <table class="table-responsive table-bordered table-hover" id="users">
+            <tr>
+                <th class="heading">Username</th><th class="heading">UID</th><th class="heading">Group</th><th class="heading">Home Directory</th><th class="heading">Shell</th>
+            </tr>
+        </table>
+    </div>
     <h1 class="page-header"><i class="fas fa-users"></i> Groups</h1>
-</div>
+    <div class="row">
 
+    </div>
+</div>
 <script>
     $.get('/users/get_all', function(result){
         for (user in result){
