@@ -14,7 +14,11 @@
             </tr>
         </table>
     </div>
+    <hr/>
     <h1 class="page-header"><i class="fas fa-users"></i> Groups</h1>
+    <div class="row">
+        <button class="btn btn-primary" id="btn_show_groups" onclick="toggle_groups();">Show all groups</button>
+    </div>
     <div class="row">
         <table class="table-responsive table-bordered table-hover" id="groups">
             <tr>
@@ -44,8 +48,13 @@
     });
     $.get('/groups/get_all', function(result){
         for (group in result){
+            if (result[group].members.length < 1){
+                tr_class = 'inactive_group';
+            } else {
+                tr_class = 'active_group';
+            }
             $('#groups tr:last').after(
-                                      '<tr>'
+                                      '<tr class="' + tr_class + '">'
                                       + '<td>' + group + '</td>'
                                       + '<td>' + result[group].gid + '</td>'
                                       + '<td>' + result[group].members + '</td>'
@@ -60,6 +69,14 @@
             $('#btn_show_users').text('Show all users');
         }
         $('.inactive_user').toggle();
+    }
+    function toggle_groups(){
+        if ( $('#btn_show_groups').text() == 'Show all groups' ){
+            $('#btn_show_groups').text('Show only groups with members');
+        } else {
+            $('#btn_show_groups').text('Show all groups');
+        }
+        $('.inactive_group').toggle();
     }
 </script>
 {%endblock%}
