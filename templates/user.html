@@ -3,6 +3,7 @@
 
 {%block body%}
 <h1 class="page-header" id="page-header"><i class="fas fa-user"></i> Users</h1>
+<button class="btn btn-primary" id="btn_show_users">Show all users</button>
 <table class="table-responsive table-bordered table-hover" id="users">
     <tr>
         <th class="heading">Username</th><th class="heading">UID</th><th class="heading">Group</th><th class="heading">Home Directory</th><th class="heading">Shell</th>
@@ -26,6 +27,14 @@
                                       + '</tr>'
                                       );
             }
+    });
+    $('btn_show_users').click(function(){
+        $('.inactive_user').toggle();
+        if ( $('btn_show_users').text() == 'Show all users' ){
+            $('btn_show_users').text() = 'Show users with a login shell';
+        } else {
+            $('btn_show_users').text() = 'Show all users';
+        }
     });
 </script>
 {%endblock%}
