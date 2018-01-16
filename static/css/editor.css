@@ -1,12 +1,9 @@
 .menubar {
-    position: relative;
-    margin-top: 65px;
+    position: absolute;
+    top: 65px;
     width: calc(100vw - 20px);
 }
 
 #ace-logo {
-    position: relative;
     width: 32px;
-    margin-top: 0px;
-    margin-bottom: 0px;
 }
