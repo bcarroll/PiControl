@@ -1,6 +1,8 @@
 {%extends "base.html"%}
 {%block title%}Configuration{% endblock %}
-
+{% head block%}
+<link rel="stylesheet" href="/static/css/editor.css"></link>
+{%endblock%}
 {%block body%}
         <div class="container-fluid">
             <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -106,7 +108,7 @@
                 right: 0;
                 bottom: 0;
                 left: 0;
-                height: calc(100vh-20);
+                height: 100%;
             }
             .nav-item {
                 padding-left: 5px;
