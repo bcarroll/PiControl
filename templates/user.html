@@ -11,8 +11,13 @@
 <script>
     $.get('/users/get_all', function(result){
         for (user in result){
+            if ( (result[user].shell == '/usr/sbin/nologin') || (result[user].shell == '/bin/false') ){
+                tr_class = 'inactive';
+            } else {
+                tr_class = 'tr';
+            }
             $('#users tr:last').after(
-                                      '<tr>'
+                                      '<tr class="' + tr_class + '">'
                                       + '<td>' + user + '</td>'
                                       + '<td>' + result[user].uid + '</td>'
                                       + '<td>' + result[user].group_name + '</td>'

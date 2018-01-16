@@ -253,3 +253,7 @@ ul.CTAs a {
     height:600px;
     width:500px;
 }
+
+.inactive {
+    background: #e3e3e3;
+}
