@@ -4,8 +4,7 @@
 <link rel="stylesheet" href="/static/css/editor.css"></link>
 {%endblock%}
 {%block body%}
-        <div class="container-fluid">
-            <div class="row">
+        <div class="container-fluid" id="editor-container">
             <div class="menubar navbar-light bg-faded">
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
@@ -100,7 +99,6 @@
                 </div>
             </div>
             <div id="editor" class="col" style="width:calc(100vw - 10); height:90vh;"></div>
-            </div>
         </div>
         <script src="/static/js/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
         <script>

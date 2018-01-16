@@ -1,6 +1,10 @@
+#editor-container{
+    margin-top: 90px;
+}
+
 .menubar {
     position: absolute;
-    margin-top: 90px;
+
     width: calc(100vw - 20px);
 }
 
