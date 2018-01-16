@@ -1,11 +1,11 @@
 #editor-container{
     margin-top: 90px;
-    width: calc(100vw - 20px);
+    width: calc(100vw - 35px);
 }
 
 .menubar {
     position: relative;
-    width: calc(100vw - 20px);
+    width: calc(100vw - 35px);
 }
 
 #ace-logo {
