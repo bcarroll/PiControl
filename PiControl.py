@@ -479,7 +479,7 @@ def _get_groups():
 @app.route('/service/control', methods=['POST'])
 @require_login
 def _service_control():
-    return(service_control(request[form].service_name, request[form].action))
+    return(service_control(request.form['service_name'], request.form['action']))
 
 #################################
 
