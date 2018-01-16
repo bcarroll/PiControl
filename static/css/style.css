@@ -254,6 +254,11 @@ ul.CTAs a {
     width:500px;
 }
 
-.inactive {
+.inactive_user {
     background: #e3e3e3;
+    display: none;
+}
+
+.active_user {
+
 }

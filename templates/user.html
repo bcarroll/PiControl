@@ -11,10 +11,10 @@
 <script>
     $.get('/users/get_all', function(result){
         for (user in result){
-            if ( (result[user].shell == '/usr/sbin/nologin') || (result[user].shell == '/bin/false') ){
-                tr_class = 'inactive';
+            if ( (result[user].shell == '/usr/sbin/nologin') || (result[user].shell == '/bin/false') || (result[user].shell == '/bin/sync' ){
+                tr_class = 'inactive_user';
             } else {
-                tr_class = 'tr';
+                tr_class = 'active_user';
             }
             $('#users tr:last').after(
                                       '<tr class="' + tr_class + '">'
