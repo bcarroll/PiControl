@@ -11,7 +11,7 @@
 <script>
     $.get('/users/get_all', function(result){
         for (user in result){
-            if ( (result[user].shell == '/usr/sbin/nologin') || (result[user].shell == '/bin/false') || (result[user].shell == '/bin/sync' ){
+            if ( (result[user].shell == '/usr/sbin/nologin') || (result[user].shell == '/bin/false') || (result[user].shell == '/bin/sync' ) ){
                 tr_class = 'inactive_user';
             } else {
                 tr_class = 'active_user';
