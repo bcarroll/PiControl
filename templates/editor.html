@@ -8,14 +8,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="text-align: center">
-                <h3 id="license_modal_title"></h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" class="modal-close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h3 id="license_modal_title"></h3>
             </div>
             <div class="modal-body" id="license_modal_body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" class="modal-close">Close</button>
             </div>
         </div>
     </div>
@@ -155,6 +155,9 @@
                 editor.getSession().setTabSize($('#ace_tabsize').val());
             });
 
+            $('.modal-close').click(function(){
+                $('#license_modal').hide();
+            });
             $('#license').click(function(e){
                 $.get('/static/license/ace.html' , function(result){
                     $('#license_modal_title').text('Ace (Ajax.org Cloud9 Editor)');
