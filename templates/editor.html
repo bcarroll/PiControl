@@ -115,27 +115,8 @@
                     </li>
                 </ul>
             </div>
-            <div id="editor" class="col" style="width:calc(100vw - 10); height:90vh;"></div>
+            <div id="editor" class="col" style="width:calc(100vw - 10px); height:80vh;"></div>
         </div>
-        <nav class="context-menu">
-          <ul class="context-menu__items">
-            <li class="context-menu__item">
-              <a href="#" class="context-menu__link">
-                <i class="fa fa-eye"></i> View Task
-              </a>
-            </li>
-            <li class="context-menu__item">
-              <a href="#" class="context-menu__link">
-                <i class="fa fa-edit"></i> Edit Task
-              </a>
-            </li>
-            <li class="context-menu__item">
-              <a href="#" class="context-menu__link">
-                <i class="fa fa-times"></i> Delete Task
-              </a>
-            </li>
-          </ul>
-        </nav>
         <script src="/static/js/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
         <script>
             var editor = ace.edit("editor");
@@ -165,22 +146,5 @@
                     $('#license_modal').show();
                 });
             });
-            (function() {
-                "use strict";
-                var taskItems = document.querySelectorAll(".task");
-
-                for ( var i = 0, len = taskItems.length; i < len; i++ ) {
-                    var taskItem = taskItems[i];
-                    contextMenuListener(taskItem);
-                }
-
-                function contextMenuListener(el) {
-                    el.addEventListener( "contextmenu", function(e) {
-                        console.log(e, el);
-                    });
-                }
-                console.log(e);
-              });
-            })();
         </script>
 {%endblock%}
