@@ -95,11 +95,29 @@
                         </select>
                     </li>
                     <li class="menu-item">
-                        <a href="{{url_for('get_ace_license')}}" id="license">License</a>
+                        <a href="#license" id="license">License</a>
                     </li>
                 </ul>
             </div>
             <div id="editor" class="col" style="width:calc(100vw - 10); height:90vh;"></div>
+        </div>
+        <div class="modal fade" id="license_modal">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="license_modal_title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p id="license_modal_body"></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
         <script src="/static/js/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
         <script>
@@ -121,6 +139,14 @@
             });
             $('#ace_tabsize').change(function(e){
                 editor.getSession().setTabSize($('#ace_tabsize').val());
+            });
+
+            $('#license').click(function(e){
+                $.get({{url_for('get_ace_license')}}, function(result){
+                    $('#license_modal_title).text('Ace (Ajax.org Cloud9 Editor)');
+                    $('#license_modal_content').html(result);
+                    $('#license_modal').show();
+                });
             });
         </script>
 {%endblock%}

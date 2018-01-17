@@ -38,6 +38,7 @@ from lib.rpi_config import get_keyboard_config, get_keyboard_config_data, update
 from lib.service_utils import get_service_status, service_control
 from lib.gpio_utils import gpio_info, set_gpio_mode, set_gpio_pin
 from lib.user_utils import get_users, get_groups
+from lib.licenses import ace_license
 
 # use PAM authentication - https://stackoverflow.com/questions/26313894/flask-login-using-linux-system-credentials
 from simplepam import authenticate
@@ -293,7 +294,7 @@ def ace_editor():
 # Licenses
 @app.route('/license/ace')
 def get_ace_license():
-    return(render_template('license/ace.html'))
+    return(ace_license())
 
 #################################
 # CPU
