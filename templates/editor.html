@@ -156,7 +156,7 @@
             });
 
             $('.modal-close').click(function(){
-                $('#license_modal').hide();
+                $('#license_modal').modal('hide');
             });
             $('#license').click(function(e){
                 $.get('/static/license/ace.html' , function(result){
