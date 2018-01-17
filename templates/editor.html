@@ -4,6 +4,16 @@
 <link rel="stylesheet" href="/static/css/editor.css"></link>
 {%endblock%}
 {%block body%}
+<div id="license_modal" class="modal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: center">
+                <h3 id="license_modal_title"></h3>
+            </div>
+            <div class="modal-body" id=id="license_modal_body"></div>
+        </div>
+    </div>
+</div>
         <div class="container" id="editor-container">
             <div class="menubar navbar-light bg-faded">
                 <ul class="menubar">
@@ -101,24 +111,6 @@
             </div>
             <div id="editor" class="col" style="width:calc(100vw - 10); height:90vh;"></div>
         </div>
-        <div class="modal fade license_model" id="license_modal">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="license_modal_title"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p id="license_modal_body"></p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
         <script src="/static/js/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
         <script>
             var editor = ace.edit("editor");
@@ -144,7 +136,7 @@
             $('#license').click(function(e){
                 $.get('/static/license/ace.html' , function(result){
                     $('#license_modal_title').text('Ace (Ajax.org Cloud9 Editor)');
-                    $('#license_modal_content').html(result);
+                    $('#license_modal_body').html(result);
                     $('#license_modal').show();
                 });
             });
