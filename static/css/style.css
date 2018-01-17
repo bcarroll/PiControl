@@ -267,3 +267,7 @@ ul.CTAs a {
 }
 
 .active_group {}
+
+.license_model {
+    z-index: 9999;
+}

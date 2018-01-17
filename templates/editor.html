@@ -101,7 +101,7 @@
             </div>
             <div id="editor" class="col" style="width:calc(100vw - 10); height:90vh;"></div>
         </div>
-        <div class="modal fade" id="license_modal">
+        <div class="modal fade license_model" id="license_modal">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -143,7 +143,6 @@
 
             $('#license').click(function(e){
                 $.get('/static/license/ace.html' , function(result){
-                    console.log(result);
                     $('#license_modal_title').text('Ace (Ajax.org Cloud9 Editor)');
                     $('#license_modal_content').html(result);
                     $('#license_modal').show();
