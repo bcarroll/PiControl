@@ -1,6 +1,7 @@
 #editor-container, div#editor-container.container{
     margin-top: 90px;
     width: calc(100vw - 35px);
+    overflow: hidden;
 }
 
 .menubar {
@@ -21,6 +22,7 @@
     bottom: 0;
     left: 0;
     height: calc(100% - 20px);
+    overflow: hidden;
 }
 
 ul.menubar {
