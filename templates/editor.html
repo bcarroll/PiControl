@@ -142,7 +142,7 @@
             });
 
             $('#license').click(function(e){
-                $.get({{url_for('get_ace_license')}}, function(result){
+                $.get(url_for('get_ace_license'), function(result){
                     $('#license_modal_title).text('Ace (Ajax.org Cloud9 Editor)');
                     $('#license_modal_content').html(result);
                     $('#license_modal').show();
