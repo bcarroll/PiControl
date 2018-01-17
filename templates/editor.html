@@ -6,25 +6,22 @@
 {%block body%}
         <div class="container" id="editor-container">
             <div class="menubar navbar-light bg-faded">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                        <li class="menu-item">
                             <a href="https://ace.c9.io" title="Powered by Ace (Ajax.org Cloud9 Editor) | https://ace.c9.io">
                                 <img id="ace-logo" src="/static/img/ace-logo.png">
                             </a>
                         </li>
-                        <li class="nav-item" title="Change the text size">
+                        <li class="menu-item" title="Change the text size">
                             Font Size
                             <input type="number" id="font_size" value="12" max="24" min="8"></input>
                         </li>
-                        <li class="nav-item">
+                        <li class="menu-item">
                             Tab Size
                             <input type="number" id="ace_tabsize" value="4" max="16" min="2"> </input>
                         </li>
-                        <li class="nav-item">
+                        <li class="menu-item">
                             Syntax
                             <select id="ace_mode">
                                 <option value="apache_conf">Apache Conf</option>
@@ -56,7 +53,7 @@
                                 <option value="yaml">Yaml</option>
                             </select>
                         </li>
-                        <li class="nav-item">
+                        <li class="menu-item">
                             Theme
                             <select id="ace_theme">
                                 <option value="ambiance">Ambiance</option>
