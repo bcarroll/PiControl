@@ -40,9 +40,3 @@ li.menu-item {
     right: 10px;
     font-size: small;
 }
-
-@media (max-width: 768px) {
-    #editor_theme {
-        display:none;
-    }
-}
