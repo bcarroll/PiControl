@@ -24,3 +24,9 @@
     height: calc(100% - 40px);
     overflow: hidden;
 }
+
+.editorOptions {
+    position: relative;
+    padding: 5px;
+    top: 5px;
+}
