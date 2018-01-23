@@ -21,6 +21,6 @@
     right: 0;
     bottom: 0;
     left: 0;
-    height: calc(100% - 20px);
+    height: calc(100% - 40px);
     overflow: hidden;
 }
