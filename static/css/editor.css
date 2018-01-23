@@ -24,19 +24,3 @@
     height: calc(100% - 20px);
     overflow: hidden;
 }
-
-ul.menubar {
-
-}
-
-li.menu-item {
-    padding-left: 5px;
-    vertical-align: middle;
-    list-style-type: none;
-    display: inline;
-}
-
-#license {
-    right: 10px;
-    font-size: small;
-}
