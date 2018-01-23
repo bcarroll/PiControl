@@ -1,18 +1,10 @@
 #editor-container, div#editor-container.container{
     margin-top: 90px;
     width: calc(100vw - 35px);
-    overflow: hidden;
-}
-
-.menubar {
-    position: relative;
-    width: calc(100vw - 35px);
 }
 
 #ace-logo {
-    position: relative;
-    left: -30px;
-    width: 32px;
+    left: 20px;
 }
 
 #editor {
@@ -20,13 +12,26 @@
     top: 5px;
     right: 0;
     bottom: 0;
-    left: 0;
-    height: calc(100% - 40px);
-    overflow: hidden;
+    left: -20;
+    height: calc(100% - 20px);
 }
 
-.editorOptions {
-    position: relative;
-    padding: 10px, 10px, 10px, 10px;
-    top: 10px;
+.menu-item {
+    padding-top: 10px;
+}
+
+.menu-item-header {
+
+}
+
+.modal-dialog,
+.modal-content {
+    /* 80% of window height */
+    height: 90%;
+}
+
+.modal-body {
+    /* 100% = dialog height, 120px = header + footer */
+    max-height: calc(100% - 120px);
+    overflow-y: scroll;
 }

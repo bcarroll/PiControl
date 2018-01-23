@@ -14,32 +14,40 @@
                 <h3 id="license_modal_title"></h3>
             </div>
             <div class="modal-body" id="license_modal_body"></div>
+<!--
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#license_modal').toggle();">Close</button>
             </div>
+-->
         </div>
     </div>
 </div>
-        <div class="container" id="editor-container">
-            <div class="menubar navbar-light bg-faded">
-                <ul class="menubar">
-                    <li class="menu-item">
-                        <a href="https://ace.c9.io" title="Powered by Ace (Ajax.org Cloud9 Editor) | https://ace.c9.io">
-                            <img id="ace-logo" src="/static/img/ace-logo.png">
-                        </a>
-                    </li>
-                    <li class="menu-item dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="editorOptionsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Editor Options
-                        </button>
-                        <div class="dropdown-menu editorOptions" aria-labelledby="editorOptionsDropdown">
-                            Font Size
+<div class="container" id="editor-container">
+    <div class="row">
+        <a href="https://ace.c9.io" title="Powered by Ace (Ajax.org Cloud9 Editor) | https://ace.c9.io">
+            <img id="ace-logo" src="/static/img/ace-logo.png" width="32">
+        </a>
+        <span class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="editorOptionsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Editor Options
+            </button>
+            <div class="dropdown-menu editorOptions" aria-labelledby="editorOptionsDropdown">
+                <table>
+                    <tr>
+                        <td class="menu-item-header">Font Size</td>
+                        <td class="menu-item">
                             <input class="dropdown-item" type="number" id="font_size" value="12" max="24" min="8"></input>
-                            <br/>
-                            Tab Size
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="menu-item-header">Tab Size</td>
+                        <td class="menu-item">
                             <input type="number" id="ace_tabsize" value="4" max="16" min="2"> </input>
-                            <br/>
-                            Syntax Highlighting
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="menu-item-header">Syntax Highlighting</td>
+                        <td class="menu-item">
                             <select id="ace_mode">
                                 <option value="apache_conf">Apache Conf</option>
                                 <option value="css">Css</option>
@@ -69,8 +77,11 @@
                                 <option value="xml">Xml</option>
                                 <option value="yaml">Yaml</option>
                             </select>
-                            <br/>
-                            Theme
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="menu-item-header">Theme</td>
+                        <td class="menu-item">
                             <select id="ace_theme">
                                 <option value="ambiance">Ambiance</option>
                                 <option value="chaos">Chaos</option>
@@ -110,42 +121,47 @@
                                 <option value="vibrant_ink">Vibrant Ink</option>
                                 <option value="xcode">Xcode</option>
                             </select>
-                            <br/>
-                            <a href="#license" id="license">License</a>
-                        </div>
-                    </li>
-                </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="menu-item" align="center">
+                            <button class="btn btn-primary menu-item"><a href="#license" id="license">License</a></button>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div id="editor" class="col" style="width:calc(100vw - 10px); height:90vh;"></div>
-        </div>
-        <script src="/static/js/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-        <script>
-            var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/text");
-            editor.setShowPrintMargin(false);
+        </span>
+    </div>
+    <div id="editor" class="col" style="width:calc(100vw - 10px); height:90vh;"></div>
+</div>
+<script src="/static/js/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/text");
+    editor.setShowPrintMargin(false);
 
-            $('#font_size').change(function(e){
-                document.getElementById('editor').style.fontSize = $('#font_size').val() + 'px';
-            });
+    $('#font_size').change(function(e){
+        document.getElementById('editor').style.fontSize = $('#font_size').val() + 'px';
+    });
 
-            $('#ace_theme').change(function(e){
-                editor.setTheme('ace/theme/' + $('#ace_theme').val());
-            });
+    $('#ace_theme').change(function(e){
+        editor.setTheme('ace/theme/' + $('#ace_theme').val());
+    });
 
-            $('#ace_mode').change(function(e){
-                editor.getSession().setMode('ace/mode/' + $('#ace_mode').val());
-            });
-            $('#ace_tabsize').change(function(e){
-                editor.getSession().setTabSize($('#ace_tabsize').val());
-            });
+    $('#ace_mode').change(function(e){
+        editor.getSession().setMode('ace/mode/' + $('#ace_mode').val());
+    });
+    $('#ace_tabsize').change(function(e){
+        editor.getSession().setTabSize($('#ace_tabsize').val());
+    });
 
-            $('#license').click(function(e){
-                $.get('/static/license/ace.html' , function(result){
-                    $('#license_modal_title').text('Ace (Ajax.org Cloud9 Editor)');
-                    $('#license_modal_body').html(result);
-                    $('#license_modal').show();
-                });
-            });
-        </script>
+    $('#license').click(function(e){
+        $.get('/static/license/ace.html' , function(result){
+            $('#license_modal_title').text('Ace (Ajax.org Cloud9 Editor)');
+            $('#license_modal_body').html(result);
+            $('#license_modal').show();
+        });
+    });
+</script>
 {%endblock%}
