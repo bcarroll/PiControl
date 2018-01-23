@@ -27,6 +27,6 @@
 
 .editorOptions {
     position: relative;
-    padding: 5px;
-    top: 5px;
+    padding: 10px, 10px, 10px, 10px;
+    top: 10px;
 }
