@@ -3,3 +3,5 @@ __pycache__/
 PiControl.db
 PiControl.log*
 
+logs/sqlalchemy.log
+logs/werkzeug.log
