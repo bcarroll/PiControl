@@ -10,5 +10,5 @@ psutil==5.4.2
 pycparser==2.18
 simplepam==0.1.5
 six==1.11.0
-Werkzeug==0.13
+Werkzeug==0.15.3
 wiringpi==2.44.4
