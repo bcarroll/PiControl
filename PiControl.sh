@@ -8,8 +8,8 @@ cd ${SCRIPT_DIR}
 
 start(){
     echo "Starting PiControl" >&2
-    sudo -u ${RUN_AS_USER} python ${SCRIPT_DIR}/lib/database_create.py
-    sudo -u ${RUN_AS_USER} python PiControl.py &
+    sudo -u ${RUN_AS_USER} python3 ${SCRIPT_DIR}/lib/database_create.py
+    sudo -u ${RUN_AS_USER} python3 PiControl.py &
 }
 
 stop(){
