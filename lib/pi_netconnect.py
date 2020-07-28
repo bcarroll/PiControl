@@ -109,7 +109,7 @@ class UDPBeacon:
                                     try:
                                         secret_key = get_config()['secret_key']
                                         hbSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                                        hbSocket.sendto(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber) + ';' + str(secret_key), (str(IPAddress(ip)), self.port))
+                                        hbSocket.sendto(bytes(str(self.message) + ';' + str(hostname) + ';' + str(revision) + ';' + str(serialnumber) + ';' + str(secret_key),'utf-8'), (str(IPAddress(ip)), self.port))
                                     except Exception as e:
                                         logger.error(e.message)
                                     sleep(0.1)
