@@ -106,7 +106,7 @@ def get_nodes(database_file='db/PiControl.db', type='JSON'):
                     })
             except:
                 logger.error('nodes.append failed')
-    except Exception as (e):
+    except Exception as e:
         logger.error(e)
     if type == 'JSON':
         return jsonify({'nodes': nodes})
