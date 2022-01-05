@@ -69,7 +69,15 @@ def pi_model(revision, type='JSON'):
     pi['a21041'] = {"model": "2 Model B v1.1","ram": "1GB"}
     pi['a22042'] = {"model": "2 Model B v1.2","ram": "1GB"}
     pi['a22082'] = {"model": "3 Model B v1.2","ram": "1GB"}
+    pi['a020d3'] = {"model": "3 Model B+ v1.3","ram": "1GB"}
     pi['a32082'] = {"model": "3 Model B v1.2","ram": "1GB"}
+    pi['a03111'] = {"model": "4 v1.1","ram": "1GB"}
+    pi['b03111'] = {"model": "4 v1.1","ram": "2GB"}
+    pi['b03112'] = {"model": "4 v1.2","ram": "2GB"}
+    pi['c03111'] = {"model": "4 v1.1","ram": "4GB"}
+    pi['c03112'] = {"model": "4 v1.2","ram": "4GB"}
+    pi['c03130'] = {"model": "400 v1.0","ram": "4GB"}
+    
     if type == 'JSON':
         return jsonify(pi[revision])
     else:
